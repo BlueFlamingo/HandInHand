@@ -127,7 +127,7 @@ public class HandInHand {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		sendGet(url, "op=add&entry=" + entry);
+		sendGet(url, "op=register&entry=" + entry);
 	}
 	
 	public void getJson() {
