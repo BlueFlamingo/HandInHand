@@ -5,9 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -22,7 +23,8 @@ public class HandInHand {
 	
 	public static void main(String[] args) {
 		//System.out.println(new HandInHand().sendPost());
-		new HandInHand().sendJson();
+		//new HandInHand().userTest();
+		new HandInHand().questionTest();
 	}
 
 	public String sendPost() {
@@ -106,7 +108,37 @@ public class HandInHand {
         return result;
     } 
 	
-	public void sendJson() {
+	public void questionTest() {
+		String url = "http://121.199.64.117:8888/HandInHand/question.php";
+		//String url = "http://127.0.0.1/HandInHand/question.php";
+		ObjectMapper mapper = new ObjectMapper();
+		Question q = new Question();
+		q.id = 13;
+		q.title = "question2";
+		q.uid = 9;
+		q.createdTime = 3;
+		ArrayList<Integer> topics = new ArrayList<Integer>();
+		topics.add(2);
+		topics.add(1);
+		q.topics = topics;
+		//q.createdTime = new Date().toString();
+		String entry = "";
+		try {
+			entry = mapper.writeValueAsString(q);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sendGet(url, "op=add&entry=" + entry);
+	}
+	
+	public void userTest() {
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 		ObjectMapper mapper = new ObjectMapper();
