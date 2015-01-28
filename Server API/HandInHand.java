@@ -24,7 +24,8 @@ public class HandInHand {
 	public static void main(String[] args) {
 		//System.out.println(new HandInHand().sendPost());
 		//new HandInHand().userTest();
-		new HandInHand().questionTest();
+		//new HandInHand().answerTest();
+		new HandInHand().commentTest();
 	}
 
 	public String sendPost() {
@@ -107,6 +108,52 @@ public class HandInHand {
         }
         return result;
     } 
+	
+	public void commentTest() {
+		String url = "http://121.199.64.117:8888/HandInHand/comment.php";
+		//String url = "http://127.0.0.1/HandInHand/comment.php";
+		ObjectMapper mapper = new ObjectMapper();
+		Comment c = new Comment();
+		//c.id = 2;
+		c.content = "C2";
+		String entry = "";
+		try {
+			entry = mapper.writeValueAsString(c);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sendGet(url, "op=add&entry=" + entry);
+	}
+	
+	public void answerTest() {
+		String url = "http://121.199.64.117:8888/HandInHand/answer.php";
+		//String url = "http://127.0.0.1/HandInHand/answer.php";
+		ObjectMapper mapper = new ObjectMapper();
+		Answer a = new Answer();
+		//a.id = 2;
+		a.content = "A2";
+		String entry = "";
+		try {
+			entry = mapper.writeValueAsString(a);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sendGet(url, "op=add&entry=" + entry);
+	}
 	
 	public void questionTest() {
 		String url = "http://121.199.64.117:8888/HandInHand/question.php";

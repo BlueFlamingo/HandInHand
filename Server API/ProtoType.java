@@ -40,3 +40,28 @@ class Question {
 	public ArrayList<Integer> topics = new ArrayList<Integer>();
 	
 }
+
+class Answer {
+	
+	public int id;
+	public String content = "";
+	public int score1 = 0;
+	public int score2 = 0;
+	public int uid = 0;
+	public int qid = 0;
+	public int createdTime = 0;
+	public String picture = "";
+	public int parentAid = 0;
+	
+}
+
+class Comment {
+	
+	public int id;
+	public int uid = 0;
+	public int createdTime = 0;
+	public int parentCid = 0;
+	public String content = "";
+	public int aid = 0;
+	
+}
