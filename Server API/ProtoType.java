@@ -21,11 +21,6 @@ class User {
 	
 }
 
-class Topic {
-	public int id;
-	public String topic = "";
-}
-
 class Question {
 	
 	public int id;
@@ -63,5 +58,17 @@ class Comment {
 	public int parentCid = 0;
 	public String content = "";
 	public int aid = 0;
+	
+}
+
+class Message {
+	
+	public int id;
+	public int sender;
+	public int receiver;
+	public String title = "";
+	public String content = "";
+	public int createdTime = 0;
+	public int status = 0; // 0未读 1已读
 	
 }

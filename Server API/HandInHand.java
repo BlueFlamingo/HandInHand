@@ -25,89 +25,33 @@ public class HandInHand {
 		//System.out.println(new HandInHand().sendPost());
 		//new HandInHand().userTest();
 		//new HandInHand().answerTest();
-		new HandInHand().commentTest();
+		//new HandInHand().commentTest();
+		new HandInHand().messageTest();
 	}
-
-	public String sendPost() {
-        String end = "\r\n";
-        String twoHyphens = "--";
-        String boundary = "*****";
-		String param = "username=zst";
-		String url = "http://127.0.0.1/HandInHand/upload.php";
-        DataOutputStream ds = null;
-        BufferedReader in = null;
-        String result = "";
-        try {
-            URL realUrl = new URL(url);
-            // 打开和URL之间的连接
-            HttpsURLConnection conn = (HttpsURLConnection)realUrl.openConnection();
-            // 设置通用的请求属性
-            conn.setRequestProperty("accept", "*/*");
-            conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent",
-                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            // 发送POST请求必须设置如下两行
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.setUseCaches(false);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("Charset", "UTF-8");
-            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-         
-            // 获取URLConnection对象对应的输出流
-            ds = new DataOutputStream(conn.getOutputStream());
-            
-            String fileName = "/Users/HurricaneTong/code/HelloJava/HandInHand/src/test.jpg";
-            FileInputStream fStream = new FileInputStream(fileName);
-            ds.writeBytes(twoHyphens + boundary + end);
-            ds.writeBytes("Content-Disposition: form-data; " +
-                    "name=\"file\";filename=\"" +
-                    fileName + "\"" + end);
-            ds.writeBytes(end);
-            
-            int bufferSize = 8192;
-            byte[] buffer = new byte[bufferSize];   //8k
-            int length = -1;
-          /* 从文件读取数据至缓冲区 */
-            while ((length = fStream.read(buffer)) != -1)
-            {
-            /* 将资料写入DataOutputStream中 */
-                ds.write(buffer, 0, length);
-            }
-            ds.writeBytes(end);
-            ds.writeBytes(twoHyphens + boundary + twoHyphens + end);
-          /* 关闭流，写入的东西自动生成Http正文*/
-            fStream.close();
-          /* 关闭DataOutputStream */
-            ds.close();
-            
-            in = new BufferedReader(
-                    new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = in.readLine()) != null) {
-                result += line;
-            }
-        } catch (Exception e) {
-            System.out.println("发送 POST 请求出现异常！"+e);
-            e.printStackTrace();
-        }
-        //使用finally块来关闭输出流、输入流
-        finally{
-            try{
-                if(ds!=null){
-                    ds.close();
-                }
-                if(in!=null){
-                    in.close();
-                }
-            }
-            catch(IOException ex){
-                ex.printStackTrace();
-            }
-        }
-        return result;
-    } 
+	
+	public void messageTest() {
+		String url = "http://121.199.64.117:8888/HandInHand/message.php";
+		//String url = "http://127.0.0.1/HandInHand/message.php";
+		ObjectMapper mapper = new ObjectMapper();
+		Message m = new Message();
+		m.sender = 1;
+		m.receiver = 3;
+		m.content = "C2";
+		String entry = "";
+		try {
+			entry = mapper.writeValueAsString(m);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sendGet(url, "op=send&entry=" + entry);
+	}
 	
 	public void commentTest() {
 		String url = "http://121.199.64.117:8888/HandInHand/comment.php";
