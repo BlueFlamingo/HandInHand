@@ -1,17 +1,45 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class AuthActivity extends ActionBarActivity {
+
+	private global globalVal;
+
+	private final static int AUTH_ACTIVITY = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_auth);
+		globalVal = (global) getApplication();
+		bindBtnAction();
+	}
+
+	private void bindBtnAction() {
+		com.gc.materialdesign.views.ButtonRectangle btn_login
+				= (com.gc.materialdesign.views.ButtonRectangle) findViewById(R.id.auth_btn_login);
+		com.gc.materialdesign.views.ButtonRectangle btn_logout
+				= (com.gc.materialdesign.views.ButtonRectangle) findViewById(R.id.auth_btn_logout);
+		btn_login.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				authLogin();
+			}
+		});
+		btn_logout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				authLogout();
+			}
+		});
 	}
 
 
@@ -35,5 +63,17 @@ public class AuthActivity extends ActionBarActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void authLogin() {
+		globalVal.setLoginFlag(true);
+		setResult(Activity.RESULT_OK);
+		finish();
+	}
+
+	private void authLogout() {
+		globalVal.setLoginFlag(false);
+		setResult(Activity.RESULT_OK);
+		finish();
 	}
 }

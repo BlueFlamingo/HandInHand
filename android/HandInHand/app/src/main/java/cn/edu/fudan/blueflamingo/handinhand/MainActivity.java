@@ -2,6 +2,7 @@ package cn.edu.fudan.blueflamingo.handinhand;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -11,26 +12,23 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
 
+	private global globalVal;
+
+	private final static int AUTH_ACTIVITY = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		globalVal = (global) getApplication();
 		initToolBar();
 		initHomePageFragment();
-		SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
-		SharedPreferences.Editor mEditor = mPrefs.edit();
-		if (!mPrefs.getBoolean("loginFlag", false)) {
-			Log.d("sharedPreferences", "not saved");
-			mEditor.putBoolean("loginFlag", true);
-		} else {
-			Log.d("sharedPreferences", "saved true");
-		}
-		mEditor.apply();
 	}
 
 	private void initToolBar() {
@@ -42,14 +40,19 @@ public class MainActivity extends ActionBarActivity {
 			toolbar.inflateMenu(R.menu.menu_main);
 			setSupportActionBar(toolbar);
 			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+			//initialize drawer
 			DrawerLayout mDrawerLayout;
 			ActionBarDrawerToggle mDrawerToggle;
 			mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer);
 			mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
 			mDrawerToggle.syncState();
 			mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+			//initial btn_login
+			//check whether the login process is needed and change the text of it
+			com.gc.materialdesign.views.ButtonFlat btnLogin = (com.gc.materialdesign.views.ButtonFlat) findViewById(R.id.btn_login);
+			if (globalVal.getLoginFlag()) {
+				btnLogin.setText("登出");
+			}
 		}
 	}
 
@@ -92,4 +95,26 @@ public class MainActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	//handle drawer button onClick
+	public void BtnLoginOnclick(View view) {
+		Intent loginIntent = new Intent(this, AuthActivity.class);
+		startActivityForResult(loginIntent, AUTH_ACTIVITY);
+	}
+
+	@Override
+	public void onActivityResult(int reqCode, int resCode, Intent data) {
+		super.onActivityResult(reqCode, resCode, data);
+		switch (reqCode) {
+			case AUTH_ACTIVITY:
+				com.gc.materialdesign.views.ButtonFlat btnLogin = (com.gc.materialdesign.views.ButtonFlat) findViewById(R.id.btn_login);
+				if (globalVal.getLoginFlag()) {
+					btnLogin.setText("登出");
+				} else {
+					btnLogin.setText("登陆");
+				}
+				break;
+			default:
+				break;
+		}
+	}
 }
