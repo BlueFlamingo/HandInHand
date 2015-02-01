@@ -1,24 +1,23 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.gc.materialdesign.views.ButtonFlat;
+
 
 public class MainActivity extends ActionBarActivity {
 
-	private global globalVal;
+	private Global globalVal;
 
 	private final static int AUTH_ACTIVITY = 0;
 
@@ -26,9 +25,13 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		globalVal = (global) getApplication();
+		globalVal = (Global) getApplication();
 		initToolBar();
 		initHomePageFragment();
+		if (!globalVal.getLoginFlag()) {
+			Intent authIntent = new Intent(this, AuthActivity.class);
+			startActivity(authIntent);
+		}
 	}
 
 	private void initToolBar() {
@@ -52,6 +55,14 @@ public class MainActivity extends ActionBarActivity {
 			com.gc.materialdesign.views.ButtonFlat btnLogin = (com.gc.materialdesign.views.ButtonFlat) findViewById(R.id.btn_login);
 			if (globalVal.getLoginFlag()) {
 				btnLogin.setText("登出");
+				btnLogin.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						globalVal.setLoginFlag(false);
+						Intent loginIntent = new Intent(MainActivity.this, AuthActivity.class);
+						startActivity(loginIntent);
+					}
+				});
 			}
 		}
 	}
@@ -97,6 +108,10 @@ public class MainActivity extends ActionBarActivity {
 
 	//handle drawer button onClick
 	public void BtnLoginOnclick(View view) {
+		ButtonFlat btnLogin = (ButtonFlat) findViewById(R.id.btn_login);
+		if (btnLogin.getText().equals("登出")) {
+			globalVal.setLoginFlag(false);
+		}
 		Intent loginIntent = new Intent(this, AuthActivity.class);
 		startActivityForResult(loginIntent, AUTH_ACTIVITY);
 	}

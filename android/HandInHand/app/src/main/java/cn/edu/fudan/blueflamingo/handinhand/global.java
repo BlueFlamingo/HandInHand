@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
 
-public class global extends Application {
+public class Global extends Application {
 
 	public boolean getLoginFlag() {
 		SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);

@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/main_toolbar">
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/main_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -31,7 +31,7 @@
                 android:name="cn.edu.fudan.blueflamingo.handinhand.HomePageFragment"
                 tools:layout="@layout/fragment_home_page"/-->
 
-        </RelativeLayout>
+        </FrameLayout >
 
             <LinearLayout
                 android:id="@+id/main_drawer_view"
@@ -54,16 +54,6 @@
 
                 <com.gc.materialdesign.views.ButtonFlat
                     android:id="@+id/btn_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@color/yellow900"
-                    android:text="@string/login"
-                    android:textSize="28sp"
-                    android:onClick="BtnLoginOnclick"/>
-
-                <com.gc.materialdesign.views.ButtonRectangle
-                    android:id="@+id/btn_login2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

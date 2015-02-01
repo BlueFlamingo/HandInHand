@@ -1,45 +1,28 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
 public class AuthActivity extends ActionBarActivity {
 
-	private global globalVal;
+	private Global globalVal;
 
-	private final static int AUTH_ACTIVITY = 0;
+	private FragmentManager fragmentManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_auth);
-		globalVal = (global) getApplication();
-		bindBtnAction();
-	}
-
-	private void bindBtnAction() {
-		com.gc.materialdesign.views.ButtonRectangle btn_login
-				= (com.gc.materialdesign.views.ButtonRectangle) findViewById(R.id.auth_btn_login);
-		com.gc.materialdesign.views.ButtonRectangle btn_logout
-				= (com.gc.materialdesign.views.ButtonRectangle) findViewById(R.id.auth_btn_logout);
-		btn_login.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				authLogin();
-			}
-		});
-		btn_logout.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				authLogout();
-			}
-		});
+		globalVal = (Global) getApplication();
+		fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction()
+				.replace(R.id.auth_fragment, new AuthFragment(), "auth_main")
+				.commit();
 	}
 
 
@@ -65,15 +48,17 @@ public class AuthActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void authLogin() {
-		globalVal.setLoginFlag(true);
-		setResult(Activity.RESULT_OK);
-		finish();
-	}
-
-	private void authLogout() {
-		globalVal.setLoginFlag(false);
-		setResult(Activity.RESULT_OK);
-		finish();
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			if (fragmentManager.getBackStackEntryCount() != 0) {
+				fragmentManager = getFragmentManager();
+				fragmentManager.beginTransaction()
+						.replace(R.id.auth_fragment, new AuthFragment(), "auth_main")
+						.commit();
+			}
+			return true;
+		} else
+			return super.onKeyDown(keyCode, event);
 	}
 }

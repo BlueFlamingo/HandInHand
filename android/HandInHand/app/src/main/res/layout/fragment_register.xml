@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/yellow200"
+             tools:context="cn.edu.fudan.blueflamingo.handinhand.RegisterFragment">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher"
+        android:padding="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:id="@+id/auth_form_username"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/auth_form_nickname"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/username"
+        android:textColorHint="@color/primary_text_disabled_material_light"/>
+
+    <EditText
+        android:id="@+id/auth_form_nickname"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/auth_form_password"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/nickname"
+        android:textColorHint="@color/primary_text_disabled_material_light"/>
+
+    <EditText
+        android:id="@+id/auth_form_password"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/auth_form_password2"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/primary_text_disabled_material_light"/>
+
+    <EditText
+        android:id="@+id/auth_form_password2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/auth_choice_form"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/password2"
+        android:inputType="textPassword"
+        android:textColorHint="@color/primary_text_disabled_material_light" />
+
+    <LinearLayout
+        android:id="@+id/auth_choice_form"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/auth_btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow900"
+            android:text="@string/confirm"
+            android:padding="16dp"
+            android:layout_marginBottom="48dp" />
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/auth_btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_text_disabled_material_light"
+            android:text="@string/back"
+            android:padding="16dp"
+            android:layout_marginBottom="48dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
