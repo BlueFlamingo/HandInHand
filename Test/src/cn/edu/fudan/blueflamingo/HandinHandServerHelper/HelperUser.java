@@ -20,7 +20,7 @@ import org.codehaus.jackson.type.TypeReference;
 
 public class HelperUser {
 
-	public static Integer register(User u){
+	public  Integer register(User u){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 			//String url = "http://127.0.0.1/HandInHand/user.php";
 			ObjectMapper mapper = new ObjectMapper();
@@ -39,12 +39,12 @@ public class HelperUser {
 			}
 			String temp;
 			Integer uid;
-			temp = sendGet(url, "op=register&entry=" + entry);
+			temp = sendPost(url, "op=register&entry=" + entry);
 			uid = Integer.valueOf(temp);
 			return uid;
 		  }
 		
-	    public void update(User u){
+	    public Integer update(User u){
 	    String url = "http://121.199.64.117:8888/HandInHand/user.php";
 			//String url = "http://127.0.0.1/HandInHand/user.php";
 			ObjectMapper mapper = new ObjectMapper();
@@ -61,8 +61,11 @@ public class HelperUser {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		   
-	        sendGet(url, "op=update&entry=" + entry);
+			String temp;
+			Integer num;
+	        temp = sendPost(url, "op=update&entry=" + entry);
+	        num = Integer.valueOf(temp);
+			return num;
 	    }
 
 	    public Integer count(String username){
@@ -70,7 +73,7 @@ public class HelperUser {
 			//String url = "http://127.0.0.1/HandInHand/user.php";
 			String temp;
 			Integer count;
-			temp = sendGet(url, "op=count&username=" + username);
+			temp = sendPost(url, "op=count&username=" + username);
 			count = Integer.valueOf(temp);
 			return count;
 		
@@ -82,19 +85,19 @@ public class HelperUser {
 			
 			String temp;
 			Integer ismatch;
-			temp = sendGet(url, "authenticate&username=" + username + "&password=" + password);
+			temp = sendPost(url, "authenticate&username=" + username + "&password=" + password);
 			ismatch = Integer.valueOf(temp);
 			return ismatch;
 		}
-		//???
-		public static User getbasic(String username){
+		
+		public  User getbasic(String username){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 			//String url = "http://127.0.0.1/HandInHand/user.php";
 			
 			String temp;
 			User user = new User();
 			ObjectMapper mapper1 = new ObjectMapper();
-			temp = sendGet(url, "op=get&username=" + username);
+			temp = sendPost(url, "op=get&username=" + username);
 			System.out.print(temp);
 			try {
 				user = mapper1.readValue(temp, new TypeReference<User>() {});
@@ -118,7 +121,7 @@ public class HelperUser {
 			String uid = String.valueOf(id);
 			String temp;
 			Integer countQuestions;
-			temp = sendGet(url, "op=countQuestions&uid=" + uid);
+			temp = sendPost(url, "op=countQuestions&uid=" + uid);
 			countQuestions = Integer.valueOf(temp);
 			return countQuestions;
 		}
@@ -144,7 +147,7 @@ public class HelperUser {
 			
 			ArrayList<Question> questions = new ArrayList<Question>();
 			
-			temp = sendGet(url, "op=getQuestions&uid=" + uid);
+			temp = sendPost(url, "op=getQuestions&uid=" + uid);
 			
 			ObjectMapper mapper1 = new ObjectMapper();
 			try {
@@ -182,7 +185,7 @@ public class HelperUser {
 			}
 			String temp;
 			Integer countAnswers;
-			temp = sendGet(url, "op=countAnswers&uid=" + uid);
+			temp = sendPost(url, "op=countAnswers&uid=" + uid);
 			countAnswers = Integer.valueOf(temp);
 			return countAnswers;
 		}
@@ -208,7 +211,7 @@ public class HelperUser {
 			
 			ArrayList<Answer> answers = new ArrayList<Answer>();
 			
-			temp = sendGet(url, "op=getQuestions&uid=" + uid);
+			temp = sendPost(url, "op=getQuestions&uid=" + uid);
 			
 			ObjectMapper mapper1 = new ObjectMapper();
 			
@@ -228,54 +231,7 @@ public class HelperUser {
 			return answers;
 		}
 		
-		public static String sendGet(String url, String param) {
-	        String result = "";
-	        System.out.println(param);
-	        BufferedReader in = null;
-	        try {
-	            String urlNameString = url + "?" + param;
-	            System.out.println(urlNameString);
-	            URL realUrl = new URL(urlNameString);
-	            // æ‰“å¼€å’ŒURLä¹‹é—´çš„è¿æ¥
-	            URLConnection connection = realUrl.openConnection();
-	            // è®¾ç½®é€šç”¨çš„è¯·æ±‚å±æ€§
-	            connection.setRequestProperty("accept", "*/*");
-	            connection.setRequestProperty("connection", "Keep-Alive");
-	            connection.setRequestProperty("user-agent",
-	                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-	            // å»ºç«‹å®é™…çš„è¿æ¥
-	            connection.connect();
-	            // è·å–æ‰€æœ‰å“åº”å¤´å­—æ®µ
-	            Map<String, List<String>> map = connection.getHeaderFields();
-	            // éå†æ‰€æœ‰çš„å“åº”å¤´å­—æ®µ
-	            for (String key : map.keySet()) {
-	                //System.out.println(key + "--->" + map.get(key));
-	            }
-	            // å®šä¹‰ BufferedReaderè¾“å…¥æµæ¥è¯»å–URLçš„å“åº”
-	            in = new BufferedReader(new InputStreamReader(
-	                    connection.getInputStream()));
-	            String line;
-	            while ((line = in.readLine()) != null) {
-	                result += line;
-	            }
-	        } catch (Exception e) {
-	            System.out.println("å‘é€GETè¯·æ±‚å‡ºç°å¼‚å¸¸ï¼" + e);
-	            e.printStackTrace();
-	        }
-	        // ä½¿ç”¨finallyå—æ¥å…³é—­è¾“å…¥æµ
-	        finally {
-	            try {
-	                if (in != null) {
-	                    in.close();
-	                }
-	            } catch (Exception e2) {
-	                e2.printStackTrace();
-	            }
-	        }
-	        
-	        System.out.println(result);
-	        return result;
-	    }
+		
 	public String sendPost(String url, String param) {
 		System.out.println(param);
         PrintWriter out = null;
@@ -283,23 +239,23 @@ public class HelperUser {
         String result = "";
         try {
             URL realUrl = new URL(url);
-            // æ‰“å¼€å’ŒURLä¹‹é—´çš„è¿æ¥
+            // ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
             URLConnection conn = realUrl.openConnection();
-            // è®¾ç½®é€šç”¨çš„è¯·æ±‚å±æ€§
+            // ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôĞÔ
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            // å‘é€POSTè¯·æ±‚å¿…é¡»è®¾ç½®å¦‚ä¸‹ä¸¤è¡Œ
+            // ·¢ËÍPOSTÇëÇó±ØĞëÉèÖÃÈçÏÂÁ½ĞĞ
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            // è·å–URLConnectionå¯¹è±¡å¯¹åº”çš„è¾“å‡ºæµ
+            // »ñÈ¡URLConnection¶ÔÏó¶ÔÓ¦µÄÊä³öÁ÷
             out = new PrintWriter(conn.getOutputStream());
-            // å‘é€è¯·æ±‚å‚æ•°
+            // ·¢ËÍÇëÇó²ÎÊı
             out.print(param);
-            // flushè¾“å‡ºæµçš„ç¼“å†²
+            // flushÊä³öÁ÷µÄ»º³å
             out.flush();
-            // å®šä¹‰BufferedReaderè¾“å…¥æµæ¥è¯»å–URLçš„å“åº”
+            // ¶¨ÒåBufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
             in = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()));
             String line;
@@ -307,10 +263,10 @@ public class HelperUser {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("å‘é€ POST è¯·æ±‚å‡ºç°å¼‚å¸¸ï¼"+e);
+            System.out.println("·¢ËÍ POST ÇëÇó³öÏÖÒì³££¡"+e);
             e.printStackTrace();
         }
-        //ä½¿ç”¨finallyå—æ¥å…³é—­è¾“å‡ºæµã€è¾“å…¥æµ
+        //Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊä³öÁ÷¡¢ÊäÈëÁ÷
         finally{
             try{
                 if(out!=null){
