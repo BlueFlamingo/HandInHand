@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
@@ -275,7 +276,7 @@ public class HelperUser {
 	        System.out.println(result);
 	        return result;
 	    }
-	    	public String sendPost(String url, String param) {
+	public String sendPost(String url, String param) {
 		System.out.println(param);
         PrintWriter out = null;
         BufferedReader in = null;
@@ -326,5 +327,4 @@ public class HelperUser {
         System.out.println(result);
         return result;
     }    
-}
 }
