@@ -4,12 +4,17 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-<cn.edu.fudan.blueflamingo.handinhand.MyScrollView
+<cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout
+    android:id="@+id/main_swipe_container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:scrollbars="vertical"
     android:fadingEdge="vertical"
     android:background="@color/background_material_light">
+
+    <cn.edu.fudan.blueflamingo.handinhand.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -306,6 +311,8 @@
 
     </LinearLayout>
 
-</cn.edu.fudan.blueflamingo.handinhand.MyScrollView>
+    </cn.edu.fudan.blueflamingo.handinhand.MyScrollView>
+
+</cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout>
 
 </RelativeLayout>

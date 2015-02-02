@@ -52,10 +52,7 @@ public class AuthActivity extends ActionBarActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			if (fragmentManager.getBackStackEntryCount() != 0) {
-				fragmentManager = getFragmentManager();
-				fragmentManager.beginTransaction()
-						.replace(R.id.auth_fragment, new AuthFragment(), "auth_main")
-						.commit();
+				fragmentManager.popBackStack();
 			}
 			return true;
 		} else

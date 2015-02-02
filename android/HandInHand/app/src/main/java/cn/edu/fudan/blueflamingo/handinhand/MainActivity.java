@@ -132,4 +132,14 @@ public class MainActivity extends ActionBarActivity {
 				break;
 		}
 	}
+
+	@Override
+	public void onBackPressed() {
+		FragmentManager fragmentManager = getFragmentManager();
+		if (fragmentManager.getBackStackEntryCount() != 0) {
+			fragmentManager.popBackStack();
+		} else {
+			super.onBackPressed();
+		}
+	}
 }

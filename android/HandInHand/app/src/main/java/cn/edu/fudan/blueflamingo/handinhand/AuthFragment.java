@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +34,7 @@ public class AuthFragment extends Fragment {
 		fragmentManager = getFragmentManager();
 		View v = inflater.inflate(R.layout.fragment_auth, container, false);
 		bindBtnAction(v);
-		// Inflate the layout for this fragment
+
 		return v;
 	}
 
