@@ -239,23 +239,16 @@ public class HelperUser {
         String result = "";
         try {
             URL realUrl = new URL(url);
-            // �򿪺�URL֮�������
             URLConnection conn = realUrl.openConnection();
-            // ����ͨ�õ���������
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            // ����POST�������������������
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            // ��ȡURLConnection�����Ӧ�������
             out = new PrintWriter(conn.getOutputStream());
-            // �����������
             out.print(param);
-            // flush������Ļ���
             out.flush();
-            // ����BufferedReader����������ȡURL����Ӧ
             in = new BufferedReader(
                     new InputStreamReader(conn.getInputStream()));
             String line;
@@ -263,10 +256,8 @@ public class HelperUser {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("���� POST ��������쳣��"+e);
             e.printStackTrace();
         }
-        //ʹ��finally�����ر��������������
         finally{
             try{
                 if(out!=null){
