@@ -12,7 +12,7 @@ public class Question {
 	private int createdTime = 0;
 	private String picture = "";
 	private String title = "";
-	private ArrayList<Integer> topics = new ArrayList<Integer>();
+	private ArrayList<Integer> topics = new ArrayList<>();
 
 	public String getContent() {
 		return this.content;
@@ -40,13 +40,6 @@ public class Question {
 
 	public ArrayList<Integer> getTopics() {
 		return this.topics;
-	}
-
-	@Deprecated
-	public Question(int id, int uid, ArrayList<Integer> topics) {
-		this.id = id;
-		this.uid = uid;
-		this.topics = topics;
 	}
 
 	public Question(int id, String content, int uid, int createdTime, String title, ArrayList<Integer> topics) {

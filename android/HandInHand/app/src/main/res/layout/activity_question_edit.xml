@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="cn.edu.fudan.blueflamingo.handinhand.QuestionEditActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/question_edit_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+    </android.support.v7.widget.Toolbar>
+
+    <cn.edu.fudan.blueflamingo.handinhand.MyScrollView
+            android:layout_below="@id/question_edit_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/question_edit_title"
+                android:padding="16dp"
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/question_title"
+                android:background="@drawable/abc_edit_text_material"
+                android:textColor="@color/black"
+                android:textColorHint="@color/material_blue_grey_800" />
+
+            <EditText
+                android:id="@+id/question_edit_content"
+                android:layout_below="@+id/question_edit_title"
+                android:layout_margin="16dp"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/question_content"
+                android:background="@drawable/abc_edit_text_material"
+                android:textColor="@color/black"
+                android:textColorHint="@color/material_blue_grey_800"/>
+
+            <TextView
+                android:id="@+id/question_topic_hint"
+                android:layout_below="@+id/question_edit_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:paddingLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/question_topic_selection"/>
+
+            <cn.edu.fudan.blueflamingo.handinhand.view.MultiSelectSpinner
+                android:id="@+id/question_topic_spinner"
+                android:padding="16dp"
+                android:layout_marginLeft="32dp"
+                android:background="@color/material_deep_teal_200"
+                android:popupBackground="@color/background_material_light"
+                android:layout_below="@+id/question_topic_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </cn.edu.fudan.blueflamingo.handinhand.MyScrollView>
+
+</RelativeLayout>

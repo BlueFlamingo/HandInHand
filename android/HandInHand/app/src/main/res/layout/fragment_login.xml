@@ -18,6 +18,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/auth_form_password"
+        android:background="@drawable/abc_edit_text_material"
+        android:textColor="@color/black"
         android:layout_centerHorizontal="true"
         android:hint="@string/username"
         android:textColorHint="@color/primary_text_disabled_material_light"/>
@@ -28,7 +30,9 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/auth_choice_form"
+        android:background="@drawable/abc_edit_text_material"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:textColorHint="@color/primary_text_disabled_material_light" />

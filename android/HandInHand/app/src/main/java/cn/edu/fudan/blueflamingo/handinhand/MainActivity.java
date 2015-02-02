@@ -93,6 +93,9 @@ public class MainActivity extends ActionBarActivity {
 		switch (id) {
 			case R.id.action_edit:
 				msg += "Click edit";
+				//jump to QuestionEditActivity
+				Intent editIntent = new Intent(this, QuestionEditActivity.class);
+				startActivity(editIntent);
 				break;
 			case R.id.action_search:
 				msg += "Click search";
