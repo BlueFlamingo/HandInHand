@@ -25,8 +25,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
 public class HelperUser {
-
-	    public  int register(User u){
+	
+	public  int register(User u){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 			//String url = "http://127.0.0.1/HandInHand/user.php";
 			ObjectMapper mapper = new ObjectMapper();
@@ -616,7 +616,7 @@ public class HelperUser {
         fileMap.put("file", filePath);  
         String res = "";  
         HttpURLConnection conn = null;  
-        String BOUNDARY = "---------------------------123821742118716"; //boundary就是request头和上传文件内容的分隔符  
+        String BOUNDARY = "---------------------------123821742118716";
         try {  
             URL url = new URL(urlStr);  
             conn = (HttpURLConnection) url.openConnection();  
@@ -701,7 +701,6 @@ public class HelperUser {
             out.flush();  
             out.close();  
   
-            // 读取返回数据  
             StringBuffer strBuf = new StringBuffer();  
             BufferedReader reader = new BufferedReader(new InputStreamReader(  
                     conn.getInputStream()));  
@@ -713,7 +712,6 @@ public class HelperUser {
             reader.close();  
             reader = null;  
         } catch (Exception e) {  
-            System.out.println("发送POST请求出错。" + urlStr);  
             e.printStackTrace();  
         } finally {  
             if (conn != null) {  

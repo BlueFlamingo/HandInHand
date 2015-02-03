@@ -24,4 +24,9 @@ public class Answer {
 	}
 	public Answer(){
 	}
+	
+	public String toString() {
+		String str = "aid=" + id;
+		return str;
+	}
 }

@@ -25,33 +25,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
 public class HelperAnswer {
-
-	public ArrayList<ExAnswer> An2Exan(ArrayList<Answer> a){
-		ArrayList<ExAnswer> exan = new ArrayList<ExAnswer>();
-		ExAnswer etemp = new ExAnswer();
-		Answer atemp =new Answer();
-		HelperUser helperuser = new HelperUser();
-		int i=0;
-		while(i < a.size()){
-			atemp =a.get(i);
-			etemp.id = atemp.id;
-			etemp.content = atemp.content;
-			etemp.score1 = atemp.score1;
-			etemp.score2 = atemp.score2;
-			etemp.uid = atemp.uid;
-			etemp.qid = atemp.qid;
-			etemp.createdTime = atemp.createdTime;
-			etemp. picture = atemp.picture;
-			etemp.parentAid = atemp.parentAid;
-			User u = new User();
-			u = helperuser.getByUid(atemp.uid);
-			etemp.username = u.username;
-			etemp.userHead = u.portrait;
-			exan.add(etemp);
-			i++;
-		}
-		return exan;
-	}
 	
 	public int add(Answer a){
 		String url =  "http://121.199.64.117:8888/HandInHand/answer.php";
@@ -134,9 +107,8 @@ public class HelperAnswer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			ArrayList<ExAnswer> exanswer = An2Exan(answer);
-			System.out.print(exanswer);
-			return exanswer;
+			
+			return Utility.answerToExAnswer(answer);
 		
 		}
 	
@@ -226,7 +198,7 @@ public class HelperAnswer {
         fileMap.put("file", filePath);  
         String res = "";  
         HttpURLConnection conn = null;  
-        String BOUNDARY = "---------------------------123821742118716"; //boundary¾ÍÊÇrequestÍ·ºÍÉÏ´«ÎÄ¼þÄÚÈÝµÄ·Ö¸ô·û  
+        String BOUNDARY = "---------------------------123821742118716"; //boundaryï¿½ï¿½ï¿½ï¿½requestÍ·ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ÝµÄ·Ö¸ï¿½ï¿½ï¿½  
         try {  
             URL url = new URL(urlStr);  
             conn = (HttpURLConnection) url.openConnection();  
@@ -311,7 +283,7 @@ public class HelperAnswer {
             out.flush();  
             out.close();  
   
-            // ¶ÁÈ¡·µ»ØÊý¾Ý  
+            // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
             StringBuffer strBuf = new StringBuffer();  
             BufferedReader reader = new BufferedReader(new InputStreamReader(  
                     conn.getInputStream()));  
@@ -323,7 +295,7 @@ public class HelperAnswer {
             reader.close();  
             reader = null;  
         } catch (Exception e) {  
-            System.out.println("·¢ËÍPOSTÇëÇó³ö´í¡£" + urlStr);  
+            System.out.println("ï¿½ï¿½ï¿½ï¿½POSTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + urlStr);  
             e.printStackTrace();  
         } finally {  
             if (conn != null) {  
