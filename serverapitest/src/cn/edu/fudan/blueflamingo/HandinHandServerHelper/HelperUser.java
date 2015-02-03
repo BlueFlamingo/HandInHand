@@ -254,7 +254,7 @@ public class HelperUser {
 	
     public String uploadFile(String filePath) {
     	
-    	String urlStr = "http://127.0.0.1/HandInHand/upload.php";
+    	String urlStr = "http://121.199.64.117:8888/HandInHand/upload.php";
     	Map<String, String> textMap = new HashMap<String, String>();
         textMap.put("name", "testname");  
         Map<String, String> fileMap = new HashMap<String, String>();
