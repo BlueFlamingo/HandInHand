@@ -4,15 +4,19 @@ import java.util.ArrayList;
 
 public class Question {
 
-	private int id;
+	private int id = -1;
 	private String content = "";
 	private int score1 = 0;			//点赞，对于问题只要用score1就行了
 	private int score2 = 0;			//点踩
-	private int uid;
+	private int uid = -1;
 	private int createdTime = 0;
 	private String picture = "";
 	private String title = "";
 	private ArrayList<Integer> topics = new ArrayList<>();
+
+	public int getId() {
+		return this.id;
+	}
 
 	public String getContent() {
 		return this.content;

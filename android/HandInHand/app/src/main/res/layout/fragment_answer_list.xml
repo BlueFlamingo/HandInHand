@@ -1,0 +1,20 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="cn.edu.fudan.blueflamingo.handinhand.AnswerListFragment">
+
+    <cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout
+        android:id="@+id/question_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/question_answer_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+
+    </cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout>
+
+</FrameLayout>

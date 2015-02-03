@@ -15,6 +15,16 @@ import cn.edu.fudan.blueflamingo.handinhand.model.Question;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
 
+	public interface OnItemClickListener {
+		void onItemClick(View view, int position);
+	}
+
+	private OnItemClickListener mOnItemClickListener;
+
+	public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+		this.mOnItemClickListener = mOnItemClickListener;
+	}
+
 	private List<Question> questions;
 
 	private Context mContext;
@@ -31,7 +41,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 	}
 
 	@Override
-	public void onBindViewHolder(ViewHolder viewHolder, int i) {
+	public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 		Question q = questions.get(i);
 		viewHolder.titleTextView.setText(q.getTitle());
 		//TODO:设置头像
@@ -43,6 +53,16 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 			viewHolder.abstractTextView.setText(q.getContent());
 		}
 		viewHolder.timeTextView.setText(String.valueOf(q.getCreatedTime()));
+
+		//如果设置了回调则设置点击事件
+		if (mOnItemClickListener != null) {
+			viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					mOnItemClickListener.onItemClick(viewHolder.itemView, i);
+				}
+			});
+		}
 	}
 
 	@Override
@@ -65,6 +85,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 			abstractTextView = (TextView) v.findViewById(R.id.question_abstract);
 			timeTextView = (TextView) v.findViewById(R.id.question_time);
 		}
+
 	}
 
 }

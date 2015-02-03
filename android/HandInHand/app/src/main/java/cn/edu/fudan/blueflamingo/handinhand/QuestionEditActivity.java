@@ -19,8 +19,7 @@ public class QuestionEditActivity extends ActionBarActivity {
 
 	private final String[] topics = {
 			"学海无涯", "校园生活", "情感大话",
-			"职业发展", "社团活动", "吃喝玩乐",
-			"今日热门", "主编推荐", "其它"};
+			"职业发展", "吃喝玩乐", "其它"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

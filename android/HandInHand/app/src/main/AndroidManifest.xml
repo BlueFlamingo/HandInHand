@@ -30,6 +30,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cn.edu.fudan.blueflamingo.handinhand.MainActivity" />
         </activity>
+        <activity
+            android:name=".QuestionListActivity"
+            android:label="@string/title_activity_question_list"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.edu.fudan.blueflamingo.handinhand.MainActivity" />
+        </activity>
+        <activity
+            android:name=".QuestionItemActivity"
+            android:label="@string/title_activity_question_item" >
+        </activity>
     </application>
 
 </manifest>

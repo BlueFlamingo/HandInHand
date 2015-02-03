@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/answer_user_name"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/answer_user_head"
+        android:text="管理员"
+        android:textColor="@color/yellow900"/>
+
+    <ImageView
+        android:id="@+id/answer_user_head"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/app"
+        android:scaleType="fitCenter"
+        />
+
+    <TextView
+        android:id="@+id/answer_approve_num"
+        android:minWidth="30dp"
+        android:minHeight="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:layout_below="@+id/answer_user_head"
+        android:layout_marginLeft="13dp"
+        android:text="20"
+        android:textColor="@color/material_blue_grey_800"
+        android:background="@color/yellow700"
+        />
+
+    <TextView
+        android:id="@+id/answer_abstract"
+        android:padding="5dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginBottom="4dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answer_user_name"
+        android:layout_toRightOf="@+id/answer_approve_num"
+        android:text="哈哈哈哈我是回答testtesttestasdskjdndfjvhb三等奖复合弓sdfvkljshfbkhsiushss"/>
+
+    <TextView
+        android:id="@+id/answer_time"
+        android:padding="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentRight="true"
+        android:text="2015-2-2"
+        android:textColor="@color/gray_2"/>
+
+    <cn.edu.fudan.blueflamingo.handinhand.view.DashLine
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background_material_light"/>
+
+</RelativeLayout>

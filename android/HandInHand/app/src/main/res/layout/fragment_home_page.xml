@@ -49,7 +49,7 @@
                 android:gravity="bottom|start"
                 android:padding="16dp"
                 android:textSize="16sp"
-                android:text="随便看看" />
+                android:text="今日热门" />
 
             <ImageView
                 android:layout_width="16dp"
@@ -92,7 +92,7 @@
                     android:gravity="bottom|start"
                     android:padding="16dp"
                     android:textSize="16sp"
-                    android:text="随便看看" />
+                    android:text="学海无涯" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -130,7 +130,7 @@
                     android:gravity="bottom|start"
                     android:padding="16dp"
                     android:textSize="16sp"
-                    android:text="随便看看" />
+                    android:text="校园生活" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -175,7 +175,7 @@
                     android:gravity="bottom|start"
                     android:padding="16dp"
                     android:textSize="16sp"
-                    android:text="随便看看" />
+                    android:text="情感大话" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -213,7 +213,7 @@
                     android:gravity="bottom|start"
                     android:padding="16dp"
                     android:textSize="16sp"
-                    android:text="随便看看" />
+                    android:text="职业发展" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -258,7 +258,7 @@
                     android:gravity="bottom|start"
                     android:padding="16dp"
                     android:textSize="16sp"
-                    android:text="随便看看" />
+                    android:text="吃喝玩乐" />
 
                 <ImageView
                     android:layout_width="16dp"
@@ -296,7 +296,7 @@
                     android:gravity="bottom|start"
                     android:padding="16dp"
                     android:textSize="16sp"
-                    android:text="随便看看" />
+                    android:text="其它" />
 
                 <ImageView
                     android:layout_width="16dp"
