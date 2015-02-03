@@ -1,6 +1,7 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,10 +12,13 @@ import android.widget.Toast;
 
 public class QuestionItemActivity extends ActionBarActivity {
 
+	private int QID = -1;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_item);
+		QID = getIntent().getExtras().getInt("qid");
 		initToolbar();
 		initAnswerListFragment();
 	}
@@ -51,8 +55,10 @@ public class QuestionItemActivity extends ActionBarActivity {
 
 		switch (id) {
 			case R.id.action_write_answer:
-				//TODO:跳转到编辑答案界面
 				Toast.makeText(this, "write answer", Toast.LENGTH_SHORT).show();
+				Intent writeIntent = new Intent(this, AnswerEditActivity.class);
+				writeIntent.putExtra("qid", QID);
+				startActivity(writeIntent);
 		}
 
 		return super.onOptionsItemSelected(item);

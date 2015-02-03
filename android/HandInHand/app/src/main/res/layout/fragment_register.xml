@@ -6,11 +6,19 @@
              tools:context="cn.edu.fudan.blueflamingo.handinhand.RegisterFragment">
 
     <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/handinhand_idea_large"
+        android:layout_marginTop="48dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher"
-        android:padding="16dp"
-        android:layout_marginTop="64dp"
+        android:layout_above="@+id/auth_form_username"
+        android:text="@string/register"
+        android:textSize="36sp"
+        android:layout_marginBottom="16dp"
         android:layout_centerHorizontal="true"/>
 
     <EditText

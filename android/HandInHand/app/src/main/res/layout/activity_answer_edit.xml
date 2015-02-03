@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="cn.edu.fudan.blueflamingo.handinhand.AnswerEditActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/answer_edit_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+    </android.support.v7.widget.Toolbar>
+
+    <cn.edu.fudan.blueflamingo.handinhand.view.MyScrollView
+        android:layout_below="@id/answer_edit_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <EditText
+            android:id="@+id/answer_editor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/answer_content"
+            android:background="@drawable/abc_edit_text_material"/>
+
+    </cn.edu.fudan.blueflamingo.handinhand.view.MyScrollView>
+
+</RelativeLayout>

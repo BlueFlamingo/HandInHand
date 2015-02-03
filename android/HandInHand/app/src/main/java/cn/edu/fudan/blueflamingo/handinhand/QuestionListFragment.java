@@ -46,19 +46,19 @@ public class QuestionListFragment extends Fragment {
 		mRecyclerView.setHasFixedSize(true);
 		questionAdapter = new QuestionAdapter(parent, questions);
 		questionAdapter.setOnItemClickListener(new QuestionAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(View view, int position) {
-				Intent qItemIntent = new Intent(getActivity(), QuestionItemActivity.class);
-				qItemIntent.putExtra("qid", questions.get(position).getId());
-				startActivity(qItemIntent);
-			}
-		});
-		mRecyclerView.setAdapter(questionAdapter);
+				@Override
+				public void onItemClick(View view, int position) {
+					Intent qItemIntent = new Intent(getActivity(), QuestionItemActivity.class);
+					qItemIntent.putExtra("qid", questions.get(position).getId());
+					startActivity(qItemIntent);
+				}
+			});
+			mRecyclerView.setAdapter(questionAdapter);
 
-		final SwipeRefreshAndLoadLayout mSwipeLayout;
-		mSwipeLayout = (SwipeRefreshAndLoadLayout) parent.findViewById(R.id.main_question_swipe_container);
-		mSwipeLayout.setOnRefreshListener(new SwipeRefreshAndLoadLayout.OnRefreshListener() {
-			@Override
+			final SwipeRefreshAndLoadLayout mSwipeLayout;
+			mSwipeLayout = (SwipeRefreshAndLoadLayout) parent.findViewById(R.id.main_question_swipe_container);
+			mSwipeLayout.setOnRefreshListener(new SwipeRefreshAndLoadLayout.OnRefreshListener() {
+				@Override
 			public void onRefresh() {
 				new Handler().postDelayed(new Runnable() {
 					@Override

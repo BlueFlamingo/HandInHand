@@ -49,7 +49,7 @@ public class AnswerListFragment extends Fragment {
 		super.onStart();
 		ActionBarActivity parent = (ActionBarActivity) getActivity();
 
-		int QID = parent.getIntent().getExtras().getInt("pid");
+		int QID = parent.getIntent().getExtras().getInt("qid");
 
 		Log.d("q item", String.valueOf(QID));
 

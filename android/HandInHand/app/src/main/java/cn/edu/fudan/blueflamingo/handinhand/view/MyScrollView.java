@@ -1,4 +1,4 @@
-package cn.edu.fudan.blueflamingo.handinhand;
+package cn.edu.fudan.blueflamingo.handinhand.view;
 
 import android.content.Context;
 import android.graphics.Rect;

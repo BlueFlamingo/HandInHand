@@ -5,7 +5,7 @@
     <application
         android:name=".Global"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/handinhand_icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -41,6 +41,10 @@
         <activity
             android:name=".QuestionItemActivity"
             android:label="@string/title_activity_question_item" >
+        </activity>
+        <activity
+            android:name=".AnswerEditActivity"
+            android:label="@string/title_activity_answer_edit" >
         </activity>
     </application>
 
