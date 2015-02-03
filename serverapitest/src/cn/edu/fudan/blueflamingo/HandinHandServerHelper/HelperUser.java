@@ -200,20 +200,20 @@ public class HelperUser {
 			return answers;
 		}
 		
-		public ArrayList<User> getByUid(int id){
+		public User getByUid(int id){
 			String url = "http://121.199.64.117:8888/HandInHand/user.php";
 				//String url = "http://127.0.0.1/HandInHand/user.php";
 			    String uid = String.valueOf(id);
 				String temp;
 				
-				ArrayList<User> userlist = new ArrayList<User>();
+				User user = new User();
 				
 				temp = sendPost(url, "op=getByUid&uid=" + uid);
 				
 				ObjectMapper mapper = new ObjectMapper();
 				
 				try {
-					userlist = mapper.readValue(temp, new TypeReference<ArrayList<User>>() {});
+					user = mapper.readValue(temp, new TypeReference<User>() {});
 				} catch (JsonGenerationException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -225,9 +225,336 @@ public class HelperUser {
 					e.printStackTrace();
 				}
 				
-				return userlist;
+				return user;
+			}
+	
+		public int showQuestionStatus(int idu, int idq){
+			String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
+				
+				String uid = String.valueOf(idu);
+				String qid = String.valueOf(idq);
+				String temp;
+				int isfav;
+				temp = sendPost(url, "op=showQuestionStatus&uid=" + uid +"&qid=" + qid);
+				isfav = Integer.valueOf(temp);
+				return isfav;
+			  }
+			
+		public int showAnswerStatus(int idu, int ida){
+			String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
+				
+				String uid = String.valueOf(idu);
+				String aid = String.valueOf(ida);
+				String temp;
+				int isfav;
+				temp = sendPost(url, "op=showAnswerStatus&uid=" + uid +"&aid=" + aid);
+				isfav = Integer.valueOf(temp);
+				return isfav;
+			  }
+		
+		public int toggleQuestion(int idu, int idq){
+			String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
+				
+				String uid = String.valueOf(idu);
+				String qid = String.valueOf(idq);
+				String temp;
+				int isfav;
+				temp = sendPost(url, "op=toggleQuestion&uid=" + uid +"&qid=" + qid);
+				isfav = Integer.valueOf(temp);
+				return isfav;
+			  }
+			
+		public int toggleAnswer(int idu, int ida){
+			String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
+				
+				String uid = String.valueOf(idu);
+				String aid = String.valueOf(ida);
+				String temp;
+				int isfav;
+				temp = sendPost(url, "op=toggleAnswer&uid=" + uid +"&aid=" + aid);
+				isfav = Integer.valueOf(temp);
+				return isfav;
+			  }
+		
+		public ArrayList<Integer>  listQuestions(int id){
+			String url =   "http://121.199.64.117:8888/HandInHand/favorite.php";
+				
+				String uid = String.valueOf(id);
+				String temp;
+				ArrayList<Integer> qidlist = new ArrayList<Integer>();
+				temp = sendPost(url, "op=listQuestions&uid=" + uid);
+				
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					qidlist = mapper.readValue(temp, new TypeReference<ArrayList<Integer>>() {});
+				} catch (JsonGenerationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return qidlist;
+			
+			}
+
+		public ArrayList<Integer>  listAnswers(int id){
+			String url =   "http://121.199.64.117:8888/HandInHand/favorite.php";
+				
+				String uid = String.valueOf(id);
+				String temp;
+				ArrayList<Integer> aidlist = new ArrayList<Integer>();
+				temp = sendPost(url, "op=listQuestions&uid=" + uid);
+				
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					aidlist = mapper.readValue(temp, new TypeReference<ArrayList<Integer>>() {});
+				} catch (JsonGenerationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return aidlist;
+			
+			}
+
+		public int showUserStatus(int id, int id2){
+			String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
+				
+				String uid = String.valueOf(id);
+				String uid2 = String.valueOf(id2);
+				String temp;
+				int isfav;
+				temp = sendPost(url, "op=showUserStatus&uid=" + uid +"&uid2=" + uid2);
+				isfav = Integer.valueOf(temp);
+				return isfav;
+			  }
+		
+		public int toggleUser(int id, int id2){
+			String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
+				
+				String uid = String.valueOf(id);
+				String uid2 = String.valueOf(id2);
+				String temp;
+				int isfav;
+				temp = sendPost(url, "op=toggleUser&uid=" + uid +"&uid2=" + uid2);
+				isfav = Integer.valueOf(temp);
+				return isfav;
+			  }
+			
+		public ArrayList<Integer>  listUsers(int id){
+			String url =   "http://121.199.64.117:8888/HandInHand/favorite.php";
+				
+				String uid = String.valueOf(id);
+				String temp;
+				ArrayList<Integer> uidlist = new ArrayList<Integer>();
+				temp = sendPost(url, "op=listUsers&uid=" + uid);
+				
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					uidlist = mapper.readValue(temp, new TypeReference<ArrayList<Integer>>() {});
+				} catch (JsonGenerationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return uidlist;
+			
 			}
 		
+		public int showScore1Status(int idu, int ida){
+			String url =  "http://121.199.64.117:8888/HandInHand/score.php";
+				
+				String uid = String.valueOf(idu);
+				String aid = String.valueOf(ida);
+				String temp;
+				int up;
+				temp = sendPost(url, "op=showScore1Status&uid=" + uid +"&aid=" + aid);
+				up = Integer.valueOf(temp);
+				return up;
+			  }
+			
+		public int showScore2Status(int idu, int ida){
+			String url =  "http://121.199.64.117:8888/HandInHand/score.php";
+				
+				String uid = String.valueOf(idu);
+				String aid = String.valueOf(ida);
+				String temp;
+				int down;
+				temp = sendPost(url, "op=showScore2Status&uid=" + uid +"&aid=" + aid);
+				down = Integer.valueOf(temp);
+				return down;
+			  }
+		
+		public int toggleScore1(int idu, int ida){
+			String url =  "http://121.199.64.117:8888/HandInHand/score.php";
+				
+				String uid = String.valueOf(idu);
+				String aid = String.valueOf(ida);
+				String temp;
+				int up;
+				temp = sendPost(url, "op=toggleScore1&uid=" + uid +"&aid=" + aid);
+				up = Integer.valueOf(temp);
+				return up;
+			  }
+			
+		public int toggleScore2(int idu, int ida){
+			String url =  "http://121.199.64.117:8888/HandInHand/score.php";
+				
+				String uid = String.valueOf(idu);
+				String aid = String.valueOf(ida);
+				String temp;
+				int down;
+				temp = sendPost(url, "op=toggleScore2&uid=" + uid +"&aid=" + aid);
+				down = Integer.valueOf(temp);
+				return down;
+			  }
+		
+		public  int SendMsgs(Message m){
+			String url = "http://121.199.64.117:8888/HandInHand/message.php";
+				
+				ObjectMapper mapper = new ObjectMapper();
+				String entry = "";
+				try {
+					entry = mapper.writeValueAsString(m);
+				} catch (JsonGenerationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				String temp;
+				int mid;
+				temp = sendPost(url, "op=send&entry=" + entry);
+				mid = Integer.valueOf(temp);
+				return mid;
+			  }
+		
+		public ArrayList<Message> getSentMsgs(int id){
+			String url = "http://121.199.64.117:8888/HandInHand/message.php";
+				
+			    String uid = String.valueOf(id);
+				String temp;
+				
+				ArrayList<Message> message = new ArrayList<Message>();
+				
+				temp = sendPost(url, "op=getSentMsgs&uid=" + uid);
+				
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					message = mapper.readValue(temp, new TypeReference<ArrayList<Message>>() {});
+				} catch (JsonGenerationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return message;
+			}
+		
+		public ArrayList<Message> getAllReceivedMsgs(int id){
+			String url = "http://121.199.64.117:8888/HandInHand/message.php";
+				
+			    String uid = String.valueOf(id);
+				String temp;
+				
+				ArrayList<Message> message = new ArrayList<Message>();
+				
+				temp = sendPost(url, "op=getAllReceivedMsgs&uid=" + uid);
+				
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					message = mapper.readValue(temp, new TypeReference<ArrayList<Message>>() {});
+				} catch (JsonGenerationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return message;
+			}
+		
+		public ArrayList<Message> getUnhandledMsgs(int id){
+			String url = "http://121.199.64.117:8888/HandInHand/message.php";
+				
+			    String uid = String.valueOf(id);
+				String temp;
+				
+				ArrayList<Message> message = new ArrayList<Message>();
+				
+				temp = sendPost(url, "op=getUnhandledMsgs&uid=" + uid);
+				
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					message = mapper.readValue(temp, new TypeReference<ArrayList<Message>>() {});
+				} catch (JsonGenerationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return message;
+			}
+		
+		public ArrayList< ArrayList<Integer> > Search (String pattern){
+			String url =   "http://121.199.64.117:8888/HandInHand/search.php";
+				
+				String temp;
+				ArrayList< ArrayList<Integer> > list = new ArrayList< ArrayList<Integer> >();
+				temp = sendPost(url, pattern);
+				
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					list = mapper.readValue(temp, new TypeReference<ArrayList< ArrayList<Integer> >>() {});
+				} catch (JsonGenerationException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return list;
+			
+			}
 	    	
 	public String sendPost(String url, String param) {
 		System.out.println(param);
@@ -276,7 +603,7 @@ public class HelperUser {
                 ex.printStackTrace();
             }
         }
-        System.out.println(result);
+       // System.out.println(result);
         return result;
     }    
 	

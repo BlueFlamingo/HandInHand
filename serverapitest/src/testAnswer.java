@@ -2,19 +2,21 @@ import java.io.File;
 import java.util.ArrayList;
 
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.Answer;
+import cn.edu.fudan.blueflamingo.HandinHandServerHelper.ExAnswer;
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.HelperAnswer;
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.Question;
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.User;
+
 
 public class testAnswer {
 	
 	public static void main(String[] args) {
 		HelperAnswer helperanswer = new HelperAnswer();
 		
-		helperanswer.uploadFile("demo.jpg");
+		//helperanswer.uploadFile("demo.jpg");
 		
 		//test add
-		Answer a =new Answer(5,"dog",2,3,35,40,20, "demo",0);
+		/*Answer a =new Answer(5,"dog",2,3,35,40,20, "demo",0);
 		int aid = helperanswer.add(a);
 		System.out.print(aid);
 		
@@ -25,18 +27,18 @@ public class testAnswer {
 		
 		//test delete
 		int num1 = helperanswer.delete(5);
-		System.out.print(num1);
+		System.out.print(num1);*/
 				
 		//test getByQid
-		ArrayList<Answer> a2 = new ArrayList<Answer>();
+		ArrayList<ExAnswer> a2 = new ArrayList<ExAnswer>();
 		a2 = helperanswer.getByQid(40);
 		System.out.print(a2);
 		
 		
 		//test getByQid
-		ArrayList<Answer> a3 = new ArrayList<Answer>();
+		/*ArrayList<Answer> a3 = new ArrayList<Answer>();
 		a3 = helperanswer.getByAid(49);
-		System.out.print(a3);
+		System.out.print(a3);*/
 				
 		
 		

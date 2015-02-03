@@ -26,6 +26,33 @@ import org.codehaus.jackson.type.TypeReference;
 
 public class HelperAnswer {
 
+	public ArrayList<ExAnswer> An2Exan(ArrayList<Answer> a){
+		ArrayList<ExAnswer> exan = new ArrayList<ExAnswer>();
+		ExAnswer etemp = new ExAnswer();
+		Answer atemp =new Answer();
+		HelperUser helperuser = new HelperUser();
+		int i=0;
+		while(i < a.size()){
+			atemp =a.get(i);
+			etemp.id = atemp.id;
+			etemp.content = atemp.content;
+			etemp.score1 = atemp.score1;
+			etemp.score2 = atemp.score2;
+			etemp.uid = atemp.uid;
+			etemp.qid = atemp.qid;
+			etemp.createdTime = atemp.createdTime;
+			etemp. picture = atemp.picture;
+			etemp.parentAid = atemp.parentAid;
+			User u = new User();
+			u = helperuser.getByUid(atemp.uid);
+			etemp.username = u.username;
+			etemp.userHead = u.portrait;
+			exan.add(etemp);
+			i++;
+		}
+		return exan;
+	}
+	
 	public int add(Answer a){
 		String url =  "http://121.199.64.117:8888/HandInHand/answer.php";
 			//String url = "http://127.0.0.1/HandInHand/answer.php";
@@ -86,7 +113,7 @@ public class HelperAnswer {
 		
 		}
 		
-	public ArrayList<Answer> getByQid(int id){
+	public ArrayList<ExAnswer> getByQid(int id){
 		String url =   "http://121.199.64.117:8888/HandInHand/answer.php";
 			//String url = "http://127.0.0.1/HandInHand/answer.php";
 			String qid = String.valueOf(id);
@@ -107,8 +134,9 @@ public class HelperAnswer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			return answer;
+			ArrayList<ExAnswer> exanswer = An2Exan(answer);
+			System.out.print(exanswer);
+			return exanswer;
 		
 		}
 	

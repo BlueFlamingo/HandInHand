@@ -11,7 +11,7 @@ public class testQuestion {
 	public static void main(String[] args) {
 		HelperQuestion helperquestion = new HelperQuestion();
 		
-		 helperquestion.uploadFile("demo.jpg");
+		 //helperquestion.uploadFile("demo.jpg");
 		
 		ArrayList<Integer> topics = new ArrayList<Integer>();
 		topics.add(1); 
