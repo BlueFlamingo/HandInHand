@@ -46,6 +46,14 @@
             android:name=".AnswerEditActivity"
             android:label="@string/title_activity_answer_edit" >
         </activity>
+        <activity
+            android:name=".AnswerItemActivity"
+            android:label="@string/title_activity_answer_item" >
+        </activity>
+        <activity
+            android:name=".CommentListActivity"
+            android:label="@string/title_activity_comment_list" >
+        </activity>
     </application>
 
 </manifest>

@@ -16,13 +16,17 @@
     <cn.edu.fudan.blueflamingo.handinhand.view.MyScrollView
         android:layout_below="@id/answer_edit_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:fadeScrollbars="true"
+        android:fadingEdge="horizontal">
 
         <EditText
             android:id="@+id/answer_editor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/answer_content"
+            android:textColorHint="@color/gray_2"
+            android:textColor="@color/black"
             android:background="@drawable/abc_edit_text_material"/>
 
     </cn.edu.fudan.blueflamingo.handinhand.view.MyScrollView>

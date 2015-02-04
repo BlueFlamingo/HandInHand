@@ -1,6 +1,6 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
@@ -21,10 +21,6 @@ import cn.edu.fudan.blueflamingo.handinhand.model.Answer;
 import cn.edu.fudan.blueflamingo.handinhand.model.AnswerHeader;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class AnswerListFragment extends Fragment {
 
 	private RecyclerView mRecyclerView;
@@ -64,6 +60,14 @@ public class AnswerListFragment extends Fragment {
 		mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 		mRecyclerView.setHasFixedSize(true);
 		answerAdapter = new AnswerAdapter(parent, answers, answerHeader);
+		answerAdapter.setOnItemClickListener(new AnswerAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				Intent aItemIntent = new Intent(getActivity(), AnswerItemActivity.class);
+				aItemIntent.putExtra("aid", answers.get(position - 1).getId());
+				startActivity(aItemIntent);
+			}
+		});
 		mRecyclerView.setAdapter(answerAdapter);
 
 		initLoadAndRefresh(parent);

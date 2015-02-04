@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="cn.edu.fudan.blueflamingo.handinhand.CommentListActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/comment_list_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+    </android.support.v7.widget.Toolbar>
+
+    <cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout
+        android:id="@+id/comment_item_container"
+        android:layout_below="@+id/comment_list_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/comment_item_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+    </cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/comment_editor_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/comment_btn_send"
+            android:hint="在这里写下你的评论"
+            android:textColorHint="@color/gray_2"
+            android:textColor="@color/black"
+            android:background="@drawable/abc_edit_text_material"/>
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/comment_btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/comment_send"
+            android:padding="8dp"
+            android:background="@color/yellow900">
+
+        </com.gc.materialdesign.views.ButtonFlat>
+
+    </RelativeLayout>
+
+</RelativeLayout>

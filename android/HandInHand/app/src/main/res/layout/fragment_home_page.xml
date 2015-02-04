@@ -33,7 +33,7 @@
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
-                android:background="@color/yellow900"
+                android:background="@drawable/high"
                 android:contentDescription="backgroud"/>
 
             <ImageView
@@ -76,7 +76,7 @@
                 <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="150dp"
-                    android:background="@color/yellow900"
+                    android:background="@drawable/high"
                     android:contentDescription="backgroud"/>
 
                 <ImageView

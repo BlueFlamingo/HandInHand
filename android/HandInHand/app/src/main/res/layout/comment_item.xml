@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/comment_item_portrait"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/app"/>
+
+    <TextView
+        android:id="@+id/comment_item_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/comment_item_portrait"
+        android:text="Adminstrator"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/comment_item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/comment_item_portrait"
+        android:layout_below="@+id/comment_item_username"
+        android:text="I am a test comment"
+        android:textColor="@color/background_material_dark"/>
+
+    <TextView
+        android:id="@+id/comment_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        android:text="2015-2-4"
+        android:textColor="@color/gray_2"/>
+
+</RelativeLayout>

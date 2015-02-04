@@ -53,7 +53,7 @@ public class QuestionListFragment extends Fragment {
 					startActivity(qItemIntent);
 				}
 			});
-			mRecyclerView.setAdapter(questionAdapter);
+		mRecyclerView.setAdapter(questionAdapter);
 
 			final SwipeRefreshAndLoadLayout mSwipeLayout;
 			mSwipeLayout = (SwipeRefreshAndLoadLayout) parent.findViewById(R.id.main_question_swipe_container);

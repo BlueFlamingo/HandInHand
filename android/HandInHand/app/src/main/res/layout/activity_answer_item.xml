@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context="cn.edu.fudan.blueflamingo.handinhand.AnswerItemActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/answer_item_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/answer_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="I am a test answer title"
+        android:textColor="@color/secondary_text_default_material_light"
+        android:background="@color/gray_1"
+        android:textSize="18sp"/>
+
+    <cn.edu.fudan.blueflamingo.handinhand.view.DashLine
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background_material_light"/>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <ImageView
+            android:id="@+id/answer_item_portrait"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="6dp"
+            android:src="@drawable/app"/>
+
+        <TextView
+            android:id="@+id/answer_item_username"
+            android:layout_toRightOf="@+id/answer_item_portrait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:text="Adminstrator"/>
+
+        <TextView
+            android:id="@+id/answer_item_approve_num"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="6dp"
+            android:text="123"
+            android:textColor="@color/gray_1"/>
+
+        <ImageView
+            android:id="@+id/answer_item_approve"
+            android:layout_toLeftOf="@+id/answer_item_approve_num"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="4dp"
+            android:padding="3dp"
+            android:src="@drawable/ic_action_good"/>
+        
+    </RelativeLayout>
+
+    <cn.edu.fudan.blueflamingo.handinhand.view.DashLine
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background_material_light"/>
+
+    <cn.edu.fudan.blueflamingo.handinhand.view.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/answer_item_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:text="I am the test answer content"/>
+
+    </cn.edu.fudan.blueflamingo.handinhand.view.MyScrollView>
+
+</LinearLayout>

@@ -16,6 +16,16 @@ import cn.edu.fudan.blueflamingo.handinhand.model.AnswerHeader;
 
 public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
+	public interface OnItemClickListener {
+		void onItemClick(View view, int position);
+	}
+
+	private OnItemClickListener mOnItemClickListener;
+
+	public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+		this.mOnItemClickListener = mOnItemClickListener;
+	}
+
 	private List<Answer> answers;
 	private AnswerHeader answerHeader;
 
@@ -43,18 +53,30 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 	}
 
 	@Override
-	public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+	public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
 		if (viewHolder instanceof VHItem) {
 			Answer a = answers.get(i - 1);	//由于header占了第0个位置
 			//TODO:设置username、头像、点赞数、时间
-			VHItem item = (VHItem) viewHolder;
+			final VHItem item = (VHItem) viewHolder;
 			item.abstractTextView.setText(a.getContent());
+
+			//如果设置了回调则设置点击事件
+			if (mOnItemClickListener != null) {
+				item.itemView.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						mOnItemClickListener.onItemClick(item.itemView, i);
+					}
+				});
+			}
+
 		} else if (viewHolder instanceof VHHeader) {
 			VHHeader header = (VHHeader) viewHolder;
 			header.titleTextView.setText(answerHeader.getTitle());
 			header.descriptionTextView.setText(answerHeader.getDescription());
 			header.watchNumTextView.setText(String.valueOf(answerHeader.getWatchNum()));
 		}
+
 
 	}
 
