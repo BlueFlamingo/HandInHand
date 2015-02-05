@@ -2,17 +2,18 @@ import java.io.File;
 import java.util.ArrayList;
 
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.Answer;
-import cn.edu.fudan.blueflamingo.HandinHandServerHelper.HelperComment;
+import cn.edu.fudan.blueflamingo.HandinHandServerHelper.CommentHelper;
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.Question;
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.User;
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.Comment;
+import cn.edu.fudan.blueflamingo.HandinHandServerHelper.ExComment;
 
 public class testComment {
 	
 	public static void main(String[] args) {
-		HelperComment helpercomment = new HelperComment();
+		CommentHelper helpercomment = new CommentHelper();
 		
-		/*helpercomment.uploadFile("demo.jpg");
+		//helpercomment.uploadFile("demo.jpg");
 		
 		//test add
 		Comment c = new Comment(1,2,30,3,"well",40);
@@ -29,13 +30,11 @@ public class testComment {
 		System.out.print(num1);
 				
 		//test getByAid
-		ArrayList<Comment> c2 = new ArrayList<Comment>();
-		c2 = helpercomment.getByAid(40);
-		System.out.print(c2);*/
+		ArrayList<ExComment> c2 = helpercomment.getByAid(40);
+		System.out.print(c2);
 		
 		//test getByCid
-		Comment c3 = new Comment();
-		c3 = helpercomment.getByCid(20);
+		ExComment c3 = helpercomment.getByCid(20);
 		System.out.print(c3);
 		
 		

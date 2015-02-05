@@ -24,49 +24,37 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
-public class HelperQuestion {
-
-	public int add(Question q){
-		String url =  "http://121.199.64.117:8888/HandInHand/question.php";
-			//String url = "http://127.0.0.1/HandInHand/question.php";
+public class AnswerHelper {
+	
+	public int add(Answer a){
+		String url =  "http://121.199.64.117:8888/HandInHand/answer.php";
+			//String url = "http://127.0.0.1/HandInHand/answer.php";
 			ObjectMapper mapper = new ObjectMapper();
 			String entry = "";
 			try {
-				entry = mapper.writeValueAsString(q);
-			} catch (JsonGenerationException e) {
-				// TODO Auto-generated catch block
+				entry = mapper.writeValueAsString(a);
+			} catch (Exception e) {
+				
 				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 			String temp;
-			int qid;
+			int aid;
 			temp = sendPost(url, "op=add&entry=" + entry);
-			qid = Integer.valueOf(temp);
-			return qid;
+			aid = Integer.valueOf(temp);
+			return aid;
 		  }
 		
-	public int update(Question q){
-	    String url =   "http://121.199.64.117:8888/HandInHand/question.php";
-			//String url = "http://127.0.0.1/HandInHand/question.php";
+	public int update(Answer a){
+	    String url =   "http://121.199.64.117:8888/HandInHand/answer.php";
+			//String url = "http://127.0.0.1/HandInHand/answer.php";
 			ObjectMapper mapper = new ObjectMapper();
 			String entry = "";
 			try {
-				entry = mapper.writeValueAsString(q);
-			} catch (JsonGenerationException e) {
-				// TODO Auto-generated catch block
+				entry = mapper.writeValueAsString(a);
+			} catch (Exception e) {
+				
 				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 		    String temp;
 			int num;
 	        temp = sendPost(url, "op=update&entry=" + entry);
@@ -74,72 +62,60 @@ public class HelperQuestion {
 			return num;
 	    }
 	    
-	public int delete(int id){
-		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
-			//String url = "http://127.0.0.1/HandInHand/question.php";
-			String qid = String.valueOf(id);
+	public int delete(int aId){
+		String url =   "http://121.199.64.117:8888/HandInHand/answer.php";
+			//String url = "http://127.0.0.1/HandInHand/answer.php";
+		    String aid = String.valueOf(aId);
 			String temp;
 			int num;
-			temp = sendPost(url, "op=delete&qid=" + qid);
+			temp = sendPost(url, "op=delete&aid=" + aid);
 			num = Integer.valueOf(temp);
 			return num;		
 		
 		}
-	 	
-    public ArrayList<Question>  getByTopic(int id){
-		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
-			//String url = "http://127.0.0.1/HandInHand/question.php";
-			String tid = String.valueOf(id); 
-			String temp;
-			ArrayList<Question> questions = new ArrayList<Question>();
-			temp = sendPost(url, "op=getByTopic&tid=" + tid);
-			
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				questions = mapper.readValue(temp, new TypeReference<ArrayList<Question>>() {});
-			} catch (JsonGenerationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return questions;
-			
-		}
 		
-    public Question getByQid(int id){
-		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
-			//String url = "http://127.0.0.1/HandInHand/question.php";
-			String qid = String.valueOf(id);
+	public ArrayList<ExAnswer> getByQid(int qId){
+		String url =   "http://121.199.64.117:8888/HandInHand/answer.php";
+			//String url = "http://127.0.0.1/HandInHand/answer.php";
+			String qid = String.valueOf(qId);
 			String temp;
-			Question question = new Question();
+			ArrayList<Answer> answer = new ArrayList<Answer>();
 			temp = sendPost(url, "op=getByQid&qid=" + qid);
 			
 			ObjectMapper mapper = new ObjectMapper();
 			try {
-				question = mapper.readValue(temp, new TypeReference<Question>() {});
-			} catch (JsonGenerationException e) {
-				// TODO Auto-generated catch block
+				answer = mapper.readValue(temp, new TypeReference<ArrayList<Answer>>() {});
+			} catch (Exception e) {
+				
 				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 			
-			return question;
+			return Utility.answerToExAnswer(answer);
+		
+		}
+	
+	public ExAnswer getByAid(int aId){
+		String url =   "http://121.199.64.117:8888/HandInHand/answer.php";
+			//String url = "http://127.0.0.1/HandInHand/answer.php";
+			String aid = String.valueOf(aId);
+			String temp;
+			Answer answer = new Answer();
+			temp = sendPost(url, "op=getByAid&aid=" + aid);
+			
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				answer = mapper.readValue(temp, new TypeReference<Answer>() {});
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			} 
+			
+			return Utility.answerToExAnswer(answer);
 		
 		}
 		
 	public String sendPost(String url, String param) {
-		System.out.println(param);
+		//System.out.println(param);
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -185,11 +161,11 @@ public class HelperQuestion {
                 ex.printStackTrace();
             }
         }
-        System.out.println(result);
+        //System.out.println(result);
         return result;
     }    
 	
-    public String uploadFile(String filePath) {
+public String uploadFile(String filePath) {
     	
     	String urlStr = "http://121.199.64.117:8888/HandInHand/upload.php";
     	Map<String, String> textMap = new HashMap<String, String>();
@@ -198,7 +174,7 @@ public class HelperQuestion {
         fileMap.put("file", filePath);  
         String res = "";  
         HttpURLConnection conn = null;  
-        String BOUNDARY = "---------------------------123821742118716"; //boundary就是request头和上传文件内容的分隔符  
+        String BOUNDARY = "---------------------------123821742118716";
         try {  
             URL url = new URL(urlStr);  
             conn = (HttpURLConnection) url.openConnection();  
@@ -283,7 +259,6 @@ public class HelperQuestion {
             out.flush();  
             out.close();  
   
-            // 读取返回数据  
             StringBuffer strBuf = new StringBuffer();  
             BufferedReader reader = new BufferedReader(new InputStreamReader(  
                     conn.getInputStream()));  
@@ -295,7 +270,6 @@ public class HelperQuestion {
             reader.close();  
             reader = null;  
         } catch (Exception e) {  
-            System.out.println("发送POST请求出错。" + urlStr);  
             e.printStackTrace();  
         } finally {  
             if (conn != null) {  
@@ -303,8 +277,9 @@ public class HelperQuestion {
                 conn = null;  
             }  
         }  
-        System.out.println(res);
+        //System.out.println(res);
         return res;  
     }  
 	
+    
 }

@@ -3,12 +3,12 @@ package cn.edu.fudan.blueflamingo.HandinHandServerHelper;
 public class Comment {
 	public int id;
 	public int uid = 0;
-	public int createdTime = 0;
+	public long createdTime = 0;
 	public int parentCid = 0;
 	public String content = "";
 	public int aid = 0;
 	
-	public Comment(int id,int uid,int createdTime,int parentCid, String content,int aid){
+	public Comment(int id,int uid,long createdTime,int parentCid, String content,int aid){
 		this.id = id;
 		this.uid = uid;
 		this.createdTime = createdTime;
@@ -17,5 +17,9 @@ public class Comment {
 		this.aid = aid;
 	}
 	public Comment(){
+	}
+	public String toString() {
+		String str = "cid=" + id;
+		return str;
 	}
 }
