@@ -20,4 +20,9 @@ public class Message {
 	}
 	public Message(){
 	}
+	
+	public String toString() {
+		String str = "mid=" + id;
+		return str;
+	}
 }

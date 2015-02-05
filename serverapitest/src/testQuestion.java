@@ -2,14 +2,15 @@ import java.io.File;
 import java.util.ArrayList;
 
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.Answer;
-import cn.edu.fudan.blueflamingo.HandinHandServerHelper.HelperQuestion;
+import cn.edu.fudan.blueflamingo.HandinHandServerHelper.QuestionHelper;
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.Question;
 import cn.edu.fudan.blueflamingo.HandinHandServerHelper.User;
+import cn.edu.fudan.blueflamingo.HandinHandServerHelper.ExQuestion;
 
 public class testQuestion {
 	
 	public static void main(String[] args) {
-		HelperQuestion helperquestion = new HelperQuestion();
+		QuestionHelper helperquestion = new QuestionHelper();
 		
 		 //helperquestion.uploadFile("demo.jpg");
 		
@@ -36,8 +37,8 @@ public class testQuestion {
 		System.out.print(num1);
 		
 		//test getByTopic
-		ArrayList<Question> ques1 = new ArrayList<Question>();
-		ArrayList<Question> ques2 = new ArrayList<Question>();
+		ArrayList<ExQuestion> ques1 = new ArrayList<ExQuestion>();
+		ArrayList<ExQuestion> ques2 = new ArrayList<ExQuestion>();
 		ques1 = helperquestion.getByTopic(1);
 		ques2 = helperquestion.getByTopic(2);
 		System.out.print(ques1);

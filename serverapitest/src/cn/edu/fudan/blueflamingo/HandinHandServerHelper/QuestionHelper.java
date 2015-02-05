@@ -24,49 +24,37 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
-public class HelperComment {
-    
-	public int add(Comment c){
-		String url =  "http://121.199.64.117:8888/HandInHand/comment.php";
-			//String url = "http://127.0.0.1/HandInHand/comment.php";
+public class QuestionHelper {
+
+	public int add(Question q){
+		String url =  "http://121.199.64.117:8888/HandInHand/question.php";
+			//String url = "http://127.0.0.1/HandInHand/question.php";
 			ObjectMapper mapper = new ObjectMapper();
 			String entry = "";
 			try {
-				entry = mapper.writeValueAsString(c);
-			} catch (JsonGenerationException e) {
-				// TODO Auto-generated catch block
+				entry = mapper.writeValueAsString(q);
+			} catch (Exception e) {
+				
 				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 			String temp;
-			int cid;
+			int qid;
 			temp = sendPost(url, "op=add&entry=" + entry);
-			cid = Integer.valueOf(temp);
-			return cid;
+			qid = Integer.valueOf(temp);
+			return qid;
 		  }
 		
-	public int update(Comment c){
-	    String url =   "http://121.199.64.117:8888/HandInHand/comment.php";
-			//String url = "http://127.0.0.1/HandInHand/comment.php";
+	public int update(Question q){
+	    String url =   "http://121.199.64.117:8888/HandInHand/question.php";
+			//String url = "http://127.0.0.1/HandInHand/question.php";
 			ObjectMapper mapper = new ObjectMapper();
 			String entry = "";
 			try {
-				entry = mapper.writeValueAsString(c);
-			} catch (JsonGenerationException e) {
-				// TODO Auto-generated catch block
+				entry = mapper.writeValueAsString(q);
+			} catch (Exception e) {
+				
 				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 		    String temp;
 			int num;
 	        temp = sendPost(url, "op=update&entry=" + entry);
@@ -74,70 +62,58 @@ public class HelperComment {
 			return num;
 	    }
 	    
-	public int delete(int id){
-		String url =   "http://121.199.64.117:8888/HandInHand/comment.php";
-			//String url = "http://127.0.0.1/HandInHand/comment.php";
-			String cid = String.valueOf(id);
+	public int delete(int qId){
+		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
+			//String url = "http://127.0.0.1/HandInHand/question.php";
+			String qid = String.valueOf(qId);
 			String temp;
 			int num;
-			temp = sendPost(url, "op=delete&cid=" + cid);
+			temp = sendPost(url, "op=delete&qid=" + qid);
 			num = Integer.valueOf(temp);
 			return num;		
 		
 		}
-		
-	public ArrayList<Comment>  getByAid(int id){
-		String url =   "http://121.199.64.117:8888/HandInHand/comment.php";
-			//String url = "http://127.0.0.1/HandInHand/comment.php";
-			String aid = String.valueOf(id);
+	 	
+    public ArrayList<ExQuestion>  getByTopic(int tId){
+		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
+			//String url = "http://127.0.0.1/HandInHand/question.php";
+			String tid = String.valueOf(tId); 
 			String temp;
-			ArrayList<Comment> comment = new ArrayList<Comment>();
-			temp = sendPost(url, "op=getByAid&aid=" + aid);
+			ArrayList<Question> questions = new ArrayList<Question>();
+			temp = sendPost(url, "op=getByTopic&tid=" + tid);
 			
 			ObjectMapper mapper = new ObjectMapper();
 			try {
-				comment = mapper.readValue(temp, new TypeReference<ArrayList<Comment>>() {});
-			} catch (JsonGenerationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				questions = mapper.readValue(temp, new TypeReference<ArrayList<Question>>() {});
+			} catch (Exception e) {
+				
 				e.printStackTrace();
 			}
 			
-			return comment;
+			return Utility.questionToExQuestion(questions);
+			
+		}
+		
+    public ExQuestion getByQid(int qId){
+		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
+			//String url = "http://127.0.0.1/HandInHand/question.php";
+			String qid = String.valueOf(qId);
+			String temp;
+			Question question = new Question();
+			temp = sendPost(url, "op=getByQid&qid=" + qid);
+			
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				question = mapper.readValue(temp, new TypeReference<Question>() {});
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			} 
+			
+			return Utility.questionToExQuestion(question);
 		
 		}
-	
-	public Comment getByCid(int id){
-		String url =   "http://121.199.64.117:8888/HandInHand/comment.php";
-			//String url = "http://127.0.0.1/HandInHand/comment.php";
-			String cid = String.valueOf(id);
-			String temp;
-			Comment comment1 = new Comment();
-			temp = sendPost(url, "op=getByCid&cid=" + cid);
-			
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				comment1 = mapper.readValue(temp, new TypeReference<Comment>() {});
-			} catch (JsonGenerationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return comment1;
 		
-		}	
-	
 	public String sendPost(String url, String param) {
 		System.out.println(param);
         PrintWriter out = null;

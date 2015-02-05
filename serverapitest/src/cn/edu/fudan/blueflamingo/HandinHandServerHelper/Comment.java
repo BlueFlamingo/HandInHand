@@ -18,4 +18,8 @@ public class Comment {
 	}
 	public Comment(){
 	}
+	public String toString() {
+		String str = "cid=" + id;
+		return str;
+	}
 }

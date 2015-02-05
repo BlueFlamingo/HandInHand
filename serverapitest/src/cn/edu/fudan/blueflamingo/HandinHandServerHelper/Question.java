@@ -27,4 +27,8 @@ public class Question {
 	}
 	public Question(){
 	}
+	public String toString() {
+		String str = "qid=" + id;
+		return str;
+	}
 }
