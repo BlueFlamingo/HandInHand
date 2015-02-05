@@ -91,7 +91,7 @@ public class UserHelper {
 			User user = new User();
 			ObjectMapper mapper1 = new ObjectMapper();
 			temp = sendPost(url, "op=get&username=" + username);
-			System.out.print(temp);
+			
 			try {
 				user = mapper1.readValue(temp, new TypeReference<User>() {});
 			} catch (Exception e) {
@@ -108,7 +108,7 @@ public class UserHelper {
 			String uid = String.valueOf(uId);
 			String temp;
 			int countQuestions;
-			System.out.print(uid);
+			
 
 			temp = sendPost(url, "op=countQuestions&uid=" + uid);
 			countQuestions = Integer.valueOf(temp);
@@ -277,7 +277,7 @@ public class UserHelper {
 		
 	    	
 	public String sendPost(String url, String param) {
-		System.out.println(param);
+		//System.out.println(param);
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -439,7 +439,7 @@ public class UserHelper {
                 conn = null;  
             }  
         }  
-        System.out.println(res);
+        //System.out.println(res);
         return res;  
     }  
 	

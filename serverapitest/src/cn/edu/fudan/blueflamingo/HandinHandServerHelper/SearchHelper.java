@@ -43,7 +43,7 @@ public class SearchHelper {
 		
 		}
 	public String sendPost(String url, String param) {
-		System.out.println(param);
+		//System.out.println(param);
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";

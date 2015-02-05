@@ -115,7 +115,7 @@ public class AnswerHelper {
 		}
 		
 	public String sendPost(String url, String param) {
-		System.out.println(param);
+		//System.out.println(param);
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -161,7 +161,7 @@ public class AnswerHelper {
                 ex.printStackTrace();
             }
         }
-        System.out.println(result);
+        //System.out.println(result);
         return result;
     }    
 	
@@ -277,7 +277,7 @@ public String uploadFile(String filePath) {
                 conn = null;  
             }  
         }  
-        System.out.println(res);
+        //System.out.println(res);
         return res;  
     }  
 	

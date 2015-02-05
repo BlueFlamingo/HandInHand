@@ -115,7 +115,7 @@ public class QuestionHelper {
 		}
 		
 	public String sendPost(String url, String param) {
-		System.out.println(param);
+		//System.out.println(param);
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -161,7 +161,7 @@ public class QuestionHelper {
                 ex.printStackTrace();
             }
         }
-        System.out.println(result);
+        //System.out.println(result);
         return result;
     }    
 	
@@ -271,7 +271,7 @@ public class QuestionHelper {
             reader.close();  
             reader = null;  
         } catch (Exception e) {  
-            System.out.println("发送POST请求出错。" + urlStr);  
+            //System.out.println("发送POST请求出错。" + urlStr);  
             e.printStackTrace();  
         } finally {  
             if (conn != null) {  
@@ -279,7 +279,7 @@ public class QuestionHelper {
                 conn = null;  
             }  
         }  
-        System.out.println(res);
+        //System.out.println(res);
         return res;  
     }  
 	
