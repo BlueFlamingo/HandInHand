@@ -8,13 +8,13 @@ public class Question {
 	public int score1 = 0;
 	public int score2 = 0;
 	public int uid;
-	public int createdTime = 0;
+	public long createdTime = 0;
 	public String picture = "";
 	public String title = "";
 	
 	public ArrayList<Integer> topics = new ArrayList<Integer>();
 	
-	public Question(int id,String content,int score1,int score2,int uid,int createdTime, String picture,String title,ArrayList<Integer> topics){
+	public Question(int id,String content,int score1,int score2,int uid,long createdTime, String picture,String title,ArrayList<Integer> topics){
 		this.id = id;
 		this.content = content;
 		this.score1 = score1;

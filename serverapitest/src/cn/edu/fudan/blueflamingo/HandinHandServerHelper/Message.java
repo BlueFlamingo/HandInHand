@@ -6,10 +6,10 @@ public class Message {
 	public int receiver;
 	public String title = "";
 	public String content = "";
-	public int createdTime = 0;
-	public int status = 0; // 0Î´¶Á 1ÒÑ¶Á
+	public long createdTime = 0;
+	public int status = 0;
 	
-	public Message(int id,int sender,int receiver,String title,String content,int createdTime,int status){
+	public Message(int id,int sender,int receiver,String title,String content,long createdTime,int status){
 		this.id = id;
 		this.sender = sender;
 		this.receiver = receiver;
