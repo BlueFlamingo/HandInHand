@@ -14,11 +14,17 @@ public class QuestionItemActivity extends ActionBarActivity {
 
 	private int QID = -1;
 
+	public static int MODE = 0;
+
+	public final static int FROM_QUESTION_LIST = 0;
+	public final static int FROM_USER_ASKED_LIST = 1;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_item);
 		QID = getIntent().getExtras().getInt("qid");
+		MODE = getIntent().getExtras().getInt("MODE");
 		initToolbar();
 		initAnswerListFragment();
 	}
@@ -53,12 +59,14 @@ public class QuestionItemActivity extends ActionBarActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 
-		switch (id) {
-			case R.id.action_write_answer:
-				Toast.makeText(this, "write answer", Toast.LENGTH_SHORT).show();
-				Intent writeIntent = new Intent(this, AnswerEditActivity.class);
-				writeIntent.putExtra("qid", QID);
-				startActivity(writeIntent);
+		if (MODE == QuestionItemActivity.FROM_QUESTION_LIST) {
+			switch (id) {
+				case R.id.action_write_answer:
+					Toast.makeText(this, "write answer", Toast.LENGTH_SHORT).show();
+					Intent writeIntent = new Intent(this, AnswerEditActivity.class);
+					writeIntent.putExtra("qid", QID);
+					startActivity(writeIntent);
+			}
 		}
 
 		return super.onOptionsItemSelected(item);

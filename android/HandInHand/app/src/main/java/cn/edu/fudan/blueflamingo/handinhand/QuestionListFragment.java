@@ -50,6 +50,7 @@ public class QuestionListFragment extends Fragment {
 				public void onItemClick(View view, int position) {
 					Intent qItemIntent = new Intent(getActivity(), QuestionItemActivity.class);
 					qItemIntent.putExtra("qid", questions.get(position).getId());
+					qItemIntent.putExtra("MODE", QuestionItemActivity.FROM_QUESTION_LIST);
 					startActivity(qItemIntent);
 				}
 			});

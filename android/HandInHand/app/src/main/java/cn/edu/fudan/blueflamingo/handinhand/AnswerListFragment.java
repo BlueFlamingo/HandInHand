@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.adapter.AnswerAdapter;
+import cn.edu.fudan.blueflamingo.handinhand.adapter.SimpleAnswerAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.model.Answer;
 import cn.edu.fudan.blueflamingo.handinhand.model.AnswerHeader;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
@@ -27,6 +28,8 @@ public class AnswerListFragment extends Fragment {
 	private AnswerAdapter answerAdapter;
 	private List<Answer> answers = new ArrayList<>();
 	private AnswerHeader answerHeader;
+
+	private int MODE = 0;
 
 	public AnswerListFragment() {
 		// Required empty public constructor
@@ -46,12 +49,13 @@ public class AnswerListFragment extends Fragment {
 		ActionBarActivity parent = (ActionBarActivity) getActivity();
 
 		int QID = parent.getIntent().getExtras().getInt("qid");
+		MODE = parent.getIntent().getExtras().getInt("MODE");
 
 		Log.d("q item", String.valueOf(QID));
 
 		answers.add(new Answer("I am a test answer!!!", 0));
-		answerHeader = new AnswerHeader("I am test answer title",
-				"I am a test answer description", 123);
+		answerHeader = new AnswerHeader("I am test question title",
+				"I am a test question description", 123);
 
 		setToolbarTitle(answers.size(), parent);
 
@@ -59,16 +63,31 @@ public class AnswerListFragment extends Fragment {
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(parent));
 		mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 		mRecyclerView.setHasFixedSize(true);
-		answerAdapter = new AnswerAdapter(parent, answers, answerHeader);
-		answerAdapter.setOnItemClickListener(new AnswerAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(View view, int position) {
-				Intent aItemIntent = new Intent(getActivity(), AnswerItemActivity.class);
-				aItemIntent.putExtra("aid", answers.get(position - 1).getId());
-				startActivity(aItemIntent);
-			}
-		});
-		mRecyclerView.setAdapter(answerAdapter);
+		if (MODE == QuestionItemActivity.FROM_QUESTION_LIST) {
+			answerAdapter = new AnswerAdapter(parent, answers, answerHeader);
+			answerAdapter.setOnItemClickListener(new AnswerAdapter.OnItemClickListener() {
+				@Override
+				public void onItemClick(View view, int position) {
+					Intent aItemIntent = new Intent(getActivity(), AnswerItemActivity.class);
+					aItemIntent.putExtra("aid", answers.get(position - 1).getId());
+					startActivity(aItemIntent);
+				}
+			});
+			mRecyclerView.setAdapter(answerAdapter);
+		} else {
+			SimpleAnswerAdapter simpleAnswerAdapter = new SimpleAnswerAdapter(parent, answers);
+			simpleAnswerAdapter.setOnItemClickListener(new SimpleAnswerAdapter.OnItemClickListener() {
+				@Override
+				public void onItemClick(View view, int position) {
+					Intent aItemIntent = new Intent(getActivity(), AnswerItemActivity.class);
+					aItemIntent.putExtra("aid", answers.get(position).getId());
+					startActivity(aItemIntent);
+				}
+			});
+			mRecyclerView.setAdapter(simpleAnswerAdapter);
+		}
+
+
 
 		initLoadAndRefresh(parent);
 	}

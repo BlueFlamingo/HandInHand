@@ -61,9 +61,10 @@
                 android:id="@+id/question_topic_spinner"
                 android:padding="16dp"
                 android:layout_marginLeft="32dp"
-                android:background="@color/background_floating_material_light"
-                android:popupBackground="@color/background_material_light"
+                android:popupBackground="@color/background_floating_material_light"
+                android:background="@drawable/abc_spinner_mtrl_am_alpha"
                 android:layout_below="@+id/question_topic_hint"
+                android:spinnerMode="dropdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.os.Handler;
+import android.widget.LinearLayout;
 
 import java.security.spec.ECField;
 
@@ -45,6 +46,15 @@ public class HomePageFragment extends Fragment {
 		initTopicListener(v);
 		initRefreshLoad(v);
 		initToolbar();
+
+		LinearLayout user = (LinearLayout) getActivity().findViewById(R.id.drawer_user);
+		user.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent userIntent = new Intent(getActivity(), UserInfoActivity.class);
+				startActivity(userIntent);
+			}
+		});
 		return v;
 	}
 

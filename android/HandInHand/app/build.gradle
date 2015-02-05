@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "cn.edu.fudan.blueflamingo.handinhand"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"

@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="cn.edu.fudan.blueflamingo.handinhand.UserEditActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/user_edit_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_below="@id/user_edit_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_below="@+id/user_edit_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/user_edit_portrait"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:padding="20dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/app"/>
+
+            <com.gc.materialdesign.views.ButtonFlat
+                android:id="@+id/user_edit_btn_editPortrait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_edit_portrait"
+                android:layout_centerHorizontal="true"
+                android:text="编辑头像"
+                android:background="@color/yellow900">
+            </com.gc.materialdesign.views.ButtonFlat>
+
+            <TextView
+                android:id="@+id/user_edit_nickname_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="48dp"
+                android:layout_below="@id/user_edit_btn_editPortrait"
+                android:text="昵称"
+                android:textColor="@color/yellow900"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/user_edit_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="48dp"
+                android:layout_marginRight="48dp"
+                android:layout_below="@+id/user_edit_nickname_text"
+                android:background="@drawable/abc_edit_text_material"
+                android:text="qwerty"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/user_edit_gender_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="48dp"
+                android:layout_below="@+id/user_edit_nickname"
+                android:text="性别"
+                android:textColor="@color/yellow900"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <Spinner
+                android:id="@+id/user_edit_gender_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="48dp"
+                android:layout_marginRight="48dp"
+                android:entries="@array/gender_array"
+                android:layout_below="@+id/user_edit_gender_text"
+                android:textColor="@color/black"
+                android:padding="8dp"
+                android:spinnerMode="dropdown"
+                android:popupBackground="@color/background_floating_material_light"
+                android:background="@drawable/abc_spinner_mtrl_am_alpha">
+            </Spinner>
+
+            <TextView
+                android:id="@+id/user_edit_signature_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="48dp"
+                android:layout_below="@id/user_edit_gender_spinner"
+                android:text="一句话介绍"
+                android:textColor="@color/yellow900"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/user_edit_signature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="48dp"
+                android:layout_marginRight="48dp"
+                android:layout_below="@+id/user_edit_signature_text"
+                android:background="@drawable/abc_edit_text_material"
+                android:text="asdfg"
+                android:textColor="@color/black"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

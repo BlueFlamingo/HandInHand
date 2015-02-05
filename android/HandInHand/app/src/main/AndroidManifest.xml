@@ -54,6 +54,18 @@
             android:name=".CommentListActivity"
             android:label="@string/title_activity_comment_list" >
         </activity>
+        <activity
+            android:name=".UserInfoActivity"
+            android:label="@string/title_activity_user_info" >
+        </activity>
+        <activity
+            android:name=".UserEditActivity"
+            android:label="@string/title_activity_user_edit" >
+        </activity>
+        <activity
+            android:name=".UserListActivity"
+            android:label="@string/title_activity_user_list" >
+        </activity>
     </application>
 
 </manifest>
