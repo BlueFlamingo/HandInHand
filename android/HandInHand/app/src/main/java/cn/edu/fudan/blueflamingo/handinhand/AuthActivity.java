@@ -14,6 +14,10 @@ public class AuthActivity extends ActionBarActivity {
 
 	private FragmentManager fragmentManager;
 
+	public final static int HANG_OUT = 1;
+	public final static int REGISTERED = 2;
+	public final static int LOGINED = 3;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

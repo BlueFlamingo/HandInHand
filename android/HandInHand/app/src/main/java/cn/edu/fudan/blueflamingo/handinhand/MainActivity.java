@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFlat;
@@ -17,9 +19,12 @@ import com.gc.materialdesign.views.ButtonFlat;
 
 public class MainActivity extends ActionBarActivity {
 
-	private Global globalVal;
+	public Global globalVal;
 
 	private final static int AUTH_ACTIVITY = 0;
+
+	private TextView nicknameTextView;
+	private ImageView portraitImageView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,8 @@ public class MainActivity extends ActionBarActivity {
 		if (!globalVal.getLoginFlag()) {
 			Intent authIntent = new Intent(this, AuthActivity.class);
 			startActivity(authIntent);
+		} else {
+			nicknameTextView.setText(globalVal.getNickname());
 		}
 	}
 
@@ -52,18 +59,21 @@ public class MainActivity extends ActionBarActivity {
 			mDrawerLayout.setDrawerListener(mDrawerToggle);
 			//initial btn_login
 			//check whether the login process is needed and change the text of it
-			com.gc.materialdesign.views.ButtonFlat btnLogin = (com.gc.materialdesign.views.ButtonFlat) findViewById(R.id.btn_login);
+			final com.gc.materialdesign.views.ButtonFlat btnLogin = (com.gc.materialdesign.views.ButtonFlat) findViewById(R.id.btn_login);
 			if (globalVal.getLoginFlag()) {
 				btnLogin.setText("登出");
 				btnLogin.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						globalVal.setLoginFlag(false);
+						btnLogin.setText("登出");
 						Intent loginIntent = new Intent(MainActivity.this, AuthActivity.class);
-						startActivity(loginIntent);
+						startActivityForResult(loginIntent, AUTH_ACTIVITY);
 					}
 				});
 			}
+			//bind
+			nicknameTextView = (TextView) findViewById(R.id.drawer_username);
+			portraitImageView = (ImageView) findViewById(R.id.drawer_head);
 		}
 	}
 
@@ -120,7 +130,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	@Override
-	public void onActivityResult(int reqCode, int resCode, Intent data) {
+	protected void onActivityResult(int reqCode, int resCode, Intent data) {
 		super.onActivityResult(reqCode, resCode, data);
 		switch (reqCode) {
 			case AUTH_ACTIVITY:
@@ -129,6 +139,17 @@ public class MainActivity extends ActionBarActivity {
 					btnLogin.setText("登出");
 				} else {
 					btnLogin.setText("登陆");
+				}
+				switch (resCode) {
+					case AuthActivity.HANG_OUT:
+						globalVal.setLoginFlag(false);
+						nicknameTextView.setText("随便逛逛的人");
+						portraitImageView.setImageResource(R.drawable.app);
+						break;
+					case AuthActivity.REGISTERED:
+					case AuthActivity.LOGINED:
+						//TODO:获取头像
+						nicknameTextView.setText(globalVal.getNickname());
 				}
 				break;
 			default:
@@ -143,6 +164,17 @@ public class MainActivity extends ActionBarActivity {
 			fragmentManager.popBackStack();
 		} else {
 			super.onBackPressed();
+		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		com.gc.materialdesign.views.ButtonFlat btnLogin = (com.gc.materialdesign.views.ButtonFlat) findViewById(R.id.btn_login);
+		if (globalVal.getLoginFlag()) {
+			btnLogin.setText("登出");
+		} else {
+			btnLogin.setText("登陆");
 		}
 	}
 }

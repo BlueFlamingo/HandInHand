@@ -1,6 +1,5 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -10,10 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class AuthFragment extends Fragment {
 
 	private Global globalVal;
@@ -23,7 +18,6 @@ public class AuthFragment extends Fragment {
 	public AuthFragment() {
 		// Required empty public constructor
 	}
-
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,7 +73,7 @@ public class AuthFragment extends Fragment {
 	}
 
 	private void authHangout() {
-		getActivity().setResult(Activity.RESULT_OK, getActivity().getIntent());
+		getActivity().setResult(AuthActivity.HANG_OUT, getActivity().getIntent());
 		getActivity().finish();
 	}
 }
