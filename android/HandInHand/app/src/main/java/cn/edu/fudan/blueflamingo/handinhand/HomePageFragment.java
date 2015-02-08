@@ -1,21 +1,16 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
-import android.app.ActionBar;
-import android.app.FragmentManager;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.os.Handler;
 import android.widget.LinearLayout;
-
-import java.security.spec.ECField;
 
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 

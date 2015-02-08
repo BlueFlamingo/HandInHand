@@ -1,8 +1,8 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;

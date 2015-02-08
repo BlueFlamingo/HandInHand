@@ -1,10 +1,10 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +38,7 @@ public class QuestionListFragment extends Fragment {
 		Activity parent = getActivity();
 		final ArrayList<Integer> topic = new ArrayList<>();
 		topic.add(1);
-		questions.add(new Question(0,"this is a test",0,0,"test title",topic));
+		questions.add(new Question(0,"test content",0,0,0,0,"123","test title",topic));
 
 		mRecyclerView = (RecyclerView)getActivity().findViewById(R.id.main_question_recycler_view);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(parent));

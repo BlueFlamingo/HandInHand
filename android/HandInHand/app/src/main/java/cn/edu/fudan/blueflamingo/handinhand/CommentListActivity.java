@@ -1,8 +1,8 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +30,7 @@ public class CommentListActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_comment_list);
 		initToolbar();
 
-		comments.add(new Comment(0,0,20150204,"I am a test comment content!!",1));
+		comments.add(new Comment(0, 0, 0, 0, "test comment", 0));
 
 		mRecyclerView = (RecyclerView) findViewById(R.id.comment_item_recyclerview);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

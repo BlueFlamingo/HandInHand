@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Question {
 
-	private int id = -1;
-	private String content = "";
-	private int score1 = 0;			//点赞，对于问题只要用score1就行了
-	private int score2 = 0;			//点踩
-	private int uid = -1;
-	private int createdTime = 0;
-	private String picture = "";
-	private String title = "";
-	private ArrayList<Integer> topics = new ArrayList<>();
+	public int id = -1;
+	public String content = "";
+	public int score1 = 0;			//点赞，对于问题只要用score1就行了
+	public int score2 = 0;			//点踩
+	public int uid = -1;
+	public long createdTime = 0;
+	public String picture = "";
+	public String title = "";
+	public ArrayList<Integer> topics = new ArrayList<>();
 
 	public int getId() {
 		return this.id;
@@ -30,7 +30,7 @@ public class Question {
 		return this.score2;
 	}
 
-	public int getCreatedTime() {
+	public long getCreatedTime() {
 		return this.createdTime;
 	}
 
@@ -46,66 +46,23 @@ public class Question {
 		return this.topics;
 	}
 
-	public Question(int id, String content, int uid, int createdTime, String title, ArrayList<Integer> topics) {
-		this.id = id;
-		this.content = content;
-		this.uid = uid;
-		this.createdTime = createdTime;
-		this.title = title;
-		this.topics = topics;
-	}
-
-	public Question(int id, String content, int uid, int createdTime, String title, String picture, ArrayList<Integer> topics) {
-		this.id = id;
-		this.content = content;
-		this.uid = uid;
-		this.createdTime = createdTime;
-		this.title = title;
-		this.picture = picture;
-		this.topics = topics;
-	}
-
-	public Question(int id, String content, int uid,int score1, int createdTime, String title, String picture, ArrayList<Integer> topics) {
-		this.id = id;
-		this.content = content;
-		this.uid = uid;
-		this.score1 = score1;
-		this.createdTime = createdTime;
-		this.title = title;
-		this.picture = picture;
-		this.topics = topics;
-	}
-
-	public Question(int id, String content, int uid, int score1, int createdTime, String title, ArrayList<Integer> topics) {
-		this.id = id;
-		this.content = content;
-		this.score1 = score1;
-		this.uid = uid;
-		this.createdTime = createdTime;
-		this.title = title;
-		this.topics = topics;
-	}
-
-	public Question(int id, String content, int score1, int score2, int uid, int createdTime, String title, ArrayList<Integer> topics) {
+	public Question(int id,String content,int score1,int score2,int uid,long createdTime, String picture,String title,ArrayList<Integer> topics){
 		this.id = id;
 		this.content = content;
 		this.score1 = score1;
 		this.score2 = score2;
 		this.uid = uid;
 		this.createdTime = createdTime;
+		this. picture =  picture;
 		this.title = title;
 		this.topics = topics;
 	}
 
-	public Question(int id, String content, int score1, int score2, int uid, int createdTime, String picture, String title, ArrayList<Integer> topics) {
-		this.id = id;
-		this.content = content;
-		this.score1 = score1;
-		this.score2 = score2;
-		this.uid = uid;
-		this.createdTime = createdTime;
-		this.picture = picture;
-		this.title = title;
-		this.topics = topics;
+	public Question(){
+	}
+
+	public String toString() {
+		String str = "qid=" + id;
+		return str;
 	}
 }

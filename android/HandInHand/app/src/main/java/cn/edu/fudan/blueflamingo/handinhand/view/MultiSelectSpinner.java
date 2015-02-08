@@ -1,9 +1,5 @@
 package cn.edu.fudan.blueflamingo.handinhand.view;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +8,10 @@ import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickListener{
 	String[] _items = null;

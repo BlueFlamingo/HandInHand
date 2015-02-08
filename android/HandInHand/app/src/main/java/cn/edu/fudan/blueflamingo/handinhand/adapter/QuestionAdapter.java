@@ -46,14 +46,14 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 		viewHolder.titleTextView.setText(q.getTitle());
 		//TODO:设置头像
 		//viewHolder.headImageView.setImageBitmap();
-		viewHolder.watchNumTextView.setText(String.valueOf(q.getScore1()));
+		/*viewHolder.watchNumTextView.setText(String.valueOf(q.getScore1()));
 		if (q.getContent().length() > 30) {
 			viewHolder.abstractTextView.setText(q.getContent().substring(0, 30));
 		} else {
 			viewHolder.abstractTextView.setText(q.getContent());
 		}
 		viewHolder.timeTextView.setText(String.valueOf(q.getCreatedTime()));
-
+*/
 		//如果设置了回调则设置点击事件
 		if (mOnItemClickListener != null) {
 			viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

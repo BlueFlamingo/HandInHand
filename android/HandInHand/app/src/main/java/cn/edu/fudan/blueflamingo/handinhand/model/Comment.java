@@ -1,15 +1,16 @@
 package cn.edu.fudan.blueflamingo.handinhand.model;
 
 public class Comment {
-	private int id = -1;
-	private int uid = 0;
-	private int createdTime = 0;
-	private int parentCid = 0;
-	private String content = "";
-	private int aid = 0;
+	public int id = -1;
+	public int uid = 0;
+	public long createdTime = 0;
+	public int parentCid = 0;
+	public String content = "";
+	public int aid = 0;
 
-	private String username;
-	private String portrait;
+	//TODO:need to be removed
+	public String username;
+	public String portrait;
 
 	public int getId() {
 		return this.id;
@@ -19,7 +20,7 @@ public class Comment {
 		return this.uid;
 	}
 
-	public int getCreatedTime() {
+	public long getCreatedTime() {
 		return this.createdTime;
 	}
 
@@ -35,38 +36,28 @@ public class Comment {
 		return this.aid;
 	}
 
+	//TODO:need to be removed
 	public String getUsername() {
 		return this.username;
 	}
-
 	public String getPortrait() {
 		return this.portrait;
 	}
 
-	public Comment(int id, int uid, int createdTime, String content, int aid) {
+	public Comment(int id,int uid,long createdTime,int parentCid, String content,int aid){
 		this.id = id;
 		this.uid = uid;
 		this.createdTime = createdTime;
+		this. parentCid =  parentCid;
 		this.content = content;
 		this.aid = aid;
 	}
 
-	public Comment(int id, int uid, int createdTime, String content, int aid, String username) {
-		this.id = id;
-		this.uid = uid;
-		this.createdTime = createdTime;
-		this.content = content;
-		this.aid = aid;
-		this.username = username;
+	public Comment(){
 	}
 
-	public Comment(int id, int uid, int createdTime, String content, int aid, String username, String portrait) {
-		this.id = id;
-		this.uid = uid;
-		this.createdTime = createdTime;
-		this.content = content;
-		this.aid = aid;
-		this.username = username;
-		this.portrait = portrait;
+	public String toString() {
+		String str = "cid=" + id;
+		return str;
 	}
 }
