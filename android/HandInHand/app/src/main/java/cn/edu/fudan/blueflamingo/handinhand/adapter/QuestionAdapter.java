@@ -2,15 +2,19 @@ package cn.edu.fudan.blueflamingo.handinhand.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.R;
+import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 import cn.edu.fudan.blueflamingo.handinhand.model.Question;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
@@ -25,11 +29,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 		this.mOnItemClickListener = mOnItemClickListener;
 	}
 
-	private List<Question> questions;
+	private List<ExQuestion> questions;
 
 	private Context mContext;
 
-	public QuestionAdapter(Context context, List<Question> questions) {
+	public QuestionAdapter(Context context, List<ExQuestion> questions) {
 		this.mContext = context;
 		this.questions = questions;
 	}
@@ -42,18 +46,20 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
 	@Override
 	public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-		Question q = questions.get(i);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		ExQuestion q = questions.get(i);
 		viewHolder.titleTextView.setText(q.getTitle());
 		//TODO:设置头像
 		//viewHolder.headImageView.setImageBitmap();
-		/*viewHolder.watchNumTextView.setText(String.valueOf(q.getScore1()));
+		viewHolder.watchNumTextView.setText(String.valueOf(q.getScore1()));
 		if (q.getContent().length() > 30) {
 			viewHolder.abstractTextView.setText(q.getContent().substring(0, 30));
 		} else {
 			viewHolder.abstractTextView.setText(q.getContent());
 		}
-		viewHolder.timeTextView.setText(String.valueOf(q.getCreatedTime()));
-*/
+		viewHolder.timeTextView.setText(simpleDateFormat.format(new Date(q.getCreatedTime())));
+		Log.d("created time", simpleDateFormat.format(new Date(q.getCreatedTime())));
+
 		//如果设置了回调则设置点击事件
 		if (mOnItemClickListener != null) {
 			viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

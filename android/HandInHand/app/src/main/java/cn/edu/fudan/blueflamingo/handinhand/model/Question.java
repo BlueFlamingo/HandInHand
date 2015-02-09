@@ -46,6 +46,14 @@ public class Question {
 		return this.topics;
 	}
 
+	public Question(String title, String content, int uid, long createdTime, ArrayList<Integer> topics) {
+		this.title = title;
+		this.content = content;
+		this.uid = uid;
+		this.createdTime = createdTime;
+		this.topics = topics;
+	}
+
 	public Question(int id,String content,int score1,int score2,int uid,long createdTime, String picture,String title,ArrayList<Integer> topics){
 		this.id = id;
 		this.content = content;

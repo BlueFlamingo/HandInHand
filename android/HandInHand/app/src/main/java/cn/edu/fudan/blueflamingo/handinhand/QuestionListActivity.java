@@ -14,11 +14,14 @@ public class QuestionListActivity extends ActionBarActivity {
 
 	private String TOPIC = "随便看看";
 
+	public int TID = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question_list);
 		TOPIC = getIntent().getExtras().getString("TOPIC");
+		TID = getIntent().getExtras().getInt("TID");
 		initToolbar();
 		initQuestionListFragment();
 	}

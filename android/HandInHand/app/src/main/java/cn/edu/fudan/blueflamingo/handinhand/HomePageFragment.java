@@ -16,13 +16,14 @@ import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
 public class HomePageFragment extends Fragment {
 
-	//cat_top:今日热门
-	//cat_1:学海无涯
-	//cat_2:校园生活
-	//cat_3:情感大话
-	//cat_4:职业发展
-	//cat_5:吃喝玩乐
-	//cat_6:其它
+	//						tid
+	//cat_top:今日热门		7
+	//cat_1:学海无涯			1
+	//cat_2:校园生活			2
+	//cat_3:情感大话			3
+	//cat_4:职业发展			4
+	//cat_5:吃喝玩乐			5
+	//cat_6:其它				6
 	private final String[] topics = {
 			"学海无涯", "校园生活", "情感大话",
 			"职业发展", "吃喝玩乐", "其它",
@@ -53,7 +54,7 @@ public class HomePageFragment extends Fragment {
 		return v;
 	}
 
-	private void initTopicOnClickListener(View v, int topic, final String topicString) {
+	private void initTopicOnClickListener(View v, final int topic, final String topicString) {
 		int RTopic = topicMapper(topic);
 		FrameLayout frameLayout = (FrameLayout) v.findViewById(RTopic);
 		frameLayout.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +62,7 @@ public class HomePageFragment extends Fragment {
 			public void onClick(View v) {
 				Intent qListIntent = new Intent(getActivity(), QuestionListActivity.class);
 				qListIntent.putExtra("TOPIC",topicString);
+				qListIntent.putExtra("TID", topic + 1);
 				startActivity(qListIntent);
 			}
 		});

@@ -25,7 +25,7 @@ public class Global extends Application {
 		mEditor.apply();
 	}
 
-	public int getUid(int uid) {
+	public int getUid() {
 		SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
 		return mPrefs.getInt("uid", -1);
 	}

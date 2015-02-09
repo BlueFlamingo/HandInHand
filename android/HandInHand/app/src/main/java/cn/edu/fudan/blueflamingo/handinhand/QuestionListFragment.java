@@ -3,19 +3,25 @@ package cn.edu.fudan.blueflamingo.handinhand;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.adapter.QuestionAdapter;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.QuestionHelper;
+import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 import cn.edu.fudan.blueflamingo.handinhand.model.Question;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
@@ -24,7 +30,14 @@ public class QuestionListFragment extends Fragment {
 
 	private RecyclerView mRecyclerView;
 	private QuestionAdapter questionAdapter;
-	private List<Question> questions = new ArrayList<>();
+	private List<ExQuestion> questions = new ArrayList<>();
+
+	private QuestionHelper questionHelper = new QuestionHelper();
+	private SwipeRefreshAndLoadLayout mSwipeLayout;
+	private Activity parent;
+	private LoadQuestionListTask loadQuestionListTask;
+
+	private int TID;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,10 +48,14 @@ public class QuestionListFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		Activity parent = getActivity();
-		final ArrayList<Integer> topic = new ArrayList<>();
-		topic.add(1);
-		questions.add(new Question(0,"test content",0,0,0,0,"123","test title",topic));
+		parent = getActivity();
+		TID = parent.getIntent().getExtras().getInt("TID");
+		Log.d("TID", String.valueOf(TID));
+
+		ArrayList<Integer> temp = new ArrayList<>();
+		temp.add(1);
+
+		questions.add(new ExQuestion(0,"",0,0,0,0,"","",temp,"",""));
 
 		mRecyclerView = (RecyclerView)getActivity().findViewById(R.id.main_question_recycler_view);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(parent));
@@ -46,28 +63,38 @@ public class QuestionListFragment extends Fragment {
 		mRecyclerView.setHasFixedSize(true);
 		questionAdapter = new QuestionAdapter(parent, questions);
 		questionAdapter.setOnItemClickListener(new QuestionAdapter.OnItemClickListener() {
-				@Override
-				public void onItemClick(View view, int position) {
-					Intent qItemIntent = new Intent(getActivity(), QuestionItemActivity.class);
-					qItemIntent.putExtra("qid", questions.get(position).getId());
-					qItemIntent.putExtra("MODE", QuestionItemActivity.FROM_QUESTION_LIST);
-					startActivity(qItemIntent);
-				}
-			});
+			@Override
+			public void onItemClick(View view, int position) {
+				Intent qItemIntent = new Intent(getActivity(), QuestionItemActivity.class);
+				qItemIntent.putExtra("qid", questions.get(position).getId());
+				qItemIntent.putExtra("MODE", QuestionItemActivity.FROM_QUESTION_LIST);
+				startActivity(qItemIntent);
+			}
+		});
 		mRecyclerView.setAdapter(questionAdapter);
 
-			final SwipeRefreshAndLoadLayout mSwipeLayout;
-			mSwipeLayout = (SwipeRefreshAndLoadLayout) parent.findViewById(R.id.main_question_swipe_container);
-			mSwipeLayout.setOnRefreshListener(new SwipeRefreshAndLoadLayout.OnRefreshListener() {
-				@Override
+		initRefresh();
+
+		loadQuestionListTask = new LoadQuestionListTask();
+		loadQuestionListTask.execute(TID);
+
+
+	}
+
+	private void initRefresh() {
+		mSwipeLayout = (SwipeRefreshAndLoadLayout) parent.findViewById(R.id.main_question_swipe_container);
+		mSwipeLayout.setOnRefreshListener(new SwipeRefreshAndLoadLayout.OnRefreshListener() {
+			@Override
 			public void onRefresh() {
+				(new LoadQuestionListTask()).execute(TID);
+				/*
 				new Handler().postDelayed(new Runnable() {
 					@Override
 					public void run() {
 						mSwipeLayout.setRefreshing(false);
 						//refresh
 					}
-				}, 1000);
+				}, 1000);*/
 			}
 
 			@Override
@@ -86,6 +113,42 @@ public class QuestionListFragment extends Fragment {
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
 		mSwipeLayout.setmMode(SwipeRefreshAndLoadLayout.Mode.BOTH);
+	}
+
+	private class LoadQuestionListTask extends AsyncTask<Integer, Integer, Integer> {
+
+		@Override
+		protected void onPreExecute() {
+			mSwipeLayout.setRefreshing(true);
+		}
+
+		@Override
+		protected Integer doInBackground(Integer... params) {
+			Integer tid = params[0];
+			questions.clear();
+			questions.addAll(questionHelper.getByTopic(tid));
+			Log.d("question size", String.valueOf(questions.size()));
+			if (questions.size() > 0) {
+				return 0;
+			} else {
+				return -1;
+			}
+
+		}
+
+		@Override
+		protected void onPostExecute(Integer result) {
+			switch (result) {
+				case 0:
+					questionAdapter.notifyDataSetChanged();
+					break;
+				case -1:
+					break;
+			}
+			mSwipeLayout.setRefreshing(false);
+
+		}
+
 	}
 
 }
