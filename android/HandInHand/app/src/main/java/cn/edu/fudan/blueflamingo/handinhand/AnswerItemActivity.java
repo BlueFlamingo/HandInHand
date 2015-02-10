@@ -1,24 +1,66 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import cn.edu.fudan.blueflamingo.handinhand.middleware.AnswerHelper;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.CommentHelper;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.FavoriteHelper;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.ScoreHelper;
+import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 
 
 public class AnswerItemActivity extends ActionBarActivity {
 
 	private int AID = -1;
+	private Global global;
+	private int approvNum;
+
+	private CommentHelper commentHelper = new CommentHelper();
+	private AnswerHelper answerHelper = new AnswerHelper();
+	private FavoriteHelper favoriteHelper = new FavoriteHelper();
+	private ScoreHelper scoreHelper = new ScoreHelper();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_answer_item);
 		initToolbar();
+		global = (Global) getApplication();
 		AID = getIntent().getExtras().getInt("aid");
-		//TODO:在这里设置回答的主体
+		String qTitle = getIntent().getExtras().getString("title");
+		String content = getIntent().getExtras().getString("content");
+		approvNum = getIntent().getExtras().getInt("approvNum");
+		String nickname = getIntent().getExtras().getString("nickname");
+		//设置回答的主体
+		TextView titleTextView = (TextView) findViewById(R.id.answer_item_title);
+		TextView contentTextView = (TextView) findViewById(R.id.answer_item_content);
+		TextView approvNumTextView = (TextView) findViewById(R.id.answer_item_approve_num);
+		TextView nicknameTextView = (TextView) findViewById(R.id.answer_item_username);
+		titleTextView.setText(qTitle);
+		contentTextView.setText(content);
+		approvNumTextView.setText(String.valueOf(approvNum));
+		nicknameTextView.setText(nickname);
+
+		//bind approve
+		RelativeLayout approveContainer = (RelativeLayout) findViewById(R.id.answer_item_approve_container);
+		approveContainer.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				(new ApprovTask()).execute(AID, global.getUid());
+			}
+		});
 	}
 
 	private void initToolbar() {
@@ -57,5 +99,32 @@ public class AnswerItemActivity extends ActionBarActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private class ApprovTask extends AsyncTask<Integer, Integer, Integer> {
+
+		@Override
+		protected Integer doInBackground(Integer... params) {
+			int aid = params[0];
+			int uid = params[1];
+			return scoreHelper.switchApprove(uid, aid);
+		}
+
+		@Override
+		protected void onPostExecute(Integer res) {
+			TextView approvNumTextView = (TextView) findViewById(R.id.answer_item_approve_num);
+			switch (res) {
+				case 0:
+					approvNumTextView.setText(String.valueOf(--approvNum));
+					Log.d("answer score1", String.valueOf(approvNum));
+					Toast.makeText(getApplicationContext(), "取消赞", Toast.LENGTH_SHORT).show();
+					break;
+				case 1:
+					approvNumTextView.setText(String.valueOf(++approvNum));
+					Log.d("answer score1", String.valueOf(approvNum));
+					Toast.makeText(getApplicationContext(), "赞了此问题", Toast.LENGTH_SHORT).show();
+					break;
+			}
+		}
 	}
 }

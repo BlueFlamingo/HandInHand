@@ -12,10 +12,6 @@ public class Answer {
 	public String picture = "";
 	public int parentAid = 0;
 
-	//added
-	//TODO:need to be removed
-	public String username = "";
-
 	public int getId() {
 		return this.id;
 	}
@@ -48,16 +44,11 @@ public class Answer {
 		return this.picture;
 	}
 
-	//TODO:need to be removed
-	public String getUsername() {
-		return this.username;
-	}
-
-	//only for test
-	@Deprecated
-	public Answer(String content, int uid) {
+	public Answer(String content, int uid, int qid, long createdTime) {
 		this.content = content;
 		this.uid = uid;
+		this.qid = qid;
+		this.createdTime = createdTime;
 	}
 
 	public Answer(int id,String content,int score1,int score2,int uid,int qid,long createdTime, String picture,int parentAid){

@@ -12,18 +12,21 @@ import android.widget.RelativeLayout;
 
 public class UserInfoActivity extends ActionBarActivity {
 
+	Global global;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_info);
 		initToolbar();
-
+		global = (Global) getApplication();
 		RelativeLayout userAsked = (RelativeLayout) findViewById(R.id.user_info_q_container);
 		userAsked.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent qListIntent = new Intent(UserInfoActivity.this, QuestionListActivity.class);
 				qListIntent.putExtra("TOPIC", "问过的问题");
+				qListIntent.putExtra("TID", -global.getUid());
 				startActivity(qListIntent);
 			}
 		});

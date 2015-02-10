@@ -15,6 +15,7 @@ public class QuestionListActivity extends ActionBarActivity {
 	private String TOPIC = "随便看看";
 
 	public int TID = 0;
+	private Global globalVal;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class QuestionListActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_question_list);
 		TOPIC = getIntent().getExtras().getString("TOPIC");
 		TID = getIntent().getExtras().getInt("TID");
+		globalVal = (Global) getApplication();
 		initToolbar();
 		initQuestionListFragment();
 	}
@@ -59,9 +61,14 @@ public class QuestionListActivity extends ActionBarActivity {
 		int id = item.getItemId();
 		switch (id) {
 			case R.id.action_question_edit:
-				Intent newIntent = new Intent(this, QuestionEditActivity.class);
-				newIntent.putExtra("TOPIC", TOPIC);
-				startActivity(newIntent);
+				if (globalVal.getLoginFlag()) {
+					//jump to QuestionEditActivity
+					Intent newIntent = new Intent(this, QuestionEditActivity.class);
+					newIntent.putExtra("TOPIC", TOPIC);
+					startActivity(newIntent);
+				} else {
+					Toast.makeText(this, "请先登录后再发布问题", Toast.LENGTH_SHORT).show();
+				}
 				break;
 			case R.id.action_question_search:
 				Toast.makeText(this, "search clicked!", Toast.LENGTH_SHORT).show();

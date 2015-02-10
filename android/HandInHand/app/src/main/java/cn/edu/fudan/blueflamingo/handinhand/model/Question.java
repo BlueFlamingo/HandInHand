@@ -18,6 +18,10 @@ public class Question {
 		return this.id;
 	}
 
+	public int getUid() {
+		return this.uid;
+	}
+
 	public String getContent() {
 		return this.content;
 	}

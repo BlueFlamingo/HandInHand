@@ -40,7 +40,7 @@ public class HomePageFragment extends Fragment {
 		View v = inflater.inflate(R.layout.fragment_home_page, container, false);
 
 		initTopicListener(v);
-		initRefreshLoad(v);
+		//initRefreshLoad(v);
 		initToolbar();
 
 		LinearLayout user = (LinearLayout) getActivity().findViewById(R.id.drawer_user);
@@ -74,6 +74,7 @@ public class HomePageFragment extends Fragment {
 		}
 	}
 
+	/*
 	private void initRefreshLoad(View v) {
 		final SwipeRefreshAndLoadLayout mSwipeLayout;
 		mSwipeLayout = (SwipeRefreshAndLoadLayout) v.findViewById(R.id.main_swipe_container);
@@ -105,7 +106,7 @@ public class HomePageFragment extends Fragment {
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
 		mSwipeLayout.setmMode(SwipeRefreshAndLoadLayout.Mode.PULL_FROM_START);
-	}
+	}*/
 
 	private void initToolbar() {
 		ActionBarActivity parent = (ActionBarActivity) getActivity();

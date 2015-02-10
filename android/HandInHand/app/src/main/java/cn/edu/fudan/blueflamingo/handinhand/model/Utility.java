@@ -23,13 +23,13 @@ public class Utility {
 		etemp.createdTime = atemp.createdTime;
 		etemp. picture = atemp.picture;
 		etemp.parentAid = atemp.parentAid;
-		User u = new User();
+		User u;
 		u = new UserHelper().getByUid(atemp.uid);
 		if(u == null){
-			etemp.username = "";
+			etemp.nickname = "";
 			etemp.userHead = "";
 		}else{
-			etemp.username = u.username;
+			etemp.nickname = u.nickname;
 			etemp.userHead = u.portrait;
 		}
 		return etemp;
@@ -58,13 +58,13 @@ public class Utility {
 		etemp.title = qtemp.title;
 		etemp.topics = qtemp.topics;
 
-		User u = new User();
+		User u;
 		u = new UserHelper().getByUid(qtemp.uid);
 		if(u == null){
-			etemp.username = "";
+			etemp.nickname = "";
 			etemp.userHead = "";
 		}else{
-			etemp.username = u.username;
+			etemp.nickname = u.nickname;
 			etemp.userHead = u.portrait;
 		}
 		return etemp;
@@ -85,17 +85,17 @@ public class Utility {
 		etemp.id = ctemp.id;
 		etemp.uid = ctemp.uid;
 		etemp.createdTime = ctemp.createdTime;
-		etemp. parentCid =  ctemp.parentCid;
+		etemp.parentCid =  ctemp.parentCid;
 		etemp.content = ctemp.content;
 		etemp.aid = ctemp.aid;
 
-		User u = new User();
+		User u;
 		u = new UserHelper().getByUid(ctemp.uid);
 		if(u == null){
-			etemp.username = "";
+			etemp.nickname = "";
 			etemp.userHead = "";
 		}else{
-			etemp.username = u.username;
+			etemp.nickname = u.nickname;
 			etemp.userHead = u.portrait;
 		}
 		return etemp;

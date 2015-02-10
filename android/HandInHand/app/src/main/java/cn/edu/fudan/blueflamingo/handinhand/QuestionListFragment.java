@@ -17,10 +17,12 @@ import android.view.ViewGroup;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.adapter.QuestionAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.QuestionHelper;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 import cn.edu.fudan.blueflamingo.handinhand.model.Question;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
@@ -33,10 +35,12 @@ public class QuestionListFragment extends Fragment {
 	private List<ExQuestion> questions = new ArrayList<>();
 
 	private QuestionHelper questionHelper = new QuestionHelper();
+	private UserHelper userHelper = new UserHelper();
 	private SwipeRefreshAndLoadLayout mSwipeLayout;
 	private Activity parent;
 	private LoadQuestionListTask loadQuestionListTask;
 
+	//如果TID<0,则说明是从userInfo转过来的，因此取相反数之后的值就是UID
 	private int TID;
 
 	@Override
@@ -55,7 +59,7 @@ public class QuestionListFragment extends Fragment {
 		ArrayList<Integer> temp = new ArrayList<>();
 		temp.add(1);
 
-		questions.add(new ExQuestion(0,"",0,0,0,0,"","",temp,"",""));
+		questions.add(new ExQuestion(0,"Please wait...",0,0,0,(new Date()).getTime(),"","Loading...",temp,"",""));
 
 		mRecyclerView = (RecyclerView)getActivity().findViewById(R.id.main_question_recycler_view);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(parent));
@@ -67,6 +71,10 @@ public class QuestionListFragment extends Fragment {
 			public void onItemClick(View view, int position) {
 				Intent qItemIntent = new Intent(getActivity(), QuestionItemActivity.class);
 				qItemIntent.putExtra("qid", questions.get(position).getId());
+				qItemIntent.putExtra("uid", questions.get(position).getUid());
+				qItemIntent.putExtra("title", questions.get(position).getTitle());
+				qItemIntent.putExtra("content", questions.get(position).getContent());
+				qItemIntent.putExtra("watchNum", questions.get(position).getScore1());
 				qItemIntent.putExtra("MODE", QuestionItemActivity.FROM_QUESTION_LIST);
 				startActivity(qItemIntent);
 			}
@@ -126,7 +134,12 @@ public class QuestionListFragment extends Fragment {
 		protected Integer doInBackground(Integer... params) {
 			Integer tid = params[0];
 			questions.clear();
-			questions.addAll(questionHelper.getByTopic(tid));
+			//如果TID<0,则说明是从userInfo转过来的，因此取相反数之后的值就是UID
+			if (tid < 0) {
+				questions.addAll(userHelper.getQuestions(-tid));
+			} else {
+				questions.addAll(questionHelper.getByTopic(tid));
+			}
 			Log.d("question size", String.valueOf(questions.size()));
 			if (questions.size() > 0) {
 				return 0;

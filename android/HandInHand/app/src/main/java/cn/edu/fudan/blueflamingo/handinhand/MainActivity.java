@@ -57,6 +57,11 @@ public class MainActivity extends ActionBarActivity {
 			mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
 			mDrawerToggle.syncState();
 			mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+			//bind
+			nicknameTextView = (TextView) findViewById(R.id.drawer_username);
+			portraitImageView = (ImageView) findViewById(R.id.drawer_head);
+
 			//initial btn_login
 			//check whether the login process is needed and change the text of it
 			final com.gc.materialdesign.views.ButtonFlat btnLogin = (com.gc.materialdesign.views.ButtonFlat) findViewById(R.id.btn_login);
@@ -70,10 +75,10 @@ public class MainActivity extends ActionBarActivity {
 						startActivityForResult(loginIntent, AUTH_ACTIVITY);
 					}
 				});
+			} else {
+				nicknameTextView.setText("随便看看的人");
 			}
-			//bind
-			nicknameTextView = (TextView) findViewById(R.id.drawer_username);
-			portraitImageView = (ImageView) findViewById(R.id.drawer_head);
+
 		}
 	}
 
@@ -98,23 +103,21 @@ public class MainActivity extends ActionBarActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 
-		//for test
-		String msg = "";
 		switch (id) {
 			case R.id.action_edit:
-				msg += "Click edit";
-				//jump to QuestionEditActivity
-				Intent editIntent = new Intent(this, QuestionEditActivity.class);
-				startActivity(editIntent);
+				if (globalVal.getLoginFlag()) {
+					//jump to QuestionEditActivity
+					Intent editIntent = new Intent(this, QuestionEditActivity.class);
+					startActivity(editIntent);
+				} else {
+					Toast.makeText(this, "请先登录后再发布问题", Toast.LENGTH_SHORT).show();
+				}
 				break;
 			case R.id.action_search:
-				msg += "Click search";
+				Toast.makeText(this, "search clicked!", Toast.LENGTH_SHORT).show();
 				break;
 			default:
 				break;
-		}
-		if (!msg.equals("")) {
-			Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
 		}
 		return super.onOptionsItemSelected(item);
 	}

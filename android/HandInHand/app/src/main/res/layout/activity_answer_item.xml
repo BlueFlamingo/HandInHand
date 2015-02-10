@@ -48,25 +48,60 @@
             android:layout_margin="6dp"
             android:text="Adminstrator"/>
 
-        <TextView
-            android:id="@+id/answer_item_approve_num"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="6dp"
-            android:text="123"
-            android:textColor="@color/gray_1"/>
+        <RelativeLayout
+            android:id="@+id/answer_item_comment_container"
+            android:layout_width="70dp"
+            android:layout_height="42dp"
+            android:layout_toLeftOf="@+id/answer_item_approve_container">
 
-        <ImageView
-            android:id="@+id/answer_item_approve"
-            android:layout_toLeftOf="@+id/answer_item_approve_num"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="4dp"
-            android:padding="3dp"
-            android:src="@drawable/ic_action_good"/>
-        
+            <ImageView
+                android:id="@+id/answer_item_comment"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_toLeftOf="@+id/answer_item_comment_num"
+                android:padding="3dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_action_group"/>
+
+            <TextView
+                android:id="@+id/answer_item_comment_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="6dp"
+                android:layout_alignParentRight="true"
+                android:text="0"
+                android:textColor="@color/gray_1"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/answer_item_approve_container"
+            android:layout_width="70dp"
+            android:layout_height="42dp"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:id="@+id/answer_item_approve_num"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="6dp"
+                android:text="123"
+                android:textColor="@color/gray_1"/>
+
+            <ImageView
+                android:id="@+id/answer_item_approve"
+                android:layout_toLeftOf="@+id/answer_item_approve_num"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="4dp"
+                android:padding="3dp"
+                android:src="@drawable/ic_action_good"/>
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <cn.edu.fudan.blueflamingo.handinhand.view.DashLine

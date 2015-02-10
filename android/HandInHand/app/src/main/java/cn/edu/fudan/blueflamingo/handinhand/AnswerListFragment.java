@@ -2,6 +2,7 @@ package cn.edu.fudan.blueflamingo.handinhand;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
@@ -12,24 +13,39 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.gc.materialdesign.views.ButtonFlat;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.adapter.AnswerAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.adapter.SimpleAnswerAdapter;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.AnswerHelper;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.QuestionHelper;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.Answer;
 import cn.edu.fudan.blueflamingo.handinhand.model.AnswerHeader;
+import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
+import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
 public class AnswerListFragment extends Fragment {
 
 	private RecyclerView mRecyclerView;
 	private AnswerAdapter answerAdapter;
-	private List<Answer> answers = new ArrayList<>();
+	private SimpleAnswerAdapter simpleAnswerAdapter;
+	private List<ExAnswer> answers = new ArrayList<>();
 	private AnswerHeader answerHeader;
+	private SwipeRefreshAndLoadLayout mSwipeLayout;
+	private AnswerHelper answerHelper;
+	private QuestionHelper questionHelper;
+	private UserHelper userHelper;
+	private Global global;
 
 	private int MODE = 0;
+	private int QID = -1;
 
 	public AnswerListFragment() {
 		// Required empty public constructor
@@ -46,18 +62,30 @@ public class AnswerListFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-		ActionBarActivity parent = (ActionBarActivity) getActivity();
+		answerHelper = new AnswerHelper();
+		userHelper = new UserHelper();
+		questionHelper = new QuestionHelper();
 
-		int QID = parent.getIntent().getExtras().getInt("qid");
+		final ActionBarActivity parent = (ActionBarActivity) getActivity();
+		global = (Global) parent.getApplication();
+
 		MODE = parent.getIntent().getExtras().getInt("MODE");
 
-		Log.d("q item", String.valueOf(QID));
+		answers.add(new ExAnswer("loading..."));
 
-		answers.add(new Answer("I am a test answer!!!", 0));
-		answerHeader = new AnswerHeader("I am test question title",
-				"I am a test question description", 123);
+		String questionTitle;
+		String questionContent;
+		int questionWatchNum;
 
-		setToolbarTitle(answers.size(), parent);
+		if (MODE == QuestionItemActivity.FROM_QUESTION_LIST) {
+			QID = parent.getIntent().getExtras().getInt("qid");
+			Log.d("q item", String.valueOf(QID));
+			questionTitle = parent.getIntent().getExtras().getString("title");
+			questionContent = parent.getIntent().getExtras().getString("content");
+			questionWatchNum = parent.getIntent().getExtras().getInt("watchNum");
+			answerHeader = new AnswerHeader(questionTitle,
+					questionContent, questionWatchNum, QID);
+		}
 
 		mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.question_answer_recyclerview);
 		mRecyclerView.setLayoutManager(new LinearLayoutManager(parent));
@@ -69,13 +97,19 @@ public class AnswerListFragment extends Fragment {
 				@Override
 				public void onItemClick(View view, int position) {
 					Intent aItemIntent = new Intent(getActivity(), AnswerItemActivity.class);
-					aItemIntent.putExtra("aid", answers.get(position - 1).getId());
+					ExAnswer exAnswer = answers.get(position - 1);
+					aItemIntent.putExtra("aid", exAnswer.getId());
+					aItemIntent.putExtra("nickname", exAnswer.getNickname());
+					aItemIntent.putExtra("content", exAnswer.getContent());
+					aItemIntent.putExtra("approvNum", exAnswer.getScore1());
+					aItemIntent.putExtra("title", parent.getIntent().getExtras().getString("title"));
 					startActivity(aItemIntent);
 				}
 			});
 			mRecyclerView.setAdapter(answerAdapter);
+
 		} else {
-			SimpleAnswerAdapter simpleAnswerAdapter = new SimpleAnswerAdapter(parent, answers);
+			simpleAnswerAdapter = new SimpleAnswerAdapter(parent, answers);
 			simpleAnswerAdapter.setOnItemClickListener(new SimpleAnswerAdapter.OnItemClickListener() {
 				@Override
 				public void onItemClick(View view, int position) {
@@ -87,24 +121,23 @@ public class AnswerListFragment extends Fragment {
 			mRecyclerView.setAdapter(simpleAnswerAdapter);
 		}
 
-
-
 		initLoadAndRefresh(parent);
+
+		//(new LoadAnswerListTask()).execute(MODE, QID);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		(new LoadAnswerListTask()).execute(MODE, QID);
 	}
 
 	private void initLoadAndRefresh(ActionBarActivity parent) {
-		final SwipeRefreshAndLoadLayout mSwipeLayout;
 		mSwipeLayout = (SwipeRefreshAndLoadLayout) parent.findViewById(R.id.question_item_container);
 		mSwipeLayout.setOnRefreshListener(new SwipeRefreshAndLoadLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
-				new Handler().postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						mSwipeLayout.setRefreshing(false);
-						//refresh
-					}
-				}, 1000);
+				(new LoadAnswerListTask()).execute(MODE, QID);
 			}
 
 			@Override
@@ -127,5 +160,54 @@ public class AnswerListFragment extends Fragment {
 
 	private void setToolbarTitle(int n, ActionBarActivity parent) {
 		parent.getSupportActionBar().setTitle("共有" + String.valueOf(n) + "个回答");
+	}
+
+	private class LoadAnswerListTask extends AsyncTask<Integer, Integer, Integer> {
+
+		@Override
+		protected void onPreExecute() {
+			mSwipeLayout.setRefreshing(true);
+		}
+
+		@Override
+		protected Integer doInBackground(Integer... params) {
+			int mode = params[0];
+			int qid;
+			if (mode == QuestionItemActivity.FROM_QUESTION_LIST) {
+				qid = params[1];
+				answers.clear();
+				answers.addAll(answerHelper.getByQid(qid));
+				Log.d("answer score1", String.valueOf(answers.get(0).getScore1()));
+				ExQuestion exQuestion = questionHelper.getByQid(qid);
+				answerHeader.setDescription(exQuestion.getContent());
+				answerHeader.setTitle(exQuestion.getTitle());
+				answerHeader.setWatchNum(exQuestion.getScore1());
+				return 0;
+			} else {
+				answers.clear();
+				answers.addAll(userHelper.getAnswers(global.getUid()));
+				if (answers.size() > 0) {
+					return 1;
+				} else {
+					return -1;
+				}
+			}
+		}
+
+		@Override
+		protected void onPostExecute(Integer result) {
+			switch (result) {
+				case 1:
+					simpleAnswerAdapter.notifyDataSetChanged();
+					break;
+				case 0:
+					answerAdapter.notifyDataSetChanged();
+					break;
+				case -1:
+					break;
+			}
+			setToolbarTitle(answers.size(), (ActionBarActivity) getActivity());
+			mSwipeLayout.setRefreshing(false);
+		}
 	}
 }

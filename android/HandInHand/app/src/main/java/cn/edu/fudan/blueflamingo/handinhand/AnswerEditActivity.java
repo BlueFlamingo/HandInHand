@@ -1,14 +1,25 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Date;
+
+import cn.edu.fudan.blueflamingo.handinhand.middleware.AnswerHelper;
+import cn.edu.fudan.blueflamingo.handinhand.model.Answer;
 
 
 public class AnswerEditActivity extends ActionBarActivity {
+
+	private AnswerHelper answerHelper;
+	private Global global;
+	private int QID = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +27,9 @@ public class AnswerEditActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_answer_edit);
 		//TODO:增加对回答编辑模式的判断
 		initToolbar(false);
-
+		global = (Global) getApplication();
+		answerHelper = new AnswerHelper();
+		QID = getIntent().getExtras().getInt("qid");
 	}
 
 	//@editFlag: true stands for edit mode, false stands for create(new) mode
@@ -50,9 +63,9 @@ public class AnswerEditActivity extends ActionBarActivity {
 
 		switch (id) {
 			case R.id.action_save:
-				//TODO:增加回答保存逻辑
-				Toast.makeText(this, "save!", Toast.LENGTH_SHORT).show();
-				finish();
+				EditText contentEditText = (EditText) findViewById(R.id.answer_editor);
+				String content = contentEditText.getText().toString();
+				(new SendAnswerTask()).execute(content);
 				break;
 			case R.id.action_cancel:
 				Toast.makeText(this, "canceled!", Toast.LENGTH_SHORT).show();
@@ -60,5 +73,25 @@ public class AnswerEditActivity extends ActionBarActivity {
 				break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private class SendAnswerTask extends AsyncTask<String, Integer, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(String... params) {
+			String content = params[0];
+			Answer a = new Answer(content, global.getUid(), QID, (new Date()).getTime());
+			answerHelper.add(a);
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean res) {
+			if (res) {
+				Toast.makeText(getApplicationContext(), "save!", Toast.LENGTH_SHORT).show();
+				finish();
+			}
+		}
+
 	}
 }

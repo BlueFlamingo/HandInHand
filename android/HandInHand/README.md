@@ -32,4 +32,4 @@ v0.01 2015/2/1
 ---
 ##已知Bug
 - 当客户端处于活跃状态时直接通过android studio安装会出现登陆登出按钮文字显示不合逻辑的情况（完全关闭时安装不会出现此现象）
-- Question的createdTime从服务器取回时全部变成32位int最大值而不是64位long
+- ~~Question的createdTime从服务器取回时全部变成32位int最大值而不是64位long~~ *fixed*

@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.R;
 import cn.edu.fudan.blueflamingo.handinhand.model.Answer;
+import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 
 public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapter.ViewHolder>{
 
@@ -25,11 +28,11 @@ public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapte
 		this.mOnItemClickListener = mOnItemClickListener;
 	}
 
-	private List<Answer> answers;
+	private List<ExAnswer> answers;
 
 	private Context mContext;
 
-	public SimpleAnswerAdapter(Context context, List<Answer> answers) {
+	public SimpleAnswerAdapter(Context context, List<ExAnswer> answers) {
 		this.mContext = context;
 		this.answers = answers;
 	}
@@ -42,19 +45,28 @@ public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapte
 
 	@Override
 	public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-			Answer a = answers.get(i);	//由于header占了第0个位置
-			//TODO:设置username、头像、点赞数、时间
-			//viewHolder.abstractTextView.setText(a.getContent());
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		ExAnswer a = answers.get(i);	//由于header占了第0个位置
+		//TODO:设置头像
+		viewHolder.usernameTextView.setText(a.getNickname());
+		viewHolder.approveNumTextView.setText(String.valueOf(a.getScore1()));
+		String content = a.getContent();
+		if (content.length() > 30) {
+			viewHolder.abstractTextView.setText(content.substring(0, 30) + "...");
+		} else {
+			viewHolder.abstractTextView.setText(content);
+		}
+		viewHolder.timeTextView.setText(simpleDateFormat.format(new Date(a.getCreatedTime())));
 
-			//如果设置了回调则设置点击事件
-			if (mOnItemClickListener != null) {
-				viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						mOnItemClickListener.onItemClick(viewHolder.itemView, i);
-					}
-				});
-			}
+		//如果设置了回调则设置点击事件
+		if (mOnItemClickListener != null) {
+			viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					mOnItemClickListener.onItemClick(viewHolder.itemView, i);
+				}
+			});
+		}
 	}
 
 	@Override
