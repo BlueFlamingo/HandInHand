@@ -21,10 +21,10 @@ public class Utility {
 		User u = new User();
 		u = new UserHelper().getByUid(atemp.uid);
 		if(u == null){
-			etemp.username = "";
+			etemp.nickname = "";
 			etemp.userHead = "";
 		}else{
-		etemp.username = u.username;
+		etemp.nickname = u.nickname;
 		etemp.userHead = u.portrait;
 		}
 		return etemp;
@@ -56,10 +56,10 @@ public class Utility {
 		User u = new User();
 		u = new UserHelper().getByUid(qtemp.uid);
 		if(u == null){
-			etemp.username = "";
+			etemp.nickname = "";
 			etemp.userHead = "";
 		}else{
-		etemp.username = u.username;
+		etemp.nickname = u.nickname;
 		etemp.userHead = u.portrait;
 		}
 		return etemp;
@@ -87,10 +87,10 @@ public class Utility {
 		User u = new User();
 		u = new UserHelper().getByUid(ctemp.uid);
 		if(u == null){
-			etemp.username = "";
+			etemp.nickname = "";
 			etemp.userHead = "";
 		}else{
-		etemp.username = u.username;
+		etemp.nickname = u.nickname;
 		etemp.userHead = u.portrait;
 		}
 		return etemp;

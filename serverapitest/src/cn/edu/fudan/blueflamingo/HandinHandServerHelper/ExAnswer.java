@@ -1,9 +1,9 @@
 package cn.edu.fudan.blueflamingo.HandinHandServerHelper;
 
 public class ExAnswer extends Answer{
-	public String username = "";
+	public String nickname = "";
 	public String userHead = "";
-	public ExAnswer(int id,String content,int score1,int score2,int uid,int qid,long createdTime, String picture,int parentAid,String username,String userHead){
+	public ExAnswer(int id,String content,int score1,int score2,int uid,int qid,long createdTime, String picture,int parentAid,String nickname,String userHead){
 		this.id = id;
 		this.content = content;
 		this.score1 = score1;
@@ -13,7 +13,7 @@ public class ExAnswer extends Answer{
 		this.createdTime = createdTime;
 		this. picture =  picture;
 		this.parentAid = parentAid;
-		this.username = username;
+		this.nickname = nickname;
 		this.userHead = userHead;
 	}
 	public ExAnswer(){
