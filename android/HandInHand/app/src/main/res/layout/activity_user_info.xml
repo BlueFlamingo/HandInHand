@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_below="@id/user_info_toolbar"
-        android:background="@color/hint_foreground_material_light"/>
+        android:background="@drawable/usercover"/>
 
     <RelativeLayout
         android:id="@+id/user_info_header_container"

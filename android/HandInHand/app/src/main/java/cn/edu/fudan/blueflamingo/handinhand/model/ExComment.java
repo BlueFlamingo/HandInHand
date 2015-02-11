@@ -12,8 +12,16 @@ public class ExComment extends Comment {
 		return this.userHead;
 	}
 
-	public ExComment(int id,int uid,long createdTime,int parentCid, String content,int aid,String nickname,String userHead) {
-		super(id, uid, createdTime, parentCid, content, aid);
+	public ExComment(String content, String nickname) {
+		this.nickname = nickname;
+		this.content = content;
+	}
+
+	public ExComment(int uid,long createdTime, String content,int aid,String nickname,String userHead) {
+		this.uid = uid;
+		this.createdTime = createdTime;
+		this.content = content;
+		this.aid = aid;
 		this.nickname = nickname;
 		this.userHead = userHead;
 	}

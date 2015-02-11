@@ -9,18 +9,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.R;
 import cn.edu.fudan.blueflamingo.handinhand.model.Comment;
+import cn.edu.fudan.blueflamingo.handinhand.model.ExComment;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
-	private List<Comment> comments;
+	private List<ExComment> comments;
 
 	private Context mContext;
 
-	public CommentAdapter(Context context, List<Comment> comments) {
+	public CommentAdapter(Context context, List<ExComment> comments) {
 		this.mContext = context;
 		this.comments = comments;
 	}
@@ -33,9 +36,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
 	@Override
 	public void onBindViewHolder(ViewHolder viewHolder, int i) {
-		Comment c = comments.get(i);
-		//TODO:设置具体内容
-		//viewHolder.contentTextView.setText(c.getContent());
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		ExComment c = comments.get(i);
+		//TODO:设置头像
+		viewHolder.timeTextView.setText(simpleDateFormat.format((new Date(c.getCreatedTime()))));
+		viewHolder.usernameTextView.setText(c.getNickname());
+		viewHolder.contentTextView.setText(c.getContent());
 	}
 
 	@Override

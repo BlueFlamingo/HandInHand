@@ -8,10 +8,6 @@ public class Comment {
 	public String content = "";
 	public int aid = 0;
 
-	//TODO:need to be removed
-	public String username;
-	public String portrait;
-
 	public int getId() {
 		return this.id;
 	}
@@ -36,19 +32,9 @@ public class Comment {
 		return this.aid;
 	}
 
-	//TODO:need to be removed
-	public String getUsername() {
-		return this.username;
-	}
-	public String getPortrait() {
-		return this.portrait;
-	}
-
-	public Comment(int id,int uid,long createdTime,int parentCid, String content,int aid){
-		this.id = id;
+	public Comment(int uid,long createdTime, String content,int aid){
 		this.uid = uid;
 		this.createdTime = createdTime;
-		this. parentCid =  parentCid;
 		this.content = content;
 		this.aid = aid;
 	}
