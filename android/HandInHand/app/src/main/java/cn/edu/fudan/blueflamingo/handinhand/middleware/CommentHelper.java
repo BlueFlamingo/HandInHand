@@ -77,6 +77,12 @@ public class CommentHelper {
 
 	}
 
+	public int countComment(int aId) {
+		String url = "http://121.199.64.117:8888/HandInHand/comment.php";
+		String res = sendPost(url, "op=countComments&aid=" + String.valueOf(aId));
+		return Integer.valueOf(res);
+	}
+
 	public ArrayList<ExComment>  getByAid(int aId){
 		String url =   "http://121.199.64.117:8888/HandInHand/comment.php";
 		//String url = "http://127.0.0.1/HandInHand/comment.php";

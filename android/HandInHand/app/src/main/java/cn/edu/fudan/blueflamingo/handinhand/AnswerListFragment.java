@@ -99,6 +99,7 @@ public class AnswerListFragment extends Fragment {
 					Intent aItemIntent = new Intent(getActivity(), AnswerItemActivity.class);
 					ExAnswer exAnswer = answers.get(position - 1);
 					aItemIntent.putExtra("aid", exAnswer.getId());
+					aItemIntent.putExtra("uid", exAnswer.getUid());
 					aItemIntent.putExtra("nickname", exAnswer.getNickname());
 					aItemIntent.putExtra("content", exAnswer.getContent());
 					aItemIntent.putExtra("approvNum", exAnswer.getScore1());
@@ -206,7 +207,13 @@ public class AnswerListFragment extends Fragment {
 				case -1:
 					break;
 			}
-			setToolbarTitle(answers.size(), (ActionBarActivity) getActivity());
+			try {
+				setToolbarTitle(answers.size(), (ActionBarActivity) getActivity());
+			} catch (Exception e) {
+				//有时在未获取完所有的answer前退出会触发异常，因为先调用了answers.clear()
+				//如果这样的现象发生就不改变title
+			}
+
 			mSwipeLayout.setRefreshing(false);
 		}
 	}

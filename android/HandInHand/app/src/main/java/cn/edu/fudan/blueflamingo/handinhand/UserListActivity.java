@@ -1,6 +1,7 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.adapter.UserAdapter;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.FavoriteHelper;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
@@ -27,31 +30,32 @@ public class UserListActivity extends ActionBarActivity {
 	public static final int FAVORITE_ME = 1;
 
 	private List<User> users = new ArrayList<>();
+	private int uid;
+	private SwipeRefreshAndLoadLayout mSwipeLayout;
+	private RecyclerView recyclerView;
+	private UserAdapter userAdapter;
+	private UserHelper userHelper = new UserHelper();
+	private FavoriteHelper favoriteHelper = new FavoriteHelper();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_list);
 		MODE = getIntent().getExtras().getInt("MODE");
-		users.add(new User("testUsername","testNickname","12345"));
+		uid = getIntent().getExtras().getInt("uid");
+		users.add(new User("testUsername","Loading...","Please wait..."));
 		initToolbar();
 		initItem();
 		initLoadAndRefresh();
+		(new LoadUserTask()).execute();
 	}
 
 	private void initLoadAndRefresh() {
-		final SwipeRefreshAndLoadLayout mSwipeLayout;
 		mSwipeLayout = (SwipeRefreshAndLoadLayout) findViewById(R.id.user_item_container);
 		mSwipeLayout.setOnRefreshListener(new SwipeRefreshAndLoadLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
-				new Handler().postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						mSwipeLayout.setRefreshing(false);
-						//refresh
-					}
-				}, 1000);
+				(new LoadUserTask()).execute();
 			}
 
 			@Override
@@ -69,16 +73,16 @@ public class UserListActivity extends ActionBarActivity {
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
-		mSwipeLayout.setmMode(SwipeRefreshAndLoadLayout.Mode.BOTH);
+		mSwipeLayout.setmMode(SwipeRefreshAndLoadLayout.Mode.PULL_FROM_START);
 	}
 
 	private void initToolbar() {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.user_list_toolbar);
 		if (toolbar != null) {
 			if (MODE == I_FAVORITE) {
-				toolbar.setTitle("关注的人");
+				toolbar.setTitle("我关注的人");
 			} else {
-				toolbar.setTitle("已关注的人");
+				toolbar.setTitle("关注我的人");
 			}
 			toolbar.inflateMenu(R.menu.menu_user_list);
 			setSupportActionBar(toolbar);
@@ -86,15 +90,16 @@ public class UserListActivity extends ActionBarActivity {
 	}
 
 	private void initItem() {
-		RecyclerView recyclerView = (RecyclerView) findViewById(R.id.user_item_recyclerview);
+		recyclerView = (RecyclerView) findViewById(R.id.user_item_recyclerview);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 		recyclerView.setItemAnimator(new DefaultItemAnimator());
 		recyclerView.setHasFixedSize(true);
-		UserAdapter userAdapter = new UserAdapter(this, users);
+		userAdapter = new UserAdapter(this, users);
 		userAdapter.setOnItemClickListener(new UserAdapter.OnItemClickListener() {
 			@Override
 			public void onItemClick(View view, int position) {
 				Intent uItemIntent = new Intent(UserListActivity.this, UserInfoActivity.class);
+				uItemIntent.putExtra("uid", users.get(position).getId());
 				startActivity(uItemIntent);
 			}
 		});
@@ -110,16 +115,40 @@ public class UserListActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
+		return super.onOptionsItemSelected(item);
+	}
+
+	private class LoadUserTask extends AsyncTask<Integer, Integer, Integer> {
+
+		@Override
+		protected void onPreExecute() {
+			mSwipeLayout.setRefreshing(true);
 		}
 
-		return super.onOptionsItemSelected(item);
+		@Override
+		protected Integer doInBackground(Integer... params) {
+			users.clear();
+			if (MODE == I_FAVORITE) {
+				users.addAll(favoriteHelper.listUsers(uid));
+			} else {
+				users.addAll(userHelper.listFollowers(uid));
+			}
+			if (users.size() > 0) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+
+		@Override
+		protected void onPostExecute(Integer res) {
+			if (res == 1) {
+				userAdapter.notifyDataSetChanged();
+			}
+			mSwipeLayout.setRefreshing(false);
+		}
+
 	}
 }

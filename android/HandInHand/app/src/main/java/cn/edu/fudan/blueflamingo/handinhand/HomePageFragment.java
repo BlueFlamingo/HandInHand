@@ -29,6 +29,8 @@ public class HomePageFragment extends Fragment {
 			"职业发展", "吃喝玩乐", "其它",
 			"今日热门"};
 
+	private Global global;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,7 +40,7 @@ public class HomePageFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_home_page, container, false);
-
+		global = (Global) getActivity().getApplication();
 		initTopicListener(v);
 		//initRefreshLoad(v);
 		initToolbar();
@@ -48,6 +50,7 @@ public class HomePageFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent userIntent = new Intent(getActivity(), UserInfoActivity.class);
+				userIntent.putExtra("uid", global.getUid());
 				startActivity(userIntent);
 			}
 		});

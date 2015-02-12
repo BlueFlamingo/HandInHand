@@ -1,18 +1,34 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.gc.materialdesign.views.ButtonFlat;
+
+import org.androidannotations.annotations.res.TextRes;
+
+import cn.edu.fudan.blueflamingo.handinhand.middleware.FavoriteHelper;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
+import cn.edu.fudan.blueflamingo.handinhand.model.User;
 
 
 public class UserInfoActivity extends ActionBarActivity {
 
-	Global global;
+	private Global global;
+	private int uid;
+	private UserHelper userHelper = new UserHelper();
+	private FavoriteHelper favoriteHelper = new FavoriteHelper();
+	private User currentUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,13 +36,14 @@ public class UserInfoActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_user_info);
 		initToolbar();
 		global = (Global) getApplication();
+		uid = getIntent().getExtras().getInt("uid");
 		RelativeLayout userAsked = (RelativeLayout) findViewById(R.id.user_info_q_container);
 		userAsked.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent qListIntent = new Intent(UserInfoActivity.this, QuestionListActivity.class);
 				qListIntent.putExtra("TOPIC", "问过的问题");
-				qListIntent.putExtra("TID", -global.getUid());
+				qListIntent.putExtra("TID", -uid);
 				startActivity(qListIntent);
 			}
 		});
@@ -43,6 +60,29 @@ public class UserInfoActivity extends ActionBarActivity {
 
 		initIFav();
 		initFavdMe();
+
+		(new LoadTask()).execute();
+
+		//bind favorite
+		ButtonFlat btn_favorite = (ButtonFlat) findViewById(R.id.user_info_btn_favorite);
+		if (uid == global.getUid()) {
+			btn_favorite.setEnabled(false);
+			btn_favorite.setVisibility(View.GONE);
+		} else {
+			(new FavoriteTask()).execute(true);
+			btn_favorite.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					(new FavoriteTask()).execute(false);
+				}
+			});
+		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		(new LoadProfileTask()).execute();
 	}
 
 	private void initIFav() {
@@ -52,6 +92,7 @@ public class UserInfoActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				Intent iFavIntent = new Intent(UserInfoActivity.this, UserListActivity.class);
 				iFavIntent.putExtra("MODE", UserListActivity.I_FAVORITE);
+				iFavIntent.putExtra("uid", uid);
 				startActivity(iFavIntent);
 			}
 		});
@@ -63,7 +104,8 @@ public class UserInfoActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				Intent favMeIntent = new Intent(UserInfoActivity.this, UserListActivity.class);
-				favMeIntent.putExtra("MODE", UserListActivity.I_FAVORITE);
+				favMeIntent.putExtra("MODE", UserListActivity.FAVORITE_ME);
+				favMeIntent.putExtra("uid", uid);
 				startActivity(favMeIntent);
 			}
 		});
@@ -81,25 +123,112 @@ public class UserInfoActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu_user_info, menu);
+		MenuItem editItem = menu.findItem(R.id.action_edit);
+		//set menu
+		if (uid != global.getUid()) {
+			editItem.setEnabled(false);
+			editItem.setVisible(false);
+		}
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 
 		switch (id) {
 			case R.id.action_edit:
 				Intent userEditIntent = new Intent(this, UserEditActivity.class);
+				userEditIntent.putExtra("uid", uid);
 				startActivity(userEditIntent);
-
+				break;
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	//input TRUE->check current favorite status
+	//		FALSE->switch favorite status
+	private class FavoriteTask extends AsyncTask<Boolean, Integer, Integer> {
+
+		@Override
+		protected Integer doInBackground(Boolean... params) {
+			if (params[0]) {
+				return favoriteHelper.isUserFavorite(global.getUid(), uid);
+			} else {
+				return favoriteHelper.switchUserFavorite(global.getUid(), uid);
+			}
+		}
+
+		@Override
+		protected void onPostExecute(Integer res) {
+			ButtonFlat btn_favorite = (ButtonFlat) findViewById(R.id.user_info_btn_favorite);
+			switch (res) {
+				case 0:
+					btn_favorite.setText("关注");
+					btn_favorite.setBackgroundColor(getResources().getColor(R.color.yellow700));
+					break;
+				case 1:
+					btn_favorite.setText("取消关注");
+					btn_favorite.setBackgroundColor(getResources().getColor(R.color.yellow900));
+					break;
+			}
+		}
+	}
+
+	private class LoadTask extends AsyncTask<Integer, Integer, Integer> {
+
+		private User u;
+		private int followNum;
+		private int followerNum;
+		private int qNum;
+		private int aNum;
+
+		@Override
+		protected Integer doInBackground(Integer... params) {
+			u = userHelper.getByUid(uid);
+			followNum = userHelper.countFollowUsers(uid);
+			followerNum = userHelper.countFollowers(uid);
+			qNum = userHelper.countQuestions(uid);
+			aNum = userHelper.countAnswers(uid);
+			return 0;
+		}
+
+		@Override
+		protected void onPostExecute(Integer res) {
+			TextView nicknameTextView = (TextView) findViewById(R.id.user_info_nickname);
+			TextView signatureTextView = (TextView) findViewById(R.id.user_info_signature);
+			TextView followNumTextView = (TextView) findViewById(R.id.user_info_watch_people_num);
+			TextView followerNumTextView = (TextView) findViewById(R.id.user_info_watch_byPeople_num);
+			TextView qNumTextView = (TextView) findViewById(R.id.user_info_q_questioned_num);
+			TextView aNumTextView = (TextView) findViewById(R.id.user_info_a_questioned_num);
+			nicknameTextView.setText(u.getNickname());
+			signatureTextView.setText(u.getSignature());
+			followNumTextView.setText(String.valueOf(followNum));
+			followerNumTextView.setText(String.valueOf(followerNum));
+			qNumTextView.setText(String.valueOf(qNum));
+			aNumTextView.setText(String.valueOf(aNum));
+		}
+
+	}
+
+	private class LoadProfileTask extends AsyncTask<Integer, Integer, Integer> {
+
+		@Override
+		protected Integer doInBackground(Integer... params) {
+			currentUser = userHelper.getByUid(uid);
+			return 0;
+		}
+
+		@Override
+		protected void onPostExecute(Integer res) {
+			//TODO:设置头像
+			TextView nicknameTextView = (TextView) findViewById(R.id.user_info_nickname);
+			TextView signatureTextView = (TextView) findViewById(R.id.user_info_signature);
+			nicknameTextView.setText(currentUser.getNickname());
+			signatureTextView.setText(currentUser.getSignature());
+		}
+
 	}
 }

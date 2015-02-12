@@ -36,7 +36,7 @@
             android:src="@drawable/app"/>
 
         <TextView
-            android:id="@+id/user_info_username"
+            android:id="@+id/user_info_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -45,11 +45,19 @@
             android:textStyle="bold"
             android:textSize="16sp"/>
 
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/user_info_btn_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="关注"
+            android:background="@color/yellow900" />
+
         <View
             android:id="@+id/user_info_hor_line1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/user_info_username"
+            android:layout_below="@id/user_info_nickname"
             android:layout_marginTop="6dp"
             android:layout_toRightOf="@id/user_info_portrait"
             android:background="@color/gray_1"/>

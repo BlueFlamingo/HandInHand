@@ -32,21 +32,28 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
-        <ImageView
-            android:id="@+id/answer_item_portrait"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="6dp"
-            android:src="@drawable/app"/>
 
-        <TextView
-            android:id="@+id/answer_item_username"
-            android:layout_toRightOf="@+id/answer_item_portrait"
+        <RelativeLayout
+            android:id="@+id/answer_item_user_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:text="Adminstrator"/>
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/answer_item_portrait"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="6dp"
+                android:src="@drawable/app"/>
+
+            <TextView
+                android:id="@+id/answer_item_username"
+                android:layout_toRightOf="@+id/answer_item_portrait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="Adminstrator"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/answer_item_comment_container"

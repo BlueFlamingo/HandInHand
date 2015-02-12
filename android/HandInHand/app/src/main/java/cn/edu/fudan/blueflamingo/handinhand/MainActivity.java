@@ -2,6 +2,7 @@ package cn.edu.fudan.blueflamingo.handinhand;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -15,6 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFlat;
+
+import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
+import cn.edu.fudan.blueflamingo.handinhand.model.User;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -39,6 +43,12 @@ public class MainActivity extends ActionBarActivity {
 		} else {
 			nicknameTextView.setText(globalVal.getNickname());
 		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		(new LoadProfile()).execute();
 	}
 
 	private void initToolBar() {
@@ -179,5 +189,25 @@ public class MainActivity extends ActionBarActivity {
 		} else {
 			btnLogin.setText("登陆");
 		}
+	}
+
+	private class LoadProfile extends AsyncTask<Integer, Integer, Integer> {
+
+		private UserHelper userHelper = new UserHelper();
+		private User u;
+
+		@Override
+		protected Integer doInBackground(Integer... params) {
+			u = userHelper.getByUid(globalVal.getUid());
+			globalVal.setNickname(u.getNickname());
+			//TODO:设置头像
+			return 0;
+		}
+
+		@Override
+		protected void onPostExecute(Integer res) {
+			nicknameTextView.setText(u.getNickname());
+		}
+
 	}
 }

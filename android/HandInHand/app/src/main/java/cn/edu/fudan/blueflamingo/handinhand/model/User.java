@@ -13,6 +13,19 @@ public class User {
 	public int male = 0;		//0 for male, 1 for female
 	public String signature = "";
 
+	public User(int id, String username, String nickname, String password, int score1, int score2,
+				String portrait, String remark, String signature) {
+		this.id = id;
+		this.username = username;
+		this.nickname = nickname;
+		this.password = password;
+		this.score1 = score1;
+		this.score2 = score2;
+		this.portrait = portrait;
+		this.remark = remark;
+		this.signature = signature;
+	}
+
 	public int getId() {
 		return this.id;
 	}

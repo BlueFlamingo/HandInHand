@@ -1,5 +1,7 @@
 package cn.edu.fudan.blueflamingo.handinhand.middleware;
 
+import android.util.Log;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
@@ -74,7 +76,32 @@ public class UserHelper {
 		temp = sendPost(url, "op=count&username=" + username);
 		count = Integer.valueOf(temp);
 		return count;
+	}
 
+	public int countFollowers(int uid) {
+		String url = "http://121.199.64.117:8888/HandInHand/favorite.php";
+		String res = sendPost(url, "op=countFollowers&uid=" + String.valueOf(uid));
+		return Integer.valueOf(res);
+	}
+
+	public ArrayList<User> listFollowers(int uid) {
+		String url = "http://121.199.64.117:8888/HandInHand/favorite.php";
+		ArrayList<Integer> uids = new ArrayList<>();
+		String res = sendPost(url, "op=listFollowers&uid=" + uid);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			uids = mapper.readValue(res, new TypeReference<ArrayList<Integer>>() {
+			});
+		} catch (Exception e) {
+			Log.d("get followers", e.toString());
+		}
+		return Utility.uidtoUser(uids);
+	}
+
+	public int countFollowUsers(int uid) {
+		String url = "http://121.199.64.117:8888/HandInHand/favorite.php";
+		String res = sendPost(url, "op=countUsers&uid=" + String.valueOf(uid));
+		return Integer.valueOf(res);
 	}
 
 	public int authenticate(String username, String password){

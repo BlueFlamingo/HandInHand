@@ -43,8 +43,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 	@Override
 	public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 		User u = users.get(i);
-		// TODO:设置绑定
-		// viewHolder.nicknameTextView.setText(u.getNickname());
+		// TODO:设置头像
+		viewHolder.nicknameTextView.setText(u.getNickname());
+		viewHolder.signatureTextView.setText(u.getSignature());
 
 		if (mOnItemClickListener != null) {
 			viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

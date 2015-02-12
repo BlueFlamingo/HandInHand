@@ -28,8 +28,6 @@ public class AnswerItemActivity extends ActionBarActivity {
 	private int approvNum;
 
 	private CommentHelper commentHelper = new CommentHelper();
-	private AnswerHelper answerHelper = new AnswerHelper();
-	private FavoriteHelper favoriteHelper = new FavoriteHelper();
 	private ScoreHelper scoreHelper = new ScoreHelper();
 
 	@Override
@@ -43,6 +41,7 @@ public class AnswerItemActivity extends ActionBarActivity {
 		String content = getIntent().getExtras().getString("content");
 		approvNum = getIntent().getExtras().getInt("approvNum");
 		String nickname = getIntent().getExtras().getString("nickname");
+		final int uid = getIntent().getExtras().getInt("uid");
 		//设置回答的主体
 		TextView titleTextView = (TextView) findViewById(R.id.answer_item_title);
 		TextView contentTextView = (TextView) findViewById(R.id.answer_item_content);
@@ -53,12 +52,36 @@ public class AnswerItemActivity extends ActionBarActivity {
 		approvNumTextView.setText(String.valueOf(approvNum));
 		nicknameTextView.setText(nickname);
 
+		(new LoadTask()).execute(AID);
+
 		//bind approve
 		RelativeLayout approveContainer = (RelativeLayout) findViewById(R.id.answer_item_approve_container);
 		approveContainer.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				(new ApprovTask()).execute(AID, global.getUid());
+			}
+		});
+
+		//bind comment
+		RelativeLayout commentContainer = (RelativeLayout) findViewById(R.id.answer_item_comment_container);
+		commentContainer.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent commentListIntent = new Intent(AnswerItemActivity.this, CommentListActivity.class);
+				commentListIntent.putExtra("aid", AID);
+				startActivity(commentListIntent);
+			}
+		});
+
+		//bind jump to user action
+		RelativeLayout userContainer = (RelativeLayout) findViewById(R.id.answer_item_user_container);
+		userContainer.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent userIntent = new Intent(AnswerItemActivity.this, UserInfoActivity.class);
+				userIntent.putExtra("uid", uid);
+				startActivity(userIntent);
 			}
 		});
 	}
@@ -99,6 +122,22 @@ public class AnswerItemActivity extends ActionBarActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private class LoadTask extends AsyncTask<Integer, Integer, Integer> {
+
+		@Override
+		protected Integer doInBackground(Integer... params) {
+			int aid = params[0];
+			return commentHelper.countComment(aid);
+		}
+
+		@Override
+		protected void onPostExecute(Integer res) {
+			TextView commentNumTextView = (TextView) findViewById(R.id.answer_item_comment_num);
+			commentNumTextView.setText(String.valueOf(res));
+		}
+
 	}
 
 	private class ApprovTask extends AsyncTask<Integer, Integer, Integer> {

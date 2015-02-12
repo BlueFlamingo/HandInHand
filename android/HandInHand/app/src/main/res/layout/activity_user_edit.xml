@@ -2,7 +2,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="cn.edu.fudan.blueflamingo.handinhand.UserEditActivity">
+                tools:context="cn.edu.fudan.blueflamingo.handinhand.UserEditActivity"
+    android:background="@color/background_material_light">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/user_edit_toolbar"
@@ -85,9 +86,10 @@
                 android:entries="@array/gender_array"
                 android:layout_below="@+id/user_edit_gender_text"
                 android:textColor="@color/black"
+                android:prompt="@string/choose_gender"
                 android:padding="8dp"
                 android:spinnerMode="dropdown"
-                android:popupBackground="@color/background_floating_material_light"
+                android:popupBackground="@color/yellow200"
                 android:background="@drawable/abc_spinner_mtrl_am_alpha">
             </Spinner>
 
