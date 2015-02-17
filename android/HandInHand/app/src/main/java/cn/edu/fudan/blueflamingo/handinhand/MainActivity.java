@@ -163,8 +163,7 @@ public class MainActivity extends ActionBarActivity {
 						break;
 					case AuthActivity.REGISTERED:
 					case AuthActivity.LOGINED:
-						//TODO:获取头像
-						nicknameTextView.setText(globalVal.getNickname());
+						(new LoadProfile()).execute();
 				}
 				break;
 			default:
@@ -202,13 +201,13 @@ public class MainActivity extends ActionBarActivity {
 		protected Integer doInBackground(Integer... params) {
 			u = userHelper.getByUid(globalVal.getUid());
 			globalVal.setNickname(u.getNickname());
-			//TODO:设置头像
 			return 0;
 		}
 
 		@Override
 		protected void onPostExecute(Integer res) {
 			nicknameTextView.setText(u.getNickname());
+			portraitImageView.setImageBitmap(AppUtility.getImage(u.getPortrait()));
 		}
 
 	}
