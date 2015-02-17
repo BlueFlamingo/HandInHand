@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.R;
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
@@ -43,9 +44,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 	@Override
 	public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 		User u = users.get(i);
-		// TODO:设置头像
 		viewHolder.nicknameTextView.setText(u.getNickname());
 		viewHolder.signatureTextView.setText(u.getSignature());
+		viewHolder.portraitImageView.setImageBitmap(AppUtility.getImage(u.getPortrait()));
 
 		if (mOnItemClickListener != null) {
 			viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

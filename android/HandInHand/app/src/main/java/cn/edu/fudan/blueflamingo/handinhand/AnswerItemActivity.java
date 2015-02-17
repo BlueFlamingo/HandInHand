@@ -9,16 +9,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import cn.edu.fudan.blueflamingo.handinhand.middleware.AnswerHelper;
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.CommentHelper;
-import cn.edu.fudan.blueflamingo.handinhand.middleware.FavoriteHelper;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.ScoreHelper;
-import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 
 
 public class AnswerItemActivity extends ActionBarActivity {
@@ -42,11 +40,14 @@ public class AnswerItemActivity extends ActionBarActivity {
 		approvNum = getIntent().getExtras().getInt("approvNum");
 		String nickname = getIntent().getExtras().getString("nickname");
 		final int uid = getIntent().getExtras().getInt("uid");
+		String portraitStr = getIntent().getExtras().getString("portrait");
 		//设置回答的主体
 		TextView titleTextView = (TextView) findViewById(R.id.answer_item_title);
 		TextView contentTextView = (TextView) findViewById(R.id.answer_item_content);
 		TextView approvNumTextView = (TextView) findViewById(R.id.answer_item_approve_num);
 		TextView nicknameTextView = (TextView) findViewById(R.id.answer_item_username);
+		ImageView portraitImageView = (ImageView) findViewById(R.id.answer_item_portrait);
+		portraitImageView.setImageBitmap(AppUtility.getImage(portraitStr));
 		titleTextView.setText(qTitle);
 		contentTextView.setText(content);
 		approvNumTextView.setText(String.valueOf(approvNum));

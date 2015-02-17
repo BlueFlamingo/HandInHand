@@ -8,15 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonFlat;
 
-import org.androidannotations.annotations.res.TextRes;
-
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.FavoriteHelper;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
@@ -203,6 +201,8 @@ public class UserInfoActivity extends ActionBarActivity {
 			TextView followerNumTextView = (TextView) findViewById(R.id.user_info_watch_byPeople_num);
 			TextView qNumTextView = (TextView) findViewById(R.id.user_info_q_questioned_num);
 			TextView aNumTextView = (TextView) findViewById(R.id.user_info_a_questioned_num);
+			ImageView portraitImageView = (ImageView) findViewById(R.id.user_info_portrait);
+			portraitImageView.setImageBitmap(AppUtility.getImage(u.getPortrait()));
 			nicknameTextView.setText(u.getNickname());
 			signatureTextView.setText(u.getSignature());
 			followNumTextView.setText(String.valueOf(followNum));
@@ -223,11 +223,12 @@ public class UserInfoActivity extends ActionBarActivity {
 
 		@Override
 		protected void onPostExecute(Integer res) {
-			//TODO:设置头像
 			TextView nicknameTextView = (TextView) findViewById(R.id.user_info_nickname);
 			TextView signatureTextView = (TextView) findViewById(R.id.user_info_signature);
 			nicknameTextView.setText(currentUser.getNickname());
 			signatureTextView.setText(currentUser.getSignature());
+			ImageView portraitImageView = (ImageView) findViewById(R.id.user_info_portrait);
+			portraitImageView.setImageBitmap(AppUtility.getImage(currentUser.getPortrait()));
 		}
 
 	}

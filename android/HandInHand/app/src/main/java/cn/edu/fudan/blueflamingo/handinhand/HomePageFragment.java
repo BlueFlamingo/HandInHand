@@ -3,7 +3,6 @@ package cn.edu.fudan.blueflamingo.handinhand;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-
-import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
 public class HomePageFragment extends Fragment {
 

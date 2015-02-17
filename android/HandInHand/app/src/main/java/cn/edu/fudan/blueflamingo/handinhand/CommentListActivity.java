@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import cn.edu.fudan.blueflamingo.handinhand.adapter.CommentAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.CommentHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.Comment;

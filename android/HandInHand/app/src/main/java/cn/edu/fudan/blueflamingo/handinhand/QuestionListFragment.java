@@ -14,8 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +22,6 @@ import cn.edu.fudan.blueflamingo.handinhand.adapter.QuestionAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.QuestionHelper;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
-import cn.edu.fudan.blueflamingo.handinhand.model.Question;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
 

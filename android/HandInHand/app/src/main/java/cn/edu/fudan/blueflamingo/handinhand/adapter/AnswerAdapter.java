@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.R;
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.FavoriteHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.AnswerHeader;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
@@ -74,7 +75,6 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		if (viewHolder instanceof VHItem) {
 			ExAnswer a = answers.get(i - 1);    //由于header占了第0个位置
-			//TODO:设置头像
 			final VHItem item = (VHItem) viewHolder;
 			item.usernameTextView.setText(a.getNickname());
 			item.timeTextView.setText(simpleDateFormat.format(new Date(a.getCreatedTime())));
@@ -85,7 +85,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 				item.abstractTextView.setText(a.getContent());
 			}
 			item.approveNumTextView.setText(String.valueOf(a.getScore1()));
-
+			item.headImageView.setImageBitmap(AppUtility.getImage(a.getUserHead()));
 
 			//如果设置了回调则设置点击事件
 			if (mOnItemClickListener != null) {

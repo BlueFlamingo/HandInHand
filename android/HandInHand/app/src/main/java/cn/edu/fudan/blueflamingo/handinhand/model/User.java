@@ -74,4 +74,11 @@ public class User {
 
 	public User(){
 	}
+
+	public static boolean equals(User u1, User u2) {
+		return u1.portrait.equals(u2.portrait)
+				&& u1.signature.equals(u2.signature)
+				&& u1.male == u2.male
+				&& u1.nickname.equals(u2.nickname);
+	}
 }

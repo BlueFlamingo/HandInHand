@@ -14,8 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.R;
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
-import cn.edu.fudan.blueflamingo.handinhand.model.Question;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
 
@@ -49,8 +49,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		ExQuestion q = questions.get(i);
 		viewHolder.titleTextView.setText(q.getTitle());
-		//TODO:设置头像
-		//viewHolder.headImageView.setImageBitmap();
 		viewHolder.watchNumTextView.setText(String.valueOf(q.getScore1()));
 		if (q.getContent().length() > 30) {
 			viewHolder.abstractTextView.setText(q.getContent().substring(0, 30));
@@ -58,6 +56,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 			viewHolder.abstractTextView.setText(q.getContent());
 		}
 		viewHolder.timeTextView.setText(simpleDateFormat.format(new Date(q.getCreatedTime())));
+		viewHolder.headImageView.setImageBitmap(AppUtility.getImage(q.getUserHead()));
 		Log.d("created time", simpleDateFormat.format(new Date(q.getCreatedTime())));
 
 		//如果设置了回调则设置点击事件

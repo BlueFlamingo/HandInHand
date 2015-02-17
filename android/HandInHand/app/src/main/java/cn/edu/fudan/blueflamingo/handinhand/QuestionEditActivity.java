@@ -57,6 +57,7 @@ public class QuestionEditActivity extends ActionBarActivity {
 	private void initMultiSelectionSpinner() {
 		final MultiSelectSpinner multiSelectSpinner = (MultiSelectSpinner) findViewById(R.id.question_topic_spinner);
 		multiSelectSpinner.setItems(topics);
+		multiSelectSpinner.setPrompt("选择一个分类");
 	}
 
 

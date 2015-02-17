@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.R;
-import cn.edu.fudan.blueflamingo.handinhand.model.Answer;
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 
 public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapter.ViewHolder>{
@@ -47,7 +47,6 @@ public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapte
 	public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		ExAnswer a = answers.get(i);	//由于header占了第0个位置
-		//TODO:设置头像
 		viewHolder.usernameTextView.setText(a.getNickname());
 		viewHolder.approveNumTextView.setText(String.valueOf(a.getScore1()));
 		String content = a.getContent();
@@ -57,6 +56,7 @@ public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapte
 			viewHolder.abstractTextView.setText(content);
 		}
 		viewHolder.timeTextView.setText(simpleDateFormat.format(new Date(a.getCreatedTime())));
+		viewHolder.headImageView.setImageBitmap(AppUtility.getImage(a.getUserHead()));
 
 		//如果设置了回调则设置点击事件
 		if (mOnItemClickListener != null) {

@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#FBC02D</item>
         <item name="colorPrimaryDark">#F9A825</item>
         <item name="android:windowNoTitle">true</item>

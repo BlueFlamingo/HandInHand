@@ -13,9 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.gc.materialdesign.views.ButtonFlat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +22,6 @@ import cn.edu.fudan.blueflamingo.handinhand.adapter.SimpleAnswerAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.AnswerHelper;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.QuestionHelper;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
-import cn.edu.fudan.blueflamingo.handinhand.model.Answer;
 import cn.edu.fudan.blueflamingo.handinhand.model.AnswerHeader;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
@@ -101,6 +97,7 @@ public class AnswerListFragment extends Fragment {
 					aItemIntent.putExtra("aid", exAnswer.getId());
 					aItemIntent.putExtra("uid", exAnswer.getUid());
 					aItemIntent.putExtra("nickname", exAnswer.getNickname());
+					aItemIntent.putExtra("portrait", exAnswer.getUserHead());
 					aItemIntent.putExtra("content", exAnswer.getContent());
 					aItemIntent.putExtra("approvNum", exAnswer.getScore1());
 					aItemIntent.putExtra("title", parent.getIntent().getExtras().getString("title"));
@@ -178,7 +175,6 @@ public class AnswerListFragment extends Fragment {
 				qid = params[1];
 				answers.clear();
 				answers.addAll(answerHelper.getByQid(qid));
-				Log.d("answer score1", String.valueOf(answers.get(0).getScore1()));
 				ExQuestion exQuestion = questionHelper.getByQid(qid);
 				answerHeader.setDescription(exQuestion.getContent());
 				answerHeader.setTitle(exQuestion.getTitle());

@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.R;
-import cn.edu.fudan.blueflamingo.handinhand.model.Comment;
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExComment;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
@@ -38,10 +38,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 	public void onBindViewHolder(ViewHolder viewHolder, int i) {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		ExComment c = comments.get(i);
-		//TODO:设置头像
 		viewHolder.timeTextView.setText(simpleDateFormat.format((new Date(c.getCreatedTime()))));
 		viewHolder.usernameTextView.setText(c.getNickname());
 		viewHolder.contentTextView.setText(c.getContent());
+		viewHolder.portraitImageView.setImageBitmap(AppUtility.getImage(c.getUserHead()));
 	}
 
 	@Override

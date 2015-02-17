@@ -1,6 +1,5 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFlat;
 
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
 
@@ -37,6 +38,7 @@ public class MainActivity extends ActionBarActivity {
 		globalVal = (Global) getApplication();
 		initToolBar();
 		initHomePageFragment();
+		AppUtility.openDiskLruCache(this, 1024 * 1024 * 10);
 		if (!globalVal.getLoginFlag()) {
 			Intent authIntent = new Intent(this, AuthActivity.class);
 			startActivity(authIntent);
