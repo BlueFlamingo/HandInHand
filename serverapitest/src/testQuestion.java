@@ -18,9 +18,13 @@ public class testQuestion {
 		topics.add(1); 
 		topics.add(2);
 		//test add
-		Question q =new Question(5,"hello",1,2,35,20, "demo.jpg","demo",topics);
+		Question q =new Question(5,"zst",1,2,35,20, "demo.jpg","demo",topics);
+		//q.createdTime = System.currentTimeMillis();
+		q.createdTime = 0;
+		q.expireTime = System.currentTimeMillis() - 2000 * 1000;
+		System.out.println(q.createdTime);
 		int qid = helperquestion.add(q);
-		System.out.print(qid);
+		/*System.out.print(qid);
 		ArrayList<Integer> topics1 = new ArrayList<Integer>();
 		topics1.add(1); 
 		Question q2 = new Question(6,"cat",1,2,35,20, "demo.jpg","demo",topics1);
@@ -35,7 +39,6 @@ public class testQuestion {
 		//test delete
 		int num1 = helperquestion.delete(5);
 		System.out.print(num1);
-		
 		//test getByTopic
 		ArrayList<ExQuestion> ques1 = new ArrayList<ExQuestion>();
 		ArrayList<ExQuestion> ques2 = new ArrayList<ExQuestion>();
@@ -48,7 +51,7 @@ public class testQuestion {
 		Question q3 = new Question();
 		q3 = helperquestion.getByQid(40);
 		System.out.print(q3);
-		
+		*/
 		
 		
 		
