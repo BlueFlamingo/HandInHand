@@ -96,6 +96,7 @@ public class AnswerListFragment extends Fragment {
 					ExAnswer exAnswer = answers.get(position - 1);
 					aItemIntent.putExtra("aid", exAnswer.getId());
 					aItemIntent.putExtra("uid", exAnswer.getUid());
+					aItemIntent.putExtra("qid", exAnswer.getQid());
 					aItemIntent.putExtra("nickname", exAnswer.getNickname());
 					aItemIntent.putExtra("portrait", exAnswer.getUserHead());
 					aItemIntent.putExtra("content", exAnswer.getContent());

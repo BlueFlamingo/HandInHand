@@ -143,7 +143,6 @@ public class QuestionListFragment extends Fragment {
 			} else {
 				return -1;
 			}
-
 		}
 
 		@Override

@@ -54,7 +54,8 @@ public class Utility {
 		etemp.score2 = qtemp.score2;
 		etemp.uid = qtemp.uid;
 		etemp.createdTime = qtemp.createdTime;
-		etemp. picture =  qtemp.picture;
+		etemp.expireTime = qtemp.expireTime;
+		etemp.picture =  qtemp.picture;
 		etemp.title = qtemp.title;
 		etemp.topics = qtemp.topics;
 

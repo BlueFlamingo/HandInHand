@@ -15,6 +15,7 @@ public class HomePageFragment extends Fragment {
 
 	//						tid
 	//cat_top:今日热门		7
+	//30分钟紧急问答			0
 	//cat_1:学海无涯			1
 	//cat_2:校园生活			2
 	//cat_3:情感大话			3
@@ -22,7 +23,7 @@ public class HomePageFragment extends Fragment {
 	//cat_5:吃喝玩乐			5
 	//cat_6:其它				6
 	private final String[] topics = {
-			"学海无涯", "校园生活", "情感大话",
+			"30分钟紧急问答", "学海无涯", "校园生活", "情感大话",
 			"职业发展", "吃喝玩乐", "其它",
 			"今日热门"};
 
@@ -62,14 +63,14 @@ public class HomePageFragment extends Fragment {
 			public void onClick(View v) {
 				Intent qListIntent = new Intent(getActivity(), QuestionListActivity.class);
 				qListIntent.putExtra("TOPIC",topicString);
-				qListIntent.putExtra("TID", topic + 1);
+				qListIntent.putExtra("TID", topic);
 				startActivity(qListIntent);
 			}
 		});
 	}
 
 	private void initTopicListener(View v) {
-		for (int i = 0; i < topics.length; i++) {
+		for (int i = 1; i < topics.length; i++) {
 			initTopicOnClickListener(v, i, topics[i]);
 		}
 	}
@@ -120,19 +121,19 @@ public class HomePageFragment extends Fragment {
 
 	private int topicMapper(int topicId) {
 		switch (topicId) {
-			case 6:
+			case 7:
 				return R.id.cat_top;
-			case 0:
-				return R.id.cat_1;
 			case 1:
-				return R.id.cat_2;
+				return R.id.cat_1;
 			case 2:
-				return R.id.cat_3;
+				return R.id.cat_2;
 			case 3:
-				return R.id.cat_4;
+				return R.id.cat_3;
 			case 4:
-				return R.id.cat_5;
+				return R.id.cat_4;
 			case 5:
+				return R.id.cat_5;
+			case 6:
 				return R.id.cat_6;
 			default:
 				return -1;

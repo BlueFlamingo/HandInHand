@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import cn.edu.fudan.blueflamingo.handinhand.view.MultiSelectSpinner;
 public class QuestionEditActivity extends ActionBarActivity {
 
 	private final String[] topics = {
-			"学海无涯", "校园生活", "情感大话",
+			"30分钟紧急问答", "学海无涯", "校园生活", "情感大话",
 			"职业发展", "吃喝玩乐", "其它"};
 	private QuestionHelper questionHelper;
 	private Global global;
@@ -57,7 +58,7 @@ public class QuestionEditActivity extends ActionBarActivity {
 	private void initMultiSelectionSpinner() {
 		final MultiSelectSpinner multiSelectSpinner = (MultiSelectSpinner) findViewById(R.id.question_topic_spinner);
 		multiSelectSpinner.setItems(topics);
-		multiSelectSpinner.setPrompt("选择一个分类");
+		multiSelectSpinner.setSelection(0);
 	}
 
 
@@ -78,15 +79,22 @@ public class QuestionEditActivity extends ActionBarActivity {
 				List<Integer> res = multiSelectSpinner.getSelectedIndicies();
 				String resString = "";
 				ArrayList<Integer> topicArrayList = new ArrayList<>();
+				Calendar createTime = Calendar.getInstance();
+				//紧急区的时效
+				Calendar tmpTime = (Calendar) createTime.clone();
+				long expireTime = 0;
 				for (Integer i : res) {
 					resString += topics[i];
-					topicArrayList.add(i + 1);
+					if (i == 0) {
+						expireTime = getExpireTime(tmpTime);
+					}
+					topicArrayList.add(i);
 				}
 				EditText titleEditText = (EditText) findViewById(R.id.question_edit_title);
 				EditText contentEditText = (EditText) findViewById(R.id.question_edit_content);
 				String title = titleEditText.getText().toString();
 				String content = contentEditText.getText().toString();
-				(new SendQuestionTask()).execute(title, content, topicArrayList);
+				(new SendQuestionTask()).execute(title, content, topicArrayList, createTime.getTimeInMillis(), expireTime);
 				Log.d("saved topics", resString);
 				//返回
 				finish();
@@ -102,6 +110,11 @@ public class QuestionEditActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	private long getExpireTime(Calendar t) {
+		t.add(Calendar.MINUTE, 30);
+		return t.getTimeInMillis();
+	}
+
 	private class SendQuestionTask extends AsyncTask<Object, Integer, Integer> {
 
 		@Override
@@ -109,10 +122,11 @@ public class QuestionEditActivity extends ActionBarActivity {
 			String title = (String)params[0];
 			String content = (String)params[1];
 			ArrayList<Integer> topics = (ArrayList<Integer>) params[2];
-			long time = (new Date()).getTime();
-			Question q = new Question(title, content, global.getUid(), time, topics);
+			long createTime = (long) params[3];
+			long expireTime = (long) params[4];
+			Question q = new Question(title, content, global.getUid(), createTime, expireTime, topics);
 			Log.d("add question", String.valueOf(global.getUid()));
-			Log.d("add question", (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(time));
+			Log.d("add question", (new SimpleDateFormat("yyyy-MM-dd HH:mm")).format(createTime));
 			questionHelper.add(q);
 			return 0;
 		}

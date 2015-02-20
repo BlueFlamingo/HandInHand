@@ -16,12 +16,15 @@ import android.widget.Toast;
 
 import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.CommentHelper;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.QuestionHelper;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.ScoreHelper;
+import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 
 
 public class AnswerItemActivity extends ActionBarActivity {
 
 	private int AID = -1;
+	private int QID = -1;
 	private Global global;
 	private int approvNum;
 
@@ -35,6 +38,7 @@ public class AnswerItemActivity extends ActionBarActivity {
 		initToolbar();
 		global = (Global) getApplication();
 		AID = getIntent().getExtras().getInt("aid");
+		QID = getIntent().getExtras().getInt("qid");
 		String qTitle = getIntent().getExtras().getString("title");
 		String content = getIntent().getExtras().getString("content");
 		approvNum = getIntent().getExtras().getInt("approvNum");
@@ -53,7 +57,7 @@ public class AnswerItemActivity extends ActionBarActivity {
 		approvNumTextView.setText(String.valueOf(approvNum));
 		nicknameTextView.setText(nickname);
 
-		(new LoadTask()).execute(AID);
+		(new LoadTask()).execute(AID, QID);
 
 		//bind approve
 		RelativeLayout approveContainer = (RelativeLayout) findViewById(R.id.answer_item_approve_container);
@@ -127,15 +131,23 @@ public class AnswerItemActivity extends ActionBarActivity {
 
 	private class LoadTask extends AsyncTask<Integer, Integer, Integer> {
 
+		private String title;
+
 		@Override
 		protected Integer doInBackground(Integer... params) {
 			int aid = params[0];
+			int qid = params[1];
+			QuestionHelper questionHelper = new QuestionHelper();
+			ExQuestion exQuestion = questionHelper.getByQid(qid);
+			title = exQuestion.getTitle();
 			return commentHelper.countComment(aid);
 		}
 
 		@Override
 		protected void onPostExecute(Integer res) {
 			TextView commentNumTextView = (TextView) findViewById(R.id.answer_item_comment_num);
+			TextView titleTextView = (TextView) findViewById(R.id.answer_item_title);
+			titleTextView.setText(title);
 			commentNumTextView.setText(String.valueOf(res));
 		}
 

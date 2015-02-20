@@ -57,7 +57,21 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 		}
 		viewHolder.timeTextView.setText(simpleDateFormat.format(new Date(q.getCreatedTime())));
 		viewHolder.headImageView.setImageBitmap(AppUtility.getImage(q.getUserHead()));
-		Log.d("created time", simpleDateFormat.format(new Date(q.getCreatedTime())));
+		if (q.expireTime != 0) {
+			Log.d("emergent question", String.valueOf(q.expireTime));
+			Date now = new Date();
+			Date eTime = new Date(q.expireTime);
+			if (eTime.after(now)) {
+				SimpleDateFormat min = new SimpleDateFormat("mm");
+				viewHolder.subTitleTextView.setText("还剩下"
+						+ min.format(q.expireTime - now.getTime())
+						+ "分钟");
+			} else {
+				viewHolder.subTitleTextView.setText("已过期");
+			}
+		} else {
+			viewHolder.subTitleTextView.setVisibility(View.GONE);
+		}
 
 		//如果设置了回调则设置点击事件
 		if (mOnItemClickListener != null) {
@@ -81,9 +95,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 		public TextView watchNumTextView;
 		public TextView abstractTextView;
 		public TextView timeTextView;
+		public TextView subTitleTextView;
 
 		public ViewHolder(View v) {
 			super(v);
+			subTitleTextView = (TextView) v.findViewById(R.id.question_subtitle);
 			titleTextView = (TextView) v.findViewById(R.id.question_title);
 			headImageView = (ImageView) v.findViewById(R.id.question_user_head);
 			watchNumTextView = (TextView) v.findViewById(R.id.question_watch_num);
