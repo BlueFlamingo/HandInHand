@@ -126,7 +126,8 @@ public class MainActivity extends ActionBarActivity {
 				}
 				break;
 			case R.id.action_search:
-				Toast.makeText(this, "search clicked!", Toast.LENGTH_SHORT).show();
+				Intent searchIntent = new Intent(this, SearchActivity.class);
+				startActivity(searchIntent);
 				break;
 			default:
 				break;

@@ -111,8 +111,16 @@ public class AnswerListFragment extends Fragment {
 			simpleAnswerAdapter.setOnItemClickListener(new SimpleAnswerAdapter.OnItemClickListener() {
 				@Override
 				public void onItemClick(View view, int position) {
-					Intent aItemIntent = new Intent(getActivity(), AnswerItemActivity.class);
+					final Intent aItemIntent = new Intent(getActivity(), AnswerItemActivity.class);
+					final ExAnswer exAnswer = answers.get(position);
 					aItemIntent.putExtra("aid", answers.get(position).getId());
+					aItemIntent.putExtra("uid", exAnswer.getUid());
+					aItemIntent.putExtra("qid", exAnswer.getQid());
+					aItemIntent.putExtra("nickname", exAnswer.getNickname());
+					aItemIntent.putExtra("portrait", exAnswer.getUserHead());
+					aItemIntent.putExtra("content", exAnswer.getContent());
+					aItemIntent.putExtra("approvNum", exAnswer.getScore1());
+					//TODO:title传递问题
 					startActivity(aItemIntent);
 				}
 			});

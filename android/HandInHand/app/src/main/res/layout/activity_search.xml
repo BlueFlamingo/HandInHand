@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="cn.edu.fudan.blueflamingo.handinhand.SearchActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+        <EditText
+            android:id="@+id/search_input"
+            android:hint="输入搜索内容"
+            android:layout_width="260dp"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/search_img_action"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_action_search"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/search_tab_container"
+        android:layout_below="@+id/search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/search_tab_label1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="问题"/>
+
+        <View
+            android:background="@color/background_material_light"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/search_tab_label2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="回答"/>
+
+        <View
+            android:background="@color/background_material_light"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/search_tab_label3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="评论"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_above="@+id/search_tab_cursor"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/yellow700"/>
+
+    <ImageView
+        android:id="@+id/search_tab_cursor"
+        android:layout_below="@+id/search_tab_container"
+        android:background="@color/yellow900"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+
+    <ProgressBar
+        android:id="@+id/search_progressbar"
+        android:layout_below="@id/search_tab_cursor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/search_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_tab_cursor"/>
+
+
+    <!--cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout
+        android:id="@+id/search_list_container"
+        android:layout_below="@+id/search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_list_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+    </cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout-->
+
+</RelativeLayout>

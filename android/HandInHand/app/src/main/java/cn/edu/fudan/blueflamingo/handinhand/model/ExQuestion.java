@@ -21,6 +21,13 @@ public class ExQuestion extends Question {
 		this.userHead = userHead;
 	}
 
+	public ExQuestion(int id, String content, int score1, int score2, int uid, long createdTime, long expireTime, String picture, String title, ArrayList<Integer> topics, String nickname, String userHead) {
+		super(id, content, score1, score2, uid, createdTime, picture, title, topics);
+		this.nickname = nickname;
+		this.userHead = userHead;
+		this.expireTime = expireTime;
+	}
+
 	public ExQuestion(){
 	}
 }

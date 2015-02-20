@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -81,7 +82,8 @@ public class AnswerEditActivity extends ActionBarActivity {
 		protected Boolean doInBackground(String... params) {
 			String content = params[0];
 			Answer a = new Answer(content, global.getUid(), QID, (new Date()).getTime());
-			answerHelper.add(a);
+			int aid = answerHelper.add(a);
+			Log.d("answer add", String.valueOf(aid));
 			return true;
 		}
 

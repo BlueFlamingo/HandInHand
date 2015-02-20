@@ -1,5 +1,9 @@
 #Hand in hand Android Patch Notes
 
+v0.17 2015/2/19
+- 搜索功能上线
+- 修复bug
+
 v0.16 2015/2/17
 - 头像功能上线
 - 修复若干bug

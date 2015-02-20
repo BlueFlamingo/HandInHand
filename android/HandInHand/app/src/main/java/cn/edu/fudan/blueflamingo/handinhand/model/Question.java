@@ -10,6 +10,7 @@ public class Question {
 	public int score2 = 0;			//点踩
 	public int uid = -1;
 	public long createdTime = 0;
+	public long expireTime = 0;
 	public String picture = "";
 	public String title = "";
 	public ArrayList<Integer> topics = new ArrayList<>();
@@ -56,6 +57,15 @@ public class Question {
 		this.uid = uid;
 		this.createdTime = createdTime;
 		this.topics = topics;
+	}
+
+	public Question(String title, String content, int uid, long createdTime, long expireTime, ArrayList<Integer> topics) {
+		this.title = title;
+		this.content = content;
+		this.uid = uid;
+		this.createdTime = createdTime;
+		this.topics = topics;
+		this.expireTime = expireTime;
 	}
 
 	public Question(int id,String content,int score1,int score2,int uid,long createdTime, String picture,String title,ArrayList<Integer> topics){

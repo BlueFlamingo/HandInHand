@@ -46,7 +46,7 @@ public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapte
 	@Override
 	public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		ExAnswer a = answers.get(i);	//由于header占了第0个位置
+		ExAnswer a = answers.get(i);
 		viewHolder.usernameTextView.setText(a.getNickname());
 		viewHolder.approveNumTextView.setText(String.valueOf(a.getScore1()));
 		String content = a.getContent();
