@@ -9,6 +9,7 @@ public class Question {
 	public int score2 = 0;
 	public int uid;
 	public long createdTime = 0;
+	public long expireTime = 0;
 	public String picture = "";
 	public String title = "";
 	
