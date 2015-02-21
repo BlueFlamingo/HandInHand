@@ -1,11 +1,11 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +40,14 @@ public class QuestionListFragment extends Fragment {
 	//如果TID<0,则说明是从userInfo转过来的，因此取相反数之后的值就是UID
 	private int TID;
 
+	public static QuestionListFragment newInstance(int tid) {
+		QuestionListFragment questionListFragment = new QuestionListFragment();
+		Bundle bundle = new Bundle();
+		bundle.putInt("TID", tid);
+		questionListFragment.setArguments(bundle);
+		return questionListFragment;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
@@ -50,7 +58,8 @@ public class QuestionListFragment extends Fragment {
 	public void onStart() {
 		super.onStart();
 		parent = getActivity();
-		TID = parent.getIntent().getExtras().getInt("TID");
+		Bundle args = getArguments();
+		TID = args == null ? parent.getIntent().getExtras().getInt("TID") : args.getInt("TID");
 		Log.d("TID", String.valueOf(TID));
 
 		ArrayList<Integer> temp = new ArrayList<>();

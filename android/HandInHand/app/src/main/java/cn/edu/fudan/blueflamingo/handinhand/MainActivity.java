@@ -1,21 +1,30 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFlat;
+
+import java.util.ArrayList;
 
 import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
@@ -31,13 +40,21 @@ public class MainActivity extends ActionBarActivity {
 	private TextView nicknameTextView;
 	private ImageView portraitImageView;
 
+	private ViewPager mViewPager;
+	private ArrayList<Fragment> fragmentArrayList;
+	private ImageView cursor;
+	private int offset;
+	private int currentTabID;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		globalVal = (Global) getApplication();
 		initToolBar();
-		initHomePageFragment();
+		initCursor();
+		initViewPager();
+		bindTabClick();
 		AppUtility.openDiskLruCache(this, 1024 * 1024 * 10);
 		if (!globalVal.getLoginFlag()) {
 			Intent authIntent = new Intent(this, AuthActivity.class);
@@ -47,10 +64,48 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
+	private void initViewPager() {
+		mViewPager = (ViewPager) findViewById(R.id.main_viewPager);
+		fragmentArrayList = new ArrayList<>();
+		fragmentArrayList.add(QuestionListFragment.newInstance(0));
+		fragmentArrayList.add(HomePageFragment.newInstance());
+
+		mViewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), fragmentArrayList));
+		mViewPager.setCurrentItem(0);
+		currentTabID = 0;
+		mViewPager.setOnPageChangeListener(new MainOnPageChangeListener());
+	}
+
+	private void bindTabClick() {
+		TextView tab1 = (TextView) findViewById(R.id.main_tab_1);
+		TextView tab2 = (TextView) findViewById(R.id.main_tab_2);
+		tab1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mViewPager.setCurrentItem(0);
+			}
+		});
+		tab2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mViewPager.setCurrentItem(1);
+			}
+		});
+	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
 		(new LoadProfile()).execute();
+	}
+
+	private void initCursor() {
+		cursor = (ImageView) findViewById(R.id.main_tab_cursor);
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		int cursorWidth = displayMetrics.widthPixels / 2;
+		cursor.getLayoutParams().width = cursorWidth;
+		offset = displayMetrics.widthPixels - cursorWidth;
 	}
 
 	private void initToolBar() {
@@ -92,13 +147,6 @@ public class MainActivity extends ActionBarActivity {
 			}
 
 		}
-	}
-
-	private void initHomePageFragment() {
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction()
-				.replace(R.id.main_fragment, new HomePageFragment())
-				.commit();
 	}
 
 	@Override
@@ -174,7 +222,7 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	public void onBackPressed() {
-		FragmentManager fragmentManager = getFragmentManager();
+		FragmentManager fragmentManager = getSupportFragmentManager();
 		if (fragmentManager.getBackStackEntryCount() != 0) {
 			fragmentManager.popBackStack();
 		} else {
@@ -209,6 +257,67 @@ public class MainActivity extends ActionBarActivity {
 		protected void onPostExecute(Integer res) {
 			nicknameTextView.setText(u.getNickname());
 			portraitImageView.setImageBitmap(AppUtility.getImage(u.getPortrait()));
+		}
+
+	}
+
+	private class MainFragmentPagerAdapter extends FragmentPagerAdapter {
+
+		private ArrayList<Fragment> list;
+
+		public MainFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> list) {
+			super(fm);
+			this.list = list;
+		}
+
+		@Override
+		public int getCount() {
+			return list.size();
+		}
+
+		@Override
+		public Fragment getItem(int arg0) {
+			return list.get(arg0);
+		}
+
+	}
+
+	private class MainOnPageChangeListener implements ViewPager.OnPageChangeListener {
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+		}
+
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+
+		}
+
+		@Override
+		public void onPageSelected(int arg0) {
+			Animation animation = null;
+			Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+			switch (arg0) {
+				case 0:
+					if (currentTabID == 1) {
+						toolbar.setTitle("30分钟紧急问答");
+						animation = new TranslateAnimation(offset, 0, 0, 0);
+						//Log.d(AppUtility.APPNAME, "swipe to 0");
+					}
+					break;
+				case 1:
+					if (currentTabID == 0) {
+						toolbar.setTitle("首页");
+						animation = new TranslateAnimation(0, offset, 0, 0);
+						//Log.d(AppUtility.APPNAME, "swipe to 1");
+					}
+					break;
+			}
+			currentTabID = arg0;
+			animation.setFillAfter(true);
+			animation.setDuration(300);
+			cursor.startAnimation(animation);
 		}
 
 	}

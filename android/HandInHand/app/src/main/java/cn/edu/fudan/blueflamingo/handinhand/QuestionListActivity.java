@@ -1,6 +1,6 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -39,7 +39,7 @@ public class QuestionListActivity extends ActionBarActivity {
 	}
 
 	private void initQuestionListFragment() {
-		FragmentManager fragmentManager = getFragmentManager();
+		FragmentManager fragmentManager = getSupportFragmentManager();
 		fragmentManager.beginTransaction()
 				.replace(R.id.question_list_fragment, new QuestionListFragment())
 				.commit();
