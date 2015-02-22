@@ -113,7 +113,19 @@ public class QuestionHelper {
 		}
 
 		return Utility.questionToExQuestion(question);
+	}
 
+	public ArrayList<ExQuestion> getHotest() {
+		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
+		ArrayList<Question> questions = new ArrayList<>();
+		String res = sendPost(url, "op=getHotest");
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			questions = mapper.readValue(res, new TypeReference<ArrayList<Question>>() {});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Utility.questionToExQuestion(questions);
 	}
 
 	public String sendPost(String url, String param) {

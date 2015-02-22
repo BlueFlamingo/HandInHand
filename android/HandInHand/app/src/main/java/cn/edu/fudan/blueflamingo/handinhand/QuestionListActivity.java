@@ -25,6 +25,11 @@ public class QuestionListActivity extends ActionBarActivity {
 		TID = getIntent().getExtras().getInt("TID");
 		globalVal = (Global) getApplication();
 		initToolbar();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		initQuestionListFragment();
 	}
 
@@ -39,9 +44,20 @@ public class QuestionListActivity extends ActionBarActivity {
 	}
 
 	private void initQuestionListFragment() {
+		QuestionListFragment questionListFragment = new QuestionListFragment();
+		questionListFragment.setOnListEmptyListener(new QuestionListFragment.OnListEmptyListener() {
+			@Override
+			public void onListEmpty() {
+				FragmentManager fragmentManager = getSupportFragmentManager();
+				fragmentManager.beginTransaction()
+						.replace(R.id.question_list_fragment, new BlankFragment())
+						.commit();
+				//Toast.makeText(getApplicationContext(), "list empty!", Toast.LENGTH_SHORT).show();
+			}
+		});
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		fragmentManager.beginTransaction()
-				.replace(R.id.question_list_fragment, new QuestionListFragment())
+				.replace(R.id.question_list_fragment, questionListFragment)
 				.commit();
 	}
 

@@ -14,14 +14,17 @@
         <EditText
             android:id="@+id/search_input"
             android:hint="输入搜索内容"
+            android:singleLine="true"
             android:layout_width="260dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:imeOptions="actionSearch"/>
 
-        <ImageView
-            android:id="@+id/search_img_action"
-            android:layout_width="50dp"
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/search_btn_action"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:src="@drawable/ic_action_search"/>
+            android:text="搜索"
+            android:background="@color/yellow900"/>
 
     </android.support.v7.widget.Toolbar>
 

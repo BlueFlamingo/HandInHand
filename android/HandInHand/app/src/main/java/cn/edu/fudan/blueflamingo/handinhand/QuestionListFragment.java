@@ -40,6 +40,16 @@ public class QuestionListFragment extends Fragment {
 	//如果TID<0,则说明是从userInfo转过来的，因此取相反数之后的值就是UID
 	private int TID;
 
+	public interface OnListEmptyListener {
+		void onListEmpty();
+	}
+
+	private OnListEmptyListener mOnListEmptyListener;
+
+	public void setOnListEmptyListener(OnListEmptyListener onListEmptyListener) {
+		this.mOnListEmptyListener = onListEmptyListener;
+	}
+
 	public static QuestionListFragment newInstance(int tid) {
 		QuestionListFragment questionListFragment = new QuestionListFragment();
 		Bundle bundle = new Bundle();
@@ -143,6 +153,8 @@ public class QuestionListFragment extends Fragment {
 			//如果TID<0,则说明是从userInfo转过来的，因此取相反数之后的值就是UID
 			if (tid < 0) {
 				questions.addAll(userHelper.getQuestions(-tid));
+			} else if (tid == 7) {
+				questions.addAll(questionHelper.getHotest());
 			} else {
 				questions.addAll(questionHelper.getByTopic(tid));
 			}
@@ -161,6 +173,8 @@ public class QuestionListFragment extends Fragment {
 					questionAdapter.notifyDataSetChanged();
 					break;
 				case -1:
+					questionAdapter.notifyDataSetChanged();
+					mOnListEmptyListener.onListEmpty();
 					break;
 			}
 			mSwipeLayout.setRefreshing(false);

@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
 	private ImageView portraitImageView;
 
 	private ViewPager mViewPager;
-	private ArrayList<Fragment> fragmentArrayList;
+	private MainFragmentPagerAdapter mMainFragmentPagerAdapter;
 	private ImageView cursor;
 	private int offset;
 	private int currentTabID;
@@ -53,7 +53,6 @@ public class MainActivity extends ActionBarActivity {
 		globalVal = (Global) getApplication();
 		initToolBar();
 		initCursor();
-		initViewPager();
 		bindTabClick();
 		AppUtility.openDiskLruCache(this, 1024 * 1024 * 10);
 		if (!globalVal.getLoginFlag()) {
@@ -66,11 +65,8 @@ public class MainActivity extends ActionBarActivity {
 
 	private void initViewPager() {
 		mViewPager = (ViewPager) findViewById(R.id.main_viewPager);
-		fragmentArrayList = new ArrayList<>();
-		fragmentArrayList.add(QuestionListFragment.newInstance(0));
-		fragmentArrayList.add(HomePageFragment.newInstance());
-
-		mViewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), fragmentArrayList));
+		mMainFragmentPagerAdapter = new MainFragmentPagerAdapter(getSupportFragmentManager());
+		mViewPager.setAdapter(mMainFragmentPagerAdapter);
 		mViewPager.setCurrentItem(0);
 		currentTabID = 0;
 		mViewPager.setOnPageChangeListener(new MainOnPageChangeListener());
@@ -96,6 +92,7 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		initViewPager();
 		(new LoadProfile()).execute();
 	}
 
@@ -263,21 +260,51 @@ public class MainActivity extends ActionBarActivity {
 
 	private class MainFragmentPagerAdapter extends FragmentPagerAdapter {
 
-		private ArrayList<Fragment> list;
+		private Fragment blankFragment;
+		private Fragment mFragmentAtPos0;
+		private FragmentManager fragmentManager;
+		private final static int ITEM_NUM = 2;
 
-		public MainFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> list) {
+		public MainFragmentPagerAdapter(FragmentManager fm) {
 			super(fm);
-			this.list = list;
+			fragmentManager = fm;
+			blankFragment = new BlankFragment();
 		}
 
 		@Override
 		public int getCount() {
-			return list.size();
+			return ITEM_NUM;
 		}
 
 		@Override
-		public Fragment getItem(int arg0) {
-			return list.get(arg0);
+		public Fragment getItem(int position) {
+			if (position == 0) {
+				if (mFragmentAtPos0 == null) {
+					QuestionListFragment q = QuestionListFragment.newInstance(0);
+					q.setOnListEmptyListener(new QuestionListFragment.OnListEmptyListener() {
+						@Override
+						public void onListEmpty() {
+							fragmentManager.beginTransaction()
+									.remove(mFragmentAtPos0)
+									.commit();
+							mFragmentAtPos0 = blankFragment;
+							notifyDataSetChanged();
+						}
+					});
+					mFragmentAtPos0 = q;
+				}
+				return mFragmentAtPos0;
+			} else {
+				return HomePageFragment.newInstance();
+			}
+		}
+
+		@Override
+		public int getItemPosition(Object object) {
+			if (object instanceof QuestionListFragment && mFragmentAtPos0 instanceof BlankFragment) {
+				return POSITION_NONE;
+			}
+			return POSITION_UNCHANGED;
 		}
 
 	}

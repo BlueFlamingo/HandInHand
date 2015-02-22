@@ -47,4 +47,8 @@
     <string name="title_activity_user_list">UserListActivity</string>
     <string name="title_activity_search">SearchActivity</string>
 
+    <string name="question">问题</string>
+    <string name="answer">回答</string>
+    <string name="comment">评论</string>
+
 </resources>

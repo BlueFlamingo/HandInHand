@@ -22,6 +22,9 @@ public class AppUtility {
 
 	public final static String APPNAME = "HandInHand";
 	public final static String STORAGE_URL = "http://121.199.64.117:8888/HandInHand/upload/";
+	public final static int QUESTION_MODE = 1;
+	public final static int ANSWER_MODE = 2;
+	public final static int COMMENT_MODE = 3;
 	public static DiskLruCache mDiskLruCache;
 
 	public static File getDiskCacheDir(Context context, String uniqueName) {

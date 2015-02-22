@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,12 +19,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.jpardogo.android.googleprogressbar.library.FoldingCirclesDrawable;
 
 import java.util.ArrayList;
@@ -31,6 +35,7 @@ import java.util.ArrayList;
 import cn.edu.fudan.blueflamingo.handinhand.adapter.CommentAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.adapter.QuestionAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.adapter.SimpleAnswerAdapter;
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.SearchHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExComment;
@@ -71,14 +76,21 @@ public class SearchActivity extends ActionBarActivity {
 		initTab();
 		bindTabClick();
 
-		ImageView searchAction = (ImageView) findViewById(R.id.search_img_action);
+		ButtonRectangle searchAction = (ButtonRectangle) findViewById(R.id.search_btn_action);
 		searchAction.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				EditText searchInput = (EditText) findViewById(R.id.search_input);
-				String searchWords = searchInput.getText().toString();
-
-				(new SearchTask()).execute(searchWords);
+				(new SearchTask()).execute();
+			}
+		});
+		final EditText searchInput = (EditText) findViewById(R.id.search_input);
+		searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					(new SearchTask()).execute();
+				}
+				return false;
 			}
 		});
 	}
@@ -270,22 +282,25 @@ public class SearchActivity extends ActionBarActivity {
 
 		@Override
 		protected Integer doInBackground(String... params) {
-			String searchWords = params[0];
+			String searchWords;
+			EditText sIn = (EditText) findViewById(R.id.search_input);
+			searchWords = sIn.getText().toString();
+			Log.d(AppUtility.APPNAME, searchWords);
 			searchArrayList = searchHelper.Search(searchWords);
 			questionArrayList.clear();
 			answerArrayList.clear();
 			commentArrayList.clear();
 			for (Object item : searchArrayList.get(0)) {
 				questionArrayList.add((ExQuestion) item);
-				Log.d("search question", String.valueOf(((ExQuestion) item).getId()));
+				//Log.d("search question", String.valueOf(((ExQuestion) item).getId()));
 			}
 			for (Object item : searchArrayList.get(1)) {
 				answerArrayList.add((ExAnswer) item);
-				Log.d("search answer", String.valueOf(((ExAnswer) item).getId()));
+				//Log.d("search answer", String.valueOf(((ExAnswer) item).getId()));
 			}
 			for (Object item : searchArrayList.get(2)) {
 				commentArrayList.add((ExComment) item);
-				Log.d("search comment", String.valueOf(((ExComment) item).getId()));
+				//Log.d("search comment", String.valueOf(((ExComment) item).getId()));
 			}
 			return 0;
 		}
