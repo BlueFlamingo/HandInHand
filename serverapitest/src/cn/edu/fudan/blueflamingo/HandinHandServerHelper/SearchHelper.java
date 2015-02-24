@@ -31,7 +31,7 @@ public class SearchHelper {
 			
 			String temp;
 			ArrayList< ArrayList<Integer> > list = new ArrayList< ArrayList<Integer> >();
-			temp = sendPost(url, pattern);
+			temp = sendPost(url, "pattern=" + pattern);
 			
 			ObjectMapper mapper = new ObjectMapper();
 			try {

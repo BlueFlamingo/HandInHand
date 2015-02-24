@@ -15,7 +15,7 @@ public class testSearch {
 		SearchHelper searchhelper = new SearchHelper();
 		
 		//test Search
-				ArrayList< ArrayList<Object> >  list = searchhelper.Search("hello");
+				ArrayList< ArrayList<Object> >  list = searchhelper.Search("q");
 				System.out.print(list);
 	}
 }
