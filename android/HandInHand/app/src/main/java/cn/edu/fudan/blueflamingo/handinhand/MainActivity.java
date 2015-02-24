@@ -54,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
 		initToolBar();
 		initCursor();
 		bindTabClick();
+		initViewPager();
 		AppUtility.openDiskLruCache(this, 1024 * 1024 * 10);
 		if (!globalVal.getLoginFlag()) {
 			Intent authIntent = new Intent(this, AuthActivity.class);
@@ -92,8 +93,10 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		initViewPager();
-		(new LoadProfile()).execute();
+
+		if (globalVal.getLoginFlag()) {
+			(new LoadProfile()).execute();
+		}
 	}
 
 	private void initCursor() {

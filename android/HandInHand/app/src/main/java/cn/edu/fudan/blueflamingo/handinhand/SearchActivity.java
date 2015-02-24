@@ -1,5 +1,6 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -32,6 +33,7 @@ import com.jpardogo.android.googleprogressbar.library.FoldingCirclesDrawable;
 
 import java.util.ArrayList;
 
+import cn.edu.fudan.blueflamingo.handinhand.adapter.AnswerAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.adapter.CommentAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.adapter.QuestionAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.adapter.SimpleAnswerAdapter;
@@ -136,6 +138,20 @@ public class SearchActivity extends ActionBarActivity {
 		mQuestionRecycleView.setItemAnimator(new DefaultItemAnimator());
 		mQuestionRecycleView.setHasFixedSize(true);
 		questionAdapter = new QuestionAdapter(this, questionArrayList);
+		questionAdapter.setOnItemClickListener(new QuestionAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				Intent qItemIntent = new Intent(getApplicationContext(), QuestionItemActivity.class);
+				ExQuestion exQuestion = questionArrayList.get(position);
+				qItemIntent.putExtra("qid", exQuestion.getId());
+				qItemIntent.putExtra("uid", exQuestion.getUid());
+				qItemIntent.putExtra("title", exQuestion.getTitle());
+				qItemIntent.putExtra("content", exQuestion.getContent());
+				qItemIntent.putExtra("watchNum", exQuestion.getScore1());
+				qItemIntent.putExtra("MODE", QuestionItemActivity.FROM_QUESTION_LIST);
+				startActivity(qItemIntent);
+			}
+		});
 		mQuestionRecycleView.setAdapter(questionAdapter);
 	}
 
@@ -145,6 +161,22 @@ public class SearchActivity extends ActionBarActivity {
 		mAnswerRecycleView.setItemAnimator(new DefaultItemAnimator());
 		mAnswerRecycleView.setHasFixedSize(true);
 		answerAdapter = new SimpleAnswerAdapter(this, answerArrayList);
+		answerAdapter.setOnItemClickListener(new SimpleAnswerAdapter.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				final Intent aItemIntent = new Intent(getApplicationContext(), AnswerItemActivity.class);
+				final ExAnswer exAnswer = answerArrayList.get(position);
+				aItemIntent.putExtra("aid", exAnswer.getId());
+				aItemIntent.putExtra("uid", exAnswer.getUid());
+				aItemIntent.putExtra("qid", exAnswer.getQid());
+				aItemIntent.putExtra("nickname", exAnswer.getNickname());
+				aItemIntent.putExtra("portrait", exAnswer.getUserHead());
+				aItemIntent.putExtra("content", exAnswer.getContent());
+				aItemIntent.putExtra("approvNum", exAnswer.getScore1());
+				//TODO:title传递问题
+				startActivity(aItemIntent);
+			}
+		});
 		mAnswerRecycleView.setAdapter(answerAdapter);
 	}
 
@@ -154,6 +186,7 @@ public class SearchActivity extends ActionBarActivity {
 		mCommentRecycleView.setItemAnimator(new DefaultItemAnimator());
 		mCommentRecycleView.setHasFixedSize(true);
 		commentAdapter = new CommentAdapter(this, commentArrayList);
+		//TODO:comment跳跃
 		mCommentRecycleView.setAdapter(commentAdapter);
 	}
 

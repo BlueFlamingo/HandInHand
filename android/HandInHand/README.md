@@ -1,5 +1,8 @@
 #Hand in hand Android Patch Notes
 
+v0.20 2015/2/24
+- 修复bugs
+
 v0.19 2015/2/22
 - 增加了当一个分类没有问题时的提示
 - 改善了搜索体验

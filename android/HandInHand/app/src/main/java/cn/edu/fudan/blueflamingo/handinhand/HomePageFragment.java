@@ -49,13 +49,19 @@ public class HomePageFragment extends Fragment {
 
 		LinearLayout user = (LinearLayout) getActivity().findViewById(R.id.drawer_user);
 		user.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent userIntent = new Intent(getActivity(), UserInfoActivity.class);
-				userIntent.putExtra("uid", global.getUid());
-				startActivity(userIntent);
-			}
-		});
+				@Override
+				public void onClick(View v) {
+					if (global.getLoginFlag()) {
+						Intent userIntent = new Intent(getActivity(), UserInfoActivity.class);
+						userIntent.putExtra("uid", global.getUid());
+						startActivity(userIntent);
+					} else {
+						Intent authIntent = new Intent(getActivity(), AuthActivity.class);
+						startActivity(authIntent);
+					}
+				}
+			});
+
 		return v;
 	}
 

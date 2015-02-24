@@ -51,6 +51,7 @@ public class QuestionListFragment extends Fragment {
 	}
 
 	public static QuestionListFragment newInstance(int tid) {
+
 		QuestionListFragment questionListFragment = new QuestionListFragment();
 		Bundle bundle = new Bundle();
 		bundle.putInt("TID", tid);
@@ -98,11 +99,13 @@ public class QuestionListFragment extends Fragment {
 		mRecyclerView.setAdapter(questionAdapter);
 
 		initRefresh();
+	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
 		loadQuestionListTask = new LoadQuestionListTask();
 		loadQuestionListTask.execute(TID);
-
-
 	}
 
 	private void initRefresh() {

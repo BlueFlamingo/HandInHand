@@ -205,7 +205,7 @@ public class UserEditActivity extends ActionBarActivity {
 					DiskLruCache.Editor editor = mDiskLruCache.edit(AppUtility.md5(currentUser.portrait));
 					if (editor != null) {
 						OutputStream outputStream = editor.newOutputStream(0);
-						if (photo.compress(Bitmap.CompressFormat.PNG, 100, outputStream)) {
+						if (photo.compress(Bitmap.CompressFormat.PNG, 70, outputStream)) {
 							editor.commit();
 						} else {
 							editor.abort();
