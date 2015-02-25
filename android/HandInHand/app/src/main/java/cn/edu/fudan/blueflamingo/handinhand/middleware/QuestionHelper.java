@@ -81,18 +81,18 @@ public class QuestionHelper {
 		//String url = "http://127.0.0.1/HandInHand/question.php";
 		String tid = String.valueOf(tId);
 		String temp;
-		ArrayList<Question> questions = new ArrayList<Question>();
+		ArrayList<ExQuestion> questions = new ArrayList<ExQuestion>();
 		temp = sendPost(url, "op=getByTopic&tid=" + tid);
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			questions = mapper.readValue(temp, new TypeReference<ArrayList<Question>>() {});
+			questions = mapper.readValue(temp, new TypeReference<ArrayList<ExQuestion>>() {});
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		return Utility.questionToExQuestion(questions);
+		return questions;
 
 	}
 
@@ -101,31 +101,51 @@ public class QuestionHelper {
 		//String url = "http://127.0.0.1/HandInHand/question.php";
 		String qid = String.valueOf(qId);
 		String temp;
-		Question question = new Question();
+		ExQuestion question = new ExQuestion();
 		temp = sendPost(url, "op=getByQid&qid=" + qid);
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			question = mapper.readValue(temp, new TypeReference<Question>() {});
+			question = mapper.readValue(temp, new TypeReference<ExQuestion>() {});
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		return Utility.questionToExQuestion(question);
+		return question;
 	}
 
 	public ArrayList<ExQuestion> getHotest() {
 		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
-		ArrayList<Question> questions = new ArrayList<>();
+		ArrayList<ExQuestion> questions = new ArrayList<>();
 		String res = sendPost(url, "op=getHotest");
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			questions = mapper.readValue(res, new TypeReference<ArrayList<Question>>() {});
+			questions = mapper.readValue(res, new TypeReference<ArrayList<ExQuestion>>() {});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Utility.questionToExQuestion(questions);
+		return questions;
+	}
+	
+	public ArrayList<ExQuestion>  getLatest(int Count){
+		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
+		//String url = "http://127.0.0.1/HandInHand/question.php";
+		String count = String.valueOf(Count);
+		String temp;
+		ArrayList<ExQuestion> questions = new ArrayList<ExQuestion>();
+		temp = sendPost(url, "op=getLatest&count=" + count);
+
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			questions = mapper.readValue(temp, new TypeReference<ArrayList<ExQuestion>>() {});
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return questions;
+
 	}
 
 	public String sendPost(String url, String param) {
