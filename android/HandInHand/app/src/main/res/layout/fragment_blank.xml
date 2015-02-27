@@ -4,11 +4,12 @@
              android:layout_height="match_parent"
              tools:context="cn.edu.fudan.blueflamingo.handinhand.BlankFragment">
 
-    <TextView
-        android:id="@+id/blank_add_words"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="还没有内容呢！点击说点什么吧！"/>
+            <TextView
+                android:id="@+id/blank_add_words"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="还没有内容呢！点击说点什么吧！"/>
 
 </FrameLayout>

@@ -5,8 +5,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -17,6 +20,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
+
+import cn.edu.fudan.blueflamingo.handinhand.model.Message;
 
 public class AppUtility {
 
@@ -173,7 +178,7 @@ public class AppUtility {
 								editor.abort();
 							}
 							mDiskLruCache.flush();
-							Log.d("handinhand", "DOWNLOADING FROM NETWORK");
+							//Log.d("handinhand", "DOWNLOADING FROM NETWORK");
 						} catch (Exception e) {
 							Log.d(APPNAME, e.toString());
 						}
@@ -183,7 +188,6 @@ public class AppUtility {
 				InputStream inputStream = snapshot.getInputStream(0);
 				return BitmapFactory.decodeStream(inputStream);
 			}
-
 		} catch (Exception e) {
 			Log.d(APPNAME, e.toString());
 			return null;

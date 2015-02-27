@@ -14,12 +14,12 @@
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
-        android:layout_below="@id/user_edit_toolbar"
+        android:id="@+id/user_edit_container"
+        android:layout_below="@+id/user_edit_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_below="@+id/user_edit_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -61,7 +61,7 @@
                 android:layout_marginRight="48dp"
                 android:layout_below="@+id/user_edit_nickname_text"
                 android:background="@drawable/abc_edit_text_material"
-                android:text="qwerty"
+                android:text="Loading..."
                 android:textColor="@color/black"
                 />
 
@@ -113,7 +113,7 @@
                 android:layout_marginRight="48dp"
                 android:layout_below="@+id/user_edit_signature_text"
                 android:background="@drawable/abc_edit_text_material"
-                android:text="asdfg"
+                android:text="Loading..."
                 android:textColor="@color/black"
                 />
 

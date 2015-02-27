@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -187,11 +188,22 @@ public class UserEditActivity extends ActionBarActivity {
 
 	private class SaveProfileTask extends AsyncTask<Integer, Integer, Integer> {
 
+		private EditText nicknameEditText;
+		private Spinner genderSpinner;
+		private EditText signatureEditText;
+
+		@Override
+		protected void onPreExecute() {
+			nicknameEditText = (EditText) findViewById(R.id.user_edit_nickname);
+			genderSpinner = (Spinner) findViewById(R.id.user_edit_gender_spinner);
+			signatureEditText = (EditText) findViewById(R.id.user_edit_signature);
+			nicknameEditText.setEnabled(false);
+			genderSpinner.setEnabled(false);
+			signatureEditText.setEnabled(false);
+		}
+
 		@Override
 		protected Integer doInBackground(Integer... params) {
-			EditText nicknameEditText = (EditText) findViewById(R.id.user_edit_nickname);
-			Spinner genderSpinner = (Spinner) findViewById(R.id.user_edit_gender_spinner);
-			EditText signatureEditText = (EditText) findViewById(R.id.user_edit_signature);
 			String nickname = nicknameEditText.getText().toString();
 			int gender = genderSpinner.getSelectedItemPosition();
 			String signature = signatureEditText.getText().toString();
@@ -200,24 +212,27 @@ public class UserEditActivity extends ActionBarActivity {
 			currentUser.signature = signature;
 
 			if (!User.equals(currentUser, userCopy)) {
-				currentUser.portrait = AppUtility.trimUpload(userHelper.uploadFile(tempFile.toString()));
-				try {
-					DiskLruCache.Editor editor = mDiskLruCache.edit(AppUtility.md5(currentUser.portrait));
-					if (editor != null) {
-						OutputStream outputStream = editor.newOutputStream(0);
-						if (photo.compress(Bitmap.CompressFormat.PNG, 70, outputStream)) {
-							editor.commit();
-						} else {
-							editor.abort();
+				if (!currentUser.portrait.equals(userCopy.portrait)) {
+					currentUser.portrait = AppUtility.trimUpload(userHelper.uploadFile(tempFile.toString()));
+					try {
+						DiskLruCache.Editor editor = mDiskLruCache.edit(AppUtility.md5(currentUser.portrait));
+						if (editor != null) {
+							OutputStream outputStream = editor.newOutputStream(0);
+							if (photo.compress(Bitmap.CompressFormat.PNG, 70, outputStream)) {
+								editor.commit();
+							} else {
+								editor.abort();
+							}
 						}
+						mDiskLruCache.flush();
+					} catch (Exception e) {
+						Log.d("HandInHand", e.toString());
 					}
-					mDiskLruCache.flush();
-				} catch (Exception e) {
-					Log.d("HandInHand", e.toString());
 				}
 				Log.d("HandInHand", "saving profile");
 				return userHelper.update(currentUser);
 			} else {
+				//没有变化
 				return -1;
 			}
 		}
@@ -239,8 +254,12 @@ public class UserEditActivity extends ActionBarActivity {
 					break;
 				default:
 					Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();
-					if (tempFile.exists()) {
-						tempFile.delete();
+					try {
+						if (tempFile.exists()) {
+							tempFile.delete();
+						}
+					} catch (Exception e) {
+						;
 					}
 					finish();
 			}

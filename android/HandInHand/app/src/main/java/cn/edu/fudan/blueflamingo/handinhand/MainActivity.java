@@ -1,11 +1,13 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -36,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
 	public Global globalVal;
 
 	private final static int AUTH_ACTIVITY = 0;
+	private final static int EDIT_ACTIVITY = 1;
 
 	private TextView nicknameTextView;
 	private ImageView portraitImageView;
@@ -93,7 +97,6 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-
 		if (globalVal.getLoginFlag()) {
 			(new LoadProfile()).execute();
 		}
@@ -168,6 +171,7 @@ public class MainActivity extends ActionBarActivity {
 				if (globalVal.getLoginFlag()) {
 					//jump to QuestionEditActivity
 					Intent editIntent = new Intent(this, QuestionEditActivity.class);
+					editIntent.putExtra("mode", 1);
 					startActivity(editIntent);
 				} else {
 					Toast.makeText(this, "请先登录后再发布问题", Toast.LENGTH_SHORT).show();
@@ -245,18 +249,20 @@ public class MainActivity extends ActionBarActivity {
 
 		private UserHelper userHelper = new UserHelper();
 		private User u;
+		private Bitmap bitmap;
 
 		@Override
 		protected Integer doInBackground(Integer... params) {
 			u = userHelper.getByUid(globalVal.getUid());
 			globalVal.setNickname(u.getNickname());
+			bitmap = AppUtility.getImage(u.getPortrait());
 			return 0;
 		}
 
 		@Override
 		protected void onPostExecute(Integer res) {
 			nicknameTextView.setText(u.getNickname());
-			portraitImageView.setImageBitmap(AppUtility.getImage(u.getPortrait()));
+			portraitImageView.setImageBitmap(bitmap);
 		}
 
 	}

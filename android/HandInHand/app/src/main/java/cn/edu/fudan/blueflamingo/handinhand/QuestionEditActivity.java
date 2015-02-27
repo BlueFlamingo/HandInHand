@@ -1,5 +1,6 @@
 package cn.edu.fudan.blueflamingo.handinhand;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -97,7 +98,12 @@ public class QuestionEditActivity extends ActionBarActivity {
 				(new SendQuestionTask()).execute(title, content, topicArrayList, createTime.getTimeInMillis(), expireTime);
 				Log.d("saved topics", resString);
 				//返回
-				finish();
+				if (getIntent().getExtras().getInt("mode") == 1) {
+					Intent intent = new Intent(this, MainActivity.class);
+					startActivity(intent);
+				} else {
+					finish();
+				}
 				break;
 			case R.id.action_cancel:
 				//直接返回

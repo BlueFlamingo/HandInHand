@@ -28,9 +28,9 @@ import cn.edu.fudan.blueflamingo.handinhand.model.Utility;
 
 public class QuestionHelper {
 
+	private final static String questionURL = "http://121.199.64.117:8888/HandInHand/question.php";
+
 	public int add(Question q){
-		String url =  "http://121.199.64.117:8888/HandInHand/question.php";
-		//String url = "http://127.0.0.1/HandInHand/question.php";
 		ObjectMapper mapper = new ObjectMapper();
 		String entry = "";
 		try {
@@ -41,14 +41,12 @@ public class QuestionHelper {
 		}
 		String temp;
 		int qid;
-		temp = sendPost(url, "op=add&entry=" + entry);
+		temp = sendPost(questionURL, "op=add&entry=" + entry);
 		qid = Integer.valueOf(temp);
 		return qid;
 	}
 
 	public int update(Question q){
-		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
-		//String url = "http://127.0.0.1/HandInHand/question.php";
 		ObjectMapper mapper = new ObjectMapper();
 		String entry = "";
 		try {
@@ -59,30 +57,26 @@ public class QuestionHelper {
 		}
 		String temp;
 		int num;
-		temp = sendPost(url, "op=update&entry=" + entry);
+		temp = sendPost(questionURL, "op=update&entry=" + entry);
 		num = Integer.valueOf(temp);
 		return num;
 	}
 
 	public int delete(int qId){
-		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
-		//String url = "http://127.0.0.1/HandInHand/question.php";
 		String qid = String.valueOf(qId);
 		String temp;
 		int num;
-		temp = sendPost(url, "op=delete&qid=" + qid);
+		temp = sendPost(questionURL, "op=delete&qid=" + qid);
 		num = Integer.valueOf(temp);
 		return num;
 
 	}
 
 	public ArrayList<ExQuestion>  getByTopic(int tId){
-		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
-		//String url = "http://127.0.0.1/HandInHand/question.php";
 		String tid = String.valueOf(tId);
 		String temp;
 		ArrayList<ExQuestion> questions = new ArrayList<ExQuestion>();
-		temp = sendPost(url, "op=getByTopic&tid=" + tid);
+		temp = sendPost(questionURL, "op=getByTopic&tid=" + tid);
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -97,12 +91,10 @@ public class QuestionHelper {
 	}
 
 	public ExQuestion getByQid(int qId){
-		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
-		//String url = "http://127.0.0.1/HandInHand/question.php";
 		String qid = String.valueOf(qId);
 		String temp;
 		ExQuestion question = new ExQuestion();
-		temp = sendPost(url, "op=getByQid&qid=" + qid);
+		temp = sendPost(questionURL, "op=getByQid&qid=" + qid);
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -116,9 +108,8 @@ public class QuestionHelper {
 	}
 
 	public ArrayList<ExQuestion> getHotest() {
-		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
 		ArrayList<ExQuestion> questions = new ArrayList<>();
-		String res = sendPost(url, "op=getHotest");
+		String res = sendPost(questionURL, "op=getHotest");
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			questions = mapper.readValue(res, new TypeReference<ArrayList<ExQuestion>>() {});
@@ -129,12 +120,10 @@ public class QuestionHelper {
 	}
 	
 	public ArrayList<ExQuestion>  getLatest(int Count){
-		String url =   "http://121.199.64.117:8888/HandInHand/question.php";
-		//String url = "http://127.0.0.1/HandInHand/question.php";
 		String count = String.valueOf(Count);
 		String temp;
 		ArrayList<ExQuestion> questions = new ArrayList<ExQuestion>();
-		temp = sendPost(url, "op=getLatest&count=" + count);
+		temp = sendPost(questionURL, "op=getLatest&count=" + count);
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {

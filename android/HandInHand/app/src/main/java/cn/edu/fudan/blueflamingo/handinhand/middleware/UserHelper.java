@@ -153,20 +153,20 @@ public class UserHelper {
 		String uid = String.valueOf(uId);
 		String temp;
 
-		ArrayList<Question> questions = new ArrayList<Question>();
+		ArrayList<ExQuestion> questions = new ArrayList<>();
 
 		temp = sendPost(url, "op=getQuestions&uid=" + uid);
 
 		ObjectMapper mapper1 = new ObjectMapper();
 		try {
-			questions = mapper1.readValue(temp, new TypeReference<ArrayList<Question>>() {});
+			questions = mapper1.readValue(temp, new TypeReference<ArrayList<ExQuestion>>() {});
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
 
-		return Utility.questionToExQuestion(questions);
+		return questions;
 	}
 
 	public int countAnswers(int uId){

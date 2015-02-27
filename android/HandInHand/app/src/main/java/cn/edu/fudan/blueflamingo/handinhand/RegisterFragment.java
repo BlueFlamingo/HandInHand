@@ -29,6 +29,8 @@ public class RegisterFragment extends Fragment {
 	private final static int REPEATED_USERNAME = 2;
 	private final static int UNKNOWN_ERROR = 3;
 
+	private ButtonFlat btn_confirm;
+
 	public RegisterFragment() {
 		// Required empty public constructor
 	}
@@ -39,7 +41,7 @@ public class RegisterFragment extends Fragment {
 		fragmentManager = getFragmentManager();
 		globalVal = (Global)getActivity().getApplication();
 		View v = inflater.inflate(R.layout.fragment_register, container, false);
-		ButtonFlat btn_confirm = (ButtonFlat) v.findViewById(R.id.auth_btn_confirm);
+		btn_confirm = (ButtonFlat) v.findViewById(R.id.auth_btn_confirm);
 		ButtonFlat btn_back = (ButtonFlat) v.findViewById(R.id.auth_btn_back);
 		btn_confirm.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -92,6 +94,12 @@ public class RegisterFragment extends Fragment {
 		private int _uid;
 
 		@Override
+		protected void onPreExecute() {
+			btn_confirm.setEnabled(false);
+			Toast.makeText(getActivity(), "注册中...", Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
 		protected Integer doInBackground(String... params) {
 			String username = params[0];
 			String nickname = params[1];
@@ -123,6 +131,7 @@ public class RegisterFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(Integer result) {
+			btn_confirm.setEnabled(true);
 			switch (result) {
 				case SUCCESS:
 					Toast.makeText(getActivity(), "注册成功", Toast.LENGTH_SHORT).show();
