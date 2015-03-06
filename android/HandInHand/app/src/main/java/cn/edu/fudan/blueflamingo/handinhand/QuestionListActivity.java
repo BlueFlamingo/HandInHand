@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
+
 
 public class QuestionListActivity extends ActionBarActivity {
 
@@ -49,9 +51,11 @@ public class QuestionListActivity extends ActionBarActivity {
 			@Override
 			public void onListEmpty() {
 				FragmentManager fragmentManager = getSupportFragmentManager();
-				fragmentManager.beginTransaction()
-						.replace(R.id.question_list_fragment, new BlankFragment())
-						.commit();
+                if (TID != AppUtility.FAV_QUESTION_LIST) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.question_list_fragment, new BlankFragment())
+                            .commit();
+                }
 				//Toast.makeText(getApplicationContext(), "list empty!", Toast.LENGTH_SHORT).show();
 			}
 		});

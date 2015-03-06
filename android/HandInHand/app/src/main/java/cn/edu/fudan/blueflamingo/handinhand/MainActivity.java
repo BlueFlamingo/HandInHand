@@ -132,10 +132,11 @@ public class MainActivity extends ActionBarActivity {
 			nicknameTextView = (TextView) findViewById(R.id.drawer_username);
 			portraitImageView = (ImageView) findViewById(R.id.drawer_head);
 
-			//initial btn_login
+			//initial btn_login and btn_fav_question_list
 			//check whether the login process is needed and change the text of it
 			final com.gc.materialdesign.views.ButtonFlat btnLogin = (com.gc.materialdesign.views.ButtonFlat) findViewById(R.id.btn_login);
-			if (globalVal.getLoginFlag()) {
+            ButtonFlat btnFavQuestionList = (ButtonFlat) findViewById(R.id.drawer_btn_fav_question_list);
+            if (globalVal.getLoginFlag()) {
 				btnLogin.setText("登出");
 				btnLogin.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -145,7 +146,17 @@ public class MainActivity extends ActionBarActivity {
 						startActivityForResult(loginIntent, AUTH_ACTIVITY);
 					}
 				});
-			} else {
+                btnFavQuestionList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent favQuestionListIntent = new Intent(MainActivity.this, QuestionListActivity.class);
+                        favQuestionListIntent.putExtra("TOPIC", "我关注的问题");
+                        favQuestionListIntent.putExtra("TID", AppUtility.FAV_QUESTION_LIST);
+                        startActivity(favQuestionListIntent);
+                    }
+                });
+            } else {
+                btnFavQuestionList.setVisibility(View.GONE);
 				nicknameTextView.setText("随便看看的人");
 			}
 

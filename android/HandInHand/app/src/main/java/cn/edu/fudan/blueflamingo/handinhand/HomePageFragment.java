@@ -22,6 +22,7 @@ public class HomePageFragment extends Fragment {
 	//cat_4:职业发展			4
 	//cat_5:吃喝玩乐			5
 	//cat_6:其它				6
+    //tid为8代表用户关注的问题列表
 	private final String[] topics = {
 			"30分钟紧急问答", "学海无涯", "校园生活", "情感大话",
 			"职业发展", "吃喝玩乐", "其它",

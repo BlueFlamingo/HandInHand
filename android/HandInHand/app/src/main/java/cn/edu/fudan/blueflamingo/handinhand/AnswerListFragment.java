@@ -14,12 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gc.materialdesign.views.ButtonFlat;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.adapter.AnswerAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.adapter.SimpleAnswerAdapter;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.AnswerHelper;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.FavoriteHelper;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.QuestionHelper;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.AnswerHeader;
@@ -171,6 +174,10 @@ public class AnswerListFragment extends Fragment {
 
 	private class LoadAnswerListTask extends AsyncTask<Integer, Integer, Integer> {
 
+        private int focusedFlag = 0;
+        private FavoriteHelper favoriteHelper = new FavoriteHelper();
+        private ButtonFlat favButton;
+
 		@Override
 		protected void onPreExecute() {
 			mSwipeLayout.setRefreshing(true);
@@ -180,8 +187,9 @@ public class AnswerListFragment extends Fragment {
 		protected Integer doInBackground(Integer... params) {
 			int mode = params[0];
 			int qid;
-			if (mode == QuestionItemActivity.FROM_QUESTION_LIST) {
+            if (mode == QuestionItemActivity.FROM_QUESTION_LIST) {
 				qid = params[1];
+                focusedFlag = favoriteHelper.isQuestionFavorite(global.getUid(), qid);
 				answers.clear();
 				answers.addAll(answerHelper.getByQid(qid));
 				ExQuestion exQuestion = questionHelper.getByQid(qid);
@@ -222,8 +230,20 @@ public class AnswerListFragment extends Fragment {
 				//有时在未获取完所有的answer前退出会触发异常，因为先调用了answers.clear()
 				//如果这样的现象发生就不改变title
 			}
-
-			mSwipeLayout.setRefreshing(false);
+            favButton = (ButtonFlat) getActivity().findViewById(R.id.question_item_btn_watch);
+            if (global.getLoginFlag()) {
+                //if is logged in
+                favButton.setEnabled(true);
+            } else {
+                //if is not logged in, then disable this button
+                favButton.setEnabled(false);
+            }
+            if (focusedFlag == 1) {
+                favButton.setText("取消关注");
+            } else {
+                favButton.setText("关注");
+            }
+            mSwipeLayout.setRefreshing(false);
 		}
 	}
 }

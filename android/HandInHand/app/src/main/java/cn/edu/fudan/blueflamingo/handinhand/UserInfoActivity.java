@@ -56,6 +56,17 @@ public class UserInfoActivity extends ActionBarActivity {
 			}
 		});
 
+        RelativeLayout userFavQuestion = (RelativeLayout) findViewById(R.id.user_info_fav_q_container);
+        userFavQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent favQListIntent = new Intent(UserInfoActivity.this, QuestionListActivity.class);
+                favQListIntent.putExtra("TOPIC", global.getNickname() + "关注的问题");
+                favQListIntent.putExtra("TID", AppUtility.FAV_QUESTION_LIST);
+                startActivity(favQListIntent);
+            }
+        });
+
 		initIFav();
 		initFavdMe();
 

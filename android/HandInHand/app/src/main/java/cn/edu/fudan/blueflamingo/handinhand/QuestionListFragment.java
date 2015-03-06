@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.List;
 
 import cn.edu.fudan.blueflamingo.handinhand.adapter.QuestionAdapter;
+import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
+import cn.edu.fudan.blueflamingo.handinhand.middleware.FavoriteHelper;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.QuestionHelper;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
@@ -114,14 +116,6 @@ public class QuestionListFragment extends Fragment {
 			@Override
 			public void onRefresh() {
 				(new LoadQuestionListTask()).execute(TID);
-				/*
-				new Handler().postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						mSwipeLayout.setRefreshing(false);
-						//refresh
-					}
-				}, 1000);*/
 			}
 
 			@Override
@@ -139,15 +133,19 @@ public class QuestionListFragment extends Fragment {
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
-		mSwipeLayout.setmMode(SwipeRefreshAndLoadLayout.Mode.BOTH);
+		mSwipeLayout.setmMode(SwipeRefreshAndLoadLayout.Mode.PULL_FROM_START);
 	}
 
 	private class LoadQuestionListTask extends AsyncTask<Integer, Integer, Integer> {
 
+        private FavoriteHelper favoriteHelper = new FavoriteHelper();
+        private Global global;
+
 		@Override
 		protected void onPreExecute() {
-			mSwipeLayout.setRefreshing(true);
-		}
+            global = (Global) getActivity().getApplication();
+            mSwipeLayout.setRefreshing(true);
+        }
 
 		@Override
 		protected Integer doInBackground(Integer... params) {
@@ -158,10 +156,12 @@ public class QuestionListFragment extends Fragment {
 				questions.addAll(userHelper.getQuestions(-tid));
 			} else if (tid == 7) {
 				questions.addAll(questionHelper.getHotest());
-			} else {
-				questions.addAll(questionHelper.getByTopic(tid));
-			}
-			Log.d("question size", String.valueOf(questions.size()));
+			}else if (tid == AppUtility.FAV_QUESTION_LIST) {
+                questions.addAll(favoriteHelper.listQuestions(global.getUid()));
+            } else {
+                questions.addAll(questionHelper.getByTopic(tid));
+            }
+            Log.d("question size", String.valueOf(questions.size()));
 			if (questions.size() > 0) {
 				return 0;
 			} else {

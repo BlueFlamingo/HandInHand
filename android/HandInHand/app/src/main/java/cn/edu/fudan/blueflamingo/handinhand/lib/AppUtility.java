@@ -30,7 +30,8 @@ public class AppUtility {
 	public final static int QUESTION_MODE = 1;
 	public final static int ANSWER_MODE = 2;
 	public final static int COMMENT_MODE = 3;
-	public static DiskLruCache mDiskLruCache;
+    public final static int FAV_QUESTION_LIST = 8;
+    public static DiskLruCache mDiskLruCache;
 
 	public static File getDiskCacheDir(Context context, String uniqueName) {
 		String cachePath;

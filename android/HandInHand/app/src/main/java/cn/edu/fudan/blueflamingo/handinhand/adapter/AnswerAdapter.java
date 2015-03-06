@@ -40,6 +40,8 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 	private AnswerHeader answerHeader;
 	private FavoriteHelper favoriteHelper;
 
+    private ButtonFlat btn_favor;
+
 	private Context mContext;
 
 	private static final int TYPE_HEADER = 0;
@@ -58,7 +60,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 			return new VHItem(v);
 		} else if (i == TYPE_HEADER) {
 			View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.answer_header, viewGroup, false);
-			ButtonFlat btn_favor = (ButtonFlat) v.findViewById(R.id.question_item_btn_watch);
+			btn_favor = (ButtonFlat) v.findViewById(R.id.question_item_btn_watch);
 			btn_favor.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -170,10 +172,12 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 			switch (res) {
 				case 1:
 					answerHeader.setWatchNum(answerHeader.getWatchNum() + 1);
+                    btn_favor.setText("取消关注");
 					Toast.makeText(mContext, "成功关注此问题", Toast.LENGTH_SHORT).show();
 					break;
 				case 0:
 					answerHeader.setWatchNum(answerHeader.getWatchNum() - 1);
+                    btn_favor.setText("关注");
 					Toast.makeText(mContext, "取消关注此问题", Toast.LENGTH_SHORT).show();
 					break;
 				case -1:
