@@ -213,8 +213,12 @@ public class AnswerListFragment extends Fragment {
 					break;
 			}
 			try {
-				setToolbarTitle(answers.size(), (ActionBarActivity) getActivity());
-			} catch (Exception e) {
+                if (MODE == QuestionItemActivity.FROM_USER_ASKED_LIST) {
+                    ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("答过的问题");
+                } else {
+                    setToolbarTitle(answers.size(), (ActionBarActivity) getActivity());
+                }
+            } catch (Exception e) {
 				//有时在未获取完所有的answer前退出会触发异常，因为先调用了answers.clear()
 				//如果这样的现象发生就不改变title
 			}

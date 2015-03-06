@@ -56,27 +56,7 @@ public class LoginFragment extends Fragment {
 				String username = usernameEditText.getText().toString();
 				String passwd = passwdEditText.getText().toString();
 				loginConfirmTask = new LoginConfirmTask();
-				Log.d("asyc", "start");
-				try {
-					boolean result = loginConfirmTask.execute(username, passwd).get();
-					Log.d("asyc", "end");
-					btn_confirm.setEnabled(false);
-					if (result) {
-						btn_confirm.setEnabled(true);
-						//return to main activity
-						globalVal.setLoginFlag(true);
-						Toast.makeText(getActivity(), "登陆成功", Toast.LENGTH_SHORT).show();
-						getActivity().setResult(AuthActivity.LOGINED, getActivity().getIntent());
-						getActivity().finish();
-						Log.d("asyc", "background end");
-					} else {
-						Toast.makeText(getActivity(), "登陆失败", Toast.LENGTH_SHORT).show();
-						Log.d("asyc", "background error end");
-					}
-				} catch (Exception e) {
-					Log.d("asyc", e.toString());
-					btn_confirm.setEnabled(true);
-				}
+                loginConfirmTask.execute(username, passwd);
 			}
 		});
 		btn_back.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +76,7 @@ public class LoginFragment extends Fragment {
 
 		@Override
 		protected void onPreExecute() {
+            btn_confirm.setEnabled(false);
 			progressbar = (ProgressBar) getActivity().findViewById(R.id.auth_login_progressbar);
 		}
 
@@ -124,14 +105,22 @@ public class LoginFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-			btn_confirm.setEnabled(true);
-		}
+            if (result) {
+                Toast.makeText(getActivity(), "登陆成功", Toast.LENGTH_SHORT).show();
+                globalVal.setLoginFlag(true);
+                getActivity().setResult(AuthActivity.LOGINED, getActivity().getIntent());
+                getActivity().finish();
+            } else {
+                globalVal.setLoginFlag(false);
+                Toast.makeText(getActivity(), "登陆失败", Toast.LENGTH_SHORT).show();
+            }
+            btn_confirm.setEnabled(true);
+        }
 
 		@Override
 		protected void onCancelled() {
 			progressbar.setProgress(0);
 			progressbar.setVisibility(View.GONE);
-
 			btn_confirm.setEnabled(true);
 		}
 	}

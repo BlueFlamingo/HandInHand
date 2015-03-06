@@ -17,8 +17,9 @@
             <TextView
                 android:padding="5dp"
                 android:id="@+id/question_title"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="300dp"
                 android:text="I am title"
                 android:textSize="22sp"
                 android:textStyle="bold"
