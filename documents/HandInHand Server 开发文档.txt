@@ -1,0 +1,29 @@
+HandInHand Server 开发文档
+
+需求分析：
+HandInHand作为一个校园问答平台，需要在服务器记录用户提出的问题及相关信息，还要记录用户信息，同时要实现收藏问题，收藏答案，关注某个用户，赞或者踩某个问题。还要实现消息机制来满足社交的需求。同时也需要提供上传图片的功能。
+
+设计概要：
+在服务器上利用PHP与MySQL满足数据分发与记录，在Android Client与PHP Server之间增加一个java的中间层来进一步封装Server提供的API。
+
+详细设计：
+
+MySQL中建立了若干表来记录数据：
+question表用来记录提出的问题
+topic表用来记录所有的分类，
+question_topic用来记录问题所属的分类
+answer表用来记录答案
+comment表用来记录对答案的评论
+favorite_answer, favorite_question, favorite_user分别记录了对答案的收藏，对问题的收藏，对用户的关注
+message表用来记录用户间发送的消息
+user表用来记录用户信息
+user_answer_score1, user_answer_score2用来记录用户对一个答案的赞或者踩
+user_question_score1用来记录用户对一个问题的关注与否（关注一个问题与收藏一个问题是不同的）
+user_question_score2暂时是冗余的，以便以后方便扩展
+
+PHP提供了多个API，主要是POST调用：
+https://github.com/BlueFlamingo/HandInHand/issues/3
+
+测试分析：
+对服务器提供的API进行了全面的测试
+https://github.com/BlueFlamingo/HandInHand/tree/master/api%20test
