@@ -177,7 +177,12 @@ public class QuestionListFragment extends Fragment {
 					break;
 				case -1:
 					questionAdapter.notifyDataSetChanged();
-					mOnListEmptyListener.onListEmpty();
+                    try {
+                        mOnListEmptyListener.onListEmpty();
+                    } catch (Exception e) {
+                        Log.d(AppUtility.APPNAME, "NULL");
+                    }
+
 					break;
 			}
 			mSwipeLayout.setRefreshing(false);

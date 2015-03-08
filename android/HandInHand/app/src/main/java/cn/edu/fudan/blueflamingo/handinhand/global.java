@@ -18,6 +18,18 @@ public class Global extends Application {
 		mEditor.apply();
 	}
 
+    public boolean getFirstOpenFlag() {
+        SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
+        return mPrefs.getBoolean("openFlag", true);
+    }
+
+    public void setFirstOpenFlag(boolean flag) {
+        SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putBoolean("openFlag", flag);
+        mEditor.apply();
+    }
+
 	public void setUid(int uid) {
 		SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
 		SharedPreferences.Editor mEditor = mPrefs.edit();
