@@ -49,8 +49,9 @@
                 android:layout_gravity="center_horizontal"
                 android:singleLine="true"
                 android:hint="@string/username"
-                android:inputType="textFilter"
-                android:textColorHint="@color/primary_text_disabled_material_light"/>
+                android:inputType="textFilter|textNoSuggestions"
+                android:textColorHint="@color/primary_text_disabled_material_light"
+                android:autoText="false" />
 
             <EditText
                 android:id="@+id/auth_form_password"
