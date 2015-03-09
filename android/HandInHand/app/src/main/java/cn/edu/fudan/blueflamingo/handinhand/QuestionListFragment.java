@@ -27,6 +27,9 @@ import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
 
+/**
+ * The type Question list fragment.
+ */
 public class QuestionListFragment extends Fragment {
 
 	private RecyclerView mRecyclerView;
@@ -42,17 +45,34 @@ public class QuestionListFragment extends Fragment {
 	//如果TID<0,则说明是从userInfo转过来的，因此取相反数之后的值就是UID
 	private int TID;
 
-	public interface OnListEmptyListener {
-		void onListEmpty();
+    /**
+     * The interface On list empty listener.
+     */
+    public interface OnListEmptyListener {
+        /**
+         * On list empty.
+         */
+        void onListEmpty();
 	}
 
 	private OnListEmptyListener mOnListEmptyListener;
 
-	public void setOnListEmptyListener(OnListEmptyListener onListEmptyListener) {
+    /**
+     * Sets on list empty listener.
+     *
+     * @param onListEmptyListener the on list empty listener
+     */
+    public void setOnListEmptyListener(OnListEmptyListener onListEmptyListener) {
 		this.mOnListEmptyListener = onListEmptyListener;
 	}
 
-	public static QuestionListFragment newInstance(int tid) {
+    /**
+     * New instance.
+     *
+     * @param tid the tid
+     * @return the question list fragment
+     */
+    public static QuestionListFragment newInstance(int tid) {
 
 		QuestionListFragment questionListFragment = new QuestionListFragment();
 		Bundle bundle = new Bundle();

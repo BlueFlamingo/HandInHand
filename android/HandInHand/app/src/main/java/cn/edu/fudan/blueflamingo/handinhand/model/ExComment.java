@@ -1,23 +1,58 @@
 package cn.edu.fudan.blueflamingo.handinhand.model;
 
+/**
+ * The type Ex comment.
+ */
 public class ExComment extends Comment {
-	public String nickname = "";
-	public String userHead = "";
+    /**
+     * The Nickname.
+     */
+    public String nickname = "";
+    /**
+     * The User head.
+     */
+    public String userHead = "";
 
-	public String getNickname() {
+    /**
+     * Gets nickname.
+     *
+     * @return the nickname
+     */
+    public String getNickname() {
 		return this.nickname;
 	}
 
-	public String getUserHead() {
+    /**
+     * Gets user head.
+     *
+     * @return the user head
+     */
+    public String getUserHead() {
 		return this.userHead;
 	}
 
-	public ExComment(String content, String nickname) {
+    /**
+     * Instantiates a new Ex comment.
+     *
+     * @param content the content
+     * @param nickname the nickname
+     */
+    public ExComment(String content, String nickname) {
 		this.nickname = nickname;
 		this.content = content;
 	}
 
-	public ExComment(int uid,long createdTime, String content,int aid,String nickname,String userHead) {
+    /**
+     * Instantiates a new Ex comment.
+     *
+     * @param uid the uid
+     * @param createdTime the created time
+     * @param content the content
+     * @param aid the aid
+     * @param nickname the nickname
+     * @param userHead the user head
+     */
+    public ExComment(int uid,long createdTime, String content,int aid,String nickname,String userHead) {
 		this.uid = uid;
 		this.createdTime = createdTime;
 		this.content = content;
@@ -26,6 +61,9 @@ public class ExComment extends Comment {
 		this.userHead = userHead;
 	}
 
-	public ExComment(){
+    /**
+     * Instantiates a new Ex comment.
+     */
+    public ExComment(){
 	}
 }

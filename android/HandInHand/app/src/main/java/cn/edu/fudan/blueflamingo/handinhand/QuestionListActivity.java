@@ -12,11 +12,17 @@ import android.widget.Toast;
 import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 
 
+/**
+ * The type Question list activity.
+ */
 public class QuestionListActivity extends ActionBarActivity {
 
 	private String TOPIC = "随便看看";
 
-	public int TID = 0;
+    /**
+     * The TID.
+     */
+    public int TID = 0;
 	private Global globalVal;
 
 	@Override

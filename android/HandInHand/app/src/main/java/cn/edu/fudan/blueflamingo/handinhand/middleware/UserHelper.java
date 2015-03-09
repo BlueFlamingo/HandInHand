@@ -32,8 +32,17 @@ import cn.edu.fudan.blueflamingo.handinhand.model.Question;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
 import cn.edu.fudan.blueflamingo.handinhand.model.Utility;
 
+/**
+ * The type User helper.
+ */
 public class UserHelper {
-	public  int register(User u){
+    /**
+     * Register int.
+     *
+     * @param u the u
+     * @return the int
+     */
+    public  int register(User u){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 		ObjectMapper mapper = new ObjectMapper();
@@ -50,7 +59,13 @@ public class UserHelper {
 		return uid;
 	}
 
-	public int update(User u){
+    /**
+     * Update int.
+     *
+     * @param u the u
+     * @return the int
+     */
+    public int update(User u){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 		ObjectMapper mapper = new ObjectMapper();
@@ -68,7 +83,13 @@ public class UserHelper {
 		return num;
 	}
 
-	public int count(String username){
+    /**
+     * Count int.
+     *
+     * @param username the username
+     * @return the int
+     */
+    public int count(String username){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 		String temp;
@@ -78,13 +99,25 @@ public class UserHelper {
 		return count;
 	}
 
-	public int countFollowers(int uid) {
+    /**
+     * Count followers.
+     *
+     * @param uid the uid
+     * @return the int
+     */
+    public int countFollowers(int uid) {
 		String url = "http://121.199.64.117:8888/HandInHand/favorite.php";
 		String res = sendPost(url, "op=countFollowers&uid=" + String.valueOf(uid));
 		return Integer.valueOf(res);
 	}
 
-	public ArrayList<User> listFollowers(int uid) {
+    /**
+     * List followers.
+     *
+     * @param uid the uid
+     * @return the array list
+     */
+    public ArrayList<User> listFollowers(int uid) {
 		String url = "http://121.199.64.117:8888/HandInHand/favorite.php";
 		ArrayList<Integer> uids = new ArrayList<>();
 		String res = sendPost(url, "op=listFollowers&uid=" + uid);
@@ -98,13 +131,26 @@ public class UserHelper {
 		return Utility.uidtoUser(uids);
 	}
 
-	public int countFollowUsers(int uid) {
+    /**
+     * Count follow users.
+     *
+     * @param uid the uid
+     * @return the int
+     */
+    public int countFollowUsers(int uid) {
 		String url = "http://121.199.64.117:8888/HandInHand/favorite.php";
 		String res = sendPost(url, "op=countUsers&uid=" + String.valueOf(uid));
 		return Integer.valueOf(res);
 	}
 
-	public int authenticate(String username, String password){
+    /**
+     * Authenticate int.
+     *
+     * @param username the username
+     * @param password the password
+     * @return the int
+     */
+    public int authenticate(String username, String password){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 
@@ -115,7 +161,13 @@ public class UserHelper {
 		return ismatch;
 	}
 
-	public  User getbasic(String username){
+    /**
+     * Getbasic user.
+     *
+     * @param username the username
+     * @return the user
+     */
+    public  User getbasic(String username){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 
@@ -134,7 +186,13 @@ public class UserHelper {
 
 	}
 
-	public int countQuestions(int uId){
+    /**
+     * Count questions.
+     *
+     * @param uId the u id
+     * @return the int
+     */
+    public int countQuestions(int uId){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 		String uid = String.valueOf(uId);
@@ -147,7 +205,13 @@ public class UserHelper {
 		return countQuestions;
 	}
 
-	public ArrayList<ExQuestion> getQuestions(int uId){
+    /**
+     * Get questions.
+     *
+     * @param uId the u id
+     * @return the array list
+     */
+    public ArrayList<ExQuestion> getQuestions(int uId){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 		String uid = String.valueOf(uId);
@@ -169,7 +233,13 @@ public class UserHelper {
 		return questions;
 	}
 
-	public int countAnswers(int uId){
+    /**
+     * Count answers.
+     *
+     * @param uId the u id
+     * @return the int
+     */
+    public int countAnswers(int uId){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 		String uid = String.valueOf(uId);
@@ -180,7 +250,13 @@ public class UserHelper {
 		return countAnswers;
 	}
 
-	public ArrayList<ExAnswer> getAnswers(int uId){
+    /**
+     * Get answers.
+     *
+     * @param uId the u id
+     * @return the array list
+     */
+    public ArrayList<ExAnswer> getAnswers(int uId){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 		String uid = String.valueOf(uId);
@@ -202,7 +278,13 @@ public class UserHelper {
 		return Utility.answerToExAnswer(answers);
 	}
 
-	public User getByUid(int uId){
+    /**
+     * Get by uid.
+     *
+     * @param uId the u id
+     * @return the user
+     */
+    public User getByUid(int uId){
 		String url = "http://121.199.64.117:8888/HandInHand/user.php";
 		//String url = "http://127.0.0.1/HandInHand/user.php";
 		String uid = String.valueOf(uId);
@@ -225,7 +307,13 @@ public class UserHelper {
 	}
 
 
-	public  int SendMsgs(Message m){
+    /**
+     * Send msgs.
+     *
+     * @param m the m
+     * @return the int
+     */
+    public  int SendMsgs(Message m){
 		String url = "http://121.199.64.117:8888/HandInHand/message.php";
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -243,7 +331,13 @@ public class UserHelper {
 		return mid;
 	}
 
-	public ArrayList<Message> getSentMsgs(int uId){
+    /**
+     * Get sent msgs.
+     *
+     * @param uId the u id
+     * @return the array list
+     */
+    public ArrayList<Message> getSentMsgs(int uId){
 		String url = "http://121.199.64.117:8888/HandInHand/message.php";
 
 		String uid = String.valueOf(uId);
@@ -264,7 +358,13 @@ public class UserHelper {
 		return message;
 	}
 
-	public ArrayList<Message> getAllReceivedMsgs(int uId){
+    /**
+     * Get all received msgs.
+     *
+     * @param uId the u id
+     * @return the array list
+     */
+    public ArrayList<Message> getAllReceivedMsgs(int uId){
 		String url = "http://121.199.64.117:8888/HandInHand/message.php";
 
 		String uid = String.valueOf(uId);
@@ -285,7 +385,13 @@ public class UserHelper {
 		return message;
 	}
 
-	public ArrayList<Message> getUnhandledMsgs(int uId){
+    /**
+     * Get unhandled msgs.
+     *
+     * @param uId the u id
+     * @return the array list
+     */
+    public ArrayList<Message> getUnhandledMsgs(int uId){
 		String url = "http://121.199.64.117:8888/HandInHand/message.php";
 
 		String uid = String.valueOf(uId);
@@ -307,8 +413,14 @@ public class UserHelper {
 	}
 
 
-
-	public String sendPost(String url, String param) {
+    /**
+     * Send post.
+     *
+     * @param url the url
+     * @param param the param
+     * @return the string
+     */
+    public String sendPost(String url, String param) {
 		//System.out.println(param);
 		PrintWriter out = null;
 		BufferedReader in = null;
@@ -359,7 +471,13 @@ public class UserHelper {
 		return result;
 	}
 
-	public String uploadFile(String filePath) {
+    /**
+     * Upload file.
+     *
+     * @param filePath the file path
+     * @return the string
+     */
+    public String uploadFile(String filePath) {
 
 		String urlStr = "http://121.199.64.117:8888/HandInHand/upload.php";
 		Map<String, String> textMap = new HashMap<String, String>();

@@ -1,45 +1,107 @@
 package cn.edu.fudan.blueflamingo.handinhand.model;
 
+/**
+ * The type Comment.
+ */
 public class Comment {
-	public int id = -1;
-	public int uid = 0;
-	public long createdTime = 0;
-	public int parentCid = 0;
-	public String content = "";
-	public int aid = 0;
+    /**
+     * The Id.
+     */
+    public int id = -1;
+    /**
+     * The Uid.
+     */
+    public int uid = 0;
+    /**
+     * The Created time.
+     */
+    public long createdTime = 0;
+    /**
+     * The Parent cid.
+     */
+    public int parentCid = 0;
+    /**
+     * The Content.
+     */
+    public String content = "";
+    /**
+     * The Aid.
+     */
+    public int aid = 0;
 
-	public int getId() {
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
+    public int getId() {
 		return this.id;
 	}
 
-	public int getUid() {
+    /**
+     * Gets uid.
+     *
+     * @return the uid
+     */
+    public int getUid() {
 		return this.uid;
 	}
 
-	public long getCreatedTime() {
+    /**
+     * Gets created time.
+     *
+     * @return the created time
+     */
+    public long getCreatedTime() {
 		return this.createdTime;
 	}
 
-	public int getParentCid() {
+    /**
+     * Gets parent cid.
+     *
+     * @return the parent cid
+     */
+    public int getParentCid() {
 		return this.parentCid;
 	}
 
-	public String getContent() {
+    /**
+     * Gets content.
+     *
+     * @return the content
+     */
+    public String getContent() {
 		return this.content;
 	}
 
-	public int getAid() {
+    /**
+     * Gets aid.
+     *
+     * @return the aid
+     */
+    public int getAid() {
 		return this.aid;
 	}
 
-	public Comment(int uid,long createdTime, String content,int aid){
+    /**
+     * Instantiates a new Comment.
+     *
+     * @param uid the uid
+     * @param createdTime the created time
+     * @param content the content
+     * @param aid the aid
+     */
+    public Comment(int uid,long createdTime, String content,int aid){
 		this.uid = uid;
 		this.createdTime = createdTime;
 		this.content = content;
 		this.aid = aid;
 	}
 
-	public Comment(){
+    /**
+     * Instantiates a new Comment.
+     */
+    public Comment(){
 	}
 
 	public String toString() {

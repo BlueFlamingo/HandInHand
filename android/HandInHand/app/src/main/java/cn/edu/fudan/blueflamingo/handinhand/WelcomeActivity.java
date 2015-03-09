@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+/**
+ * The type Welcome activity.
+ */
 public class WelcomeActivity extends ActionBarActivity {
 
     private Global global;

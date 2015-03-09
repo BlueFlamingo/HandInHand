@@ -17,13 +17,22 @@ import cn.edu.fudan.blueflamingo.handinhand.R;
 import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExComment;
 
+/**
+ * The type Comment adapter.
+ */
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
 	private List<ExComment> comments;
 
 	private Context mContext;
 
-	public CommentAdapter(Context context, List<ExComment> comments) {
+    /**
+     * Instantiates a new Comment adapter.
+     *
+     * @param context the context
+     * @param comments the comments
+     */
+    public CommentAdapter(Context context, List<ExComment> comments) {
 		this.mContext = context;
 		this.comments = comments;
 	}
@@ -41,21 +50,41 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 		viewHolder.timeTextView.setText(simpleDateFormat.format((new Date(c.getCreatedTime()))));
 		viewHolder.usernameTextView.setText(c.getNickname());
 		viewHolder.contentTextView.setText(c.getContent());
-		viewHolder.portraitImageView.setImageBitmap(AppUtility.getImage(c.getUserHead()));
-	}
+        viewHolder.portraitImageView.setImageBitmap(AppUtility.getImage(c.getUserHead(), mContext));
+    }
 
 	@Override
 	public int getItemCount() {
 		return comments == null ? 0 : comments.size();
 	}
 
-	public static class ViewHolder extends RecyclerView.ViewHolder {
-		public ImageView portraitImageView;
-		public TextView usernameTextView;
-		public TextView contentTextView;
-		public TextView timeTextView;
+    /**
+     * The type View holder.
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * The Portrait image view.
+         */
+        public ImageView portraitImageView;
+        /**
+         * The Username text view.
+         */
+        public TextView usernameTextView;
+        /**
+         * The Content text view.
+         */
+        public TextView contentTextView;
+        /**
+         * The Time text view.
+         */
+        public TextView timeTextView;
 
-		public ViewHolder(View v) {
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param v the v
+         */
+        public ViewHolder(View v) {
 			super(v);
 			portraitImageView = (ImageView) v.findViewById(R.id.comment_item_portrait);
 			usernameTextView = (TextView) v.findViewById(R.id.comment_item_username);

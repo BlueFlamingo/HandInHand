@@ -16,6 +16,9 @@ import cn.edu.fudan.blueflamingo.handinhand.middleware.AnswerHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.Answer;
 
 
+/**
+ * The type Answer edit activity.
+ */
 public class AnswerEditActivity extends ActionBarActivity {
 
 	private AnswerHelper answerHelper;

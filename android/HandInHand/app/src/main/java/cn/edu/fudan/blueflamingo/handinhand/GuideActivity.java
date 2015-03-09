@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * The type Guide activity.
+ */
 public class GuideActivity extends ActionBarActivity {
 
     private ViewPager viewPager;
@@ -108,6 +111,11 @@ public class GuideActivity extends ActionBarActivity {
 
         private List<View> viewList;
 
+        /**
+         * Instantiates a new Guide pager adapter.
+         *
+         * @param views the views
+         */
         public GuidePagerAdapter(List<View> views) {
             this.viewList = views;
         }
@@ -177,6 +185,13 @@ public class GuideActivity extends ActionBarActivity {
         currentIndex = position;
     }
 
+    /**
+     * Read bit map.
+     *
+     * @param context the context
+     * @param resId the res id
+     * @return the bitmap
+     */
     public static Bitmap readBitMap(Context context, int resId){
 
         BitmapFactory.Options opt = new BitmapFactory.Options();

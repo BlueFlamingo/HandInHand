@@ -7,9 +7,19 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
 
+/**
+ * The type Score helper.
+ */
 public class ScoreHelper {
 
-	public int isApprove(int uId, int aId){
+    /**
+     * Is approve.
+     *
+     * @param uId the u id
+     * @param aId the a id
+     * @return the int
+     */
+    public int isApprove(int uId, int aId){
 		String url =  "http://121.199.64.117:8888/HandInHand/score.php";
 
 		String uid = String.valueOf(uId);
@@ -21,7 +31,14 @@ public class ScoreHelper {
 		return up;
 	}
 
-	public int isOppose(int uId, int aId){
+    /**
+     * Is oppose.
+     *
+     * @param uId the u id
+     * @param aId the a id
+     * @return the int
+     */
+    public int isOppose(int uId, int aId){
 		String url =  "http://121.199.64.117:8888/HandInHand/score.php";
 
 		String uid = String.valueOf(uId);
@@ -33,7 +50,14 @@ public class ScoreHelper {
 		return down;
 	}
 
-	public int switchApprove(int uId, int aId){
+    /**
+     * Switch approve.
+     *
+     * @param uId the u id
+     * @param aId the a id
+     * @return the int
+     */
+    public int switchApprove(int uId, int aId){
 		String url =  "http://121.199.64.117:8888/HandInHand/score.php";
 
 		String uid = String.valueOf(uId);
@@ -45,7 +69,14 @@ public class ScoreHelper {
 		return up;
 	}
 
-	public int switchOppose(int uId, int aId){
+    /**
+     * Switch oppose.
+     *
+     * @param uId the u id
+     * @param aId the a id
+     * @return the int
+     */
+    public int switchOppose(int uId, int aId){
 		String url =  "http://121.199.64.117:8888/HandInHand/score.php";
 
 		String uid = String.valueOf(uId);
@@ -57,7 +88,14 @@ public class ScoreHelper {
 		return down;
 	}
 
-	public String sendPost(String url, String param) {
+    /**
+     * Send post.
+     *
+     * @param url the url
+     * @param param the param
+     * @return the string
+     */
+    public String sendPost(String url, String param) {
 		//System.out.println(param);
 		PrintWriter out = null;
 		BufferedReader in = null;

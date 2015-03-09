@@ -17,15 +17,32 @@ import cn.edu.fudan.blueflamingo.handinhand.R;
 import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 
+/**
+ * The type Question adapter.
+ */
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
 
-	public interface OnItemClickListener {
-		void onItemClick(View view, int position);
+    /**
+     * The interface On item click listener.
+     */
+    public interface OnItemClickListener {
+        /**
+         * On item click.
+         *
+         * @param view the view
+         * @param position the position
+         */
+        void onItemClick(View view, int position);
 	}
 
 	private OnItemClickListener mOnItemClickListener;
 
-	public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+    /**
+     * Sets on item click listener.
+     *
+     * @param mOnItemClickListener the m on item click listener
+     */
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
 		this.mOnItemClickListener = mOnItemClickListener;
 	}
 
@@ -33,7 +50,13 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
 	private Context mContext;
 
-	public QuestionAdapter(Context context, List<ExQuestion> questions) {
+    /**
+     * Instantiates a new Question adapter.
+     *
+     * @param context the context
+     * @param questions the questions
+     */
+    public QuestionAdapter(Context context, List<ExQuestion> questions) {
 		this.mContext = context;
 		this.questions = questions;
 	}
@@ -56,8 +79,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 			viewHolder.abstractTextView.setText(q.getContent());
 		}
 		viewHolder.timeTextView.setText(simpleDateFormat.format(new Date(q.getCreatedTime())));
-		viewHolder.headImageView.setImageBitmap(AppUtility.getImage(q.getUserHead()));
-		if (q.expireTime != 0) {
+        viewHolder.headImageView.setImageBitmap(AppUtility.getImage(q.getUserHead(), mContext));
+        if (q.expireTime != 0) {
 			Log.d("emergent question", String.valueOf(q.expireTime));
 			Date now = new Date();
 			Date eTime = new Date(q.expireTime);
@@ -89,15 +112,41 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 		return questions == null ? 0 : questions.size();
 	}
 
-	public static class ViewHolder extends RecyclerView.ViewHolder {
-		public TextView titleTextView;
-		public ImageView headImageView;
-		public TextView watchNumTextView;
-		public TextView abstractTextView;
-		public TextView timeTextView;
-		public TextView subTitleTextView;
+    /**
+     * The type View holder.
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * The Title text view.
+         */
+        public TextView titleTextView;
+        /**
+         * The Head image view.
+         */
+        public ImageView headImageView;
+        /**
+         * The Watch num text view.
+         */
+        public TextView watchNumTextView;
+        /**
+         * The Abstract text view.
+         */
+        public TextView abstractTextView;
+        /**
+         * The Time text view.
+         */
+        public TextView timeTextView;
+        /**
+         * The Sub title text view.
+         */
+        public TextView subTitleTextView;
 
-		public ViewHolder(View v) {
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param v the v
+         */
+        public ViewHolder(View v) {
 			super(v);
 			subTitleTextView = (TextView) v.findViewById(R.id.question_subtitle);
 			titleTextView = (TextView) v.findViewById(R.id.question_title);

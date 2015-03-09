@@ -11,6 +11,9 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
+/**
+ * The type Dash line.
+ */
 public class DashLine extends View{
 
 	private float startX;
@@ -19,7 +22,13 @@ public class DashLine extends View{
 	private float endY;
 	private Rect mRect;
 
-	public DashLine(Context context, AttributeSet attrs) {
+    /**
+     * Instantiates a new Dash line.
+     *
+     * @param context the context
+     * @param attrs the attrs
+     */
+    public DashLine(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 

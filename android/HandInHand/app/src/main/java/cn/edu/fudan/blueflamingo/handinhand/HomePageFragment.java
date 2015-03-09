@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+/**
+ * The type Home page fragment.
+ */
 public class HomePageFragment extends Fragment {
 
 	//						tid
@@ -30,7 +33,12 @@ public class HomePageFragment extends Fragment {
 
 	private Global global;
 
-	public static HomePageFragment newInstance() {
+    /**
+     * New instance.
+     *
+     * @return the home page fragment
+     */
+    public static HomePageFragment newInstance() {
 		return new HomePageFragment();
 	}
 

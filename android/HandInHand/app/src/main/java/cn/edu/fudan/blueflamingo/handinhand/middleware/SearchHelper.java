@@ -13,9 +13,18 @@ import java.util.ArrayList;
 
 import cn.edu.fudan.blueflamingo.handinhand.model.Utility;
 
+/**
+ * The type Search helper.
+ */
 public class SearchHelper {
 
-	public ArrayList< ArrayList<Object> > Search (String pattern){
+    /**
+     * Search array list.
+     *
+     * @param pattern the pattern
+     * @return the array list
+     */
+    public ArrayList< ArrayList<Object> > Search (String pattern){
 		String url =   "http://121.199.64.117:8888/HandInHand/search.php";
 
 		String temp;
@@ -31,7 +40,15 @@ public class SearchHelper {
 		return Utility.slistToObjectlist(list);
 
 	}
-	public String sendPost(String url, String param) {
+
+    /**
+     * Send post.
+     *
+     * @param url the url
+     * @param param the param
+     * @return the string
+     */
+    public String sendPost(String url, String param) {
 		//System.out.println(param);
 		PrintWriter out = null;
 		BufferedReader in = null;

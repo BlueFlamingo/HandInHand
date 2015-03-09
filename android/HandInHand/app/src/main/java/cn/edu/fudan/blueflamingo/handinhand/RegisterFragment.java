@@ -16,6 +16,9 @@ import com.gc.materialdesign.views.ButtonFlat;
 import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
 
+/**
+ * The type Register fragment.
+ */
 public class RegisterFragment extends Fragment {
 
 	private FragmentManager fragmentManager;
@@ -31,7 +34,10 @@ public class RegisterFragment extends Fragment {
 
 	private ButtonFlat btn_confirm;
 
-	public RegisterFragment() {
+    /**
+     * Instantiates a new Register fragment.
+     */
+    public RegisterFragment() {
 		// Required empty public constructor
 	}
 

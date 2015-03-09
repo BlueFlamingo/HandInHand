@@ -21,6 +21,9 @@ import cn.edu.fudan.blueflamingo.handinhand.middleware.ScoreHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 
 
+/**
+ * The type Answer item activity.
+ */
 public class AnswerItemActivity extends ActionBarActivity {
 
 	private int AID = -1;
@@ -51,7 +54,7 @@ public class AnswerItemActivity extends ActionBarActivity {
 		TextView approvNumTextView = (TextView) findViewById(R.id.answer_item_approve_num);
 		TextView nicknameTextView = (TextView) findViewById(R.id.answer_item_username);
 		ImageView portraitImageView = (ImageView) findViewById(R.id.answer_item_portrait);
-		portraitImageView.setImageBitmap(AppUtility.getImage(portraitStr));
+		portraitImageView.setImageBitmap(AppUtility.getImage(portraitStr,this));
 		titleTextView.setText(qTitle);
 		contentTextView.setText(content);
 		approvNumTextView.setText(String.valueOf(approvNum));

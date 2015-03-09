@@ -26,9 +26,18 @@ import cn.edu.fudan.blueflamingo.handinhand.model.Answer;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 import cn.edu.fudan.blueflamingo.handinhand.model.Utility;
 
+/**
+ * The type Answer helper.
+ */
 public class AnswerHelper {
 
-	public int add(Answer a){
+    /**
+     * Add int.
+     *
+     * @param a the a
+     * @return the int
+     */
+    public int add(Answer a){
 		String url =  "http://121.199.64.117:8888/HandInHand/answer.php";
 		//String url = "http://127.0.0.1/HandInHand/answer.php";
 		ObjectMapper mapper = new ObjectMapper();
@@ -46,7 +55,13 @@ public class AnswerHelper {
 		return aid;
 	}
 
-	public int update(Answer a){
+    /**
+     * Update int.
+     *
+     * @param a the a
+     * @return the int
+     */
+    public int update(Answer a){
 		String url =   "http://121.199.64.117:8888/HandInHand/answer.php";
 		//String url = "http://127.0.0.1/HandInHand/answer.php";
 		ObjectMapper mapper = new ObjectMapper();
@@ -64,7 +79,13 @@ public class AnswerHelper {
 		return num;
 	}
 
-	public int delete(int aId){
+    /**
+     * Delete int.
+     *
+     * @param aId the a id
+     * @return the int
+     */
+    public int delete(int aId){
 		String url =   "http://121.199.64.117:8888/HandInHand/answer.php";
 		//String url = "http://127.0.0.1/HandInHand/answer.php";
 		String aid = String.valueOf(aId);
@@ -76,7 +97,13 @@ public class AnswerHelper {
 
 	}
 
-	public ArrayList<ExAnswer> getByQid(int qId){
+    /**
+     * Get by qid.
+     *
+     * @param qId the q id
+     * @return the array list
+     */
+    public ArrayList<ExAnswer> getByQid(int qId){
 		String url =   "http://121.199.64.117:8888/HandInHand/answer.php";
 		//String url = "http://127.0.0.1/HandInHand/answer.php";
 		String qid = String.valueOf(qId);
@@ -96,7 +123,13 @@ public class AnswerHelper {
 
 	}
 
-	public ExAnswer getByAid(int aId){
+    /**
+     * Get by aid.
+     *
+     * @param aId the a id
+     * @return the ex answer
+     */
+    public ExAnswer getByAid(int aId){
 		String url =   "http://121.199.64.117:8888/HandInHand/answer.php";
 		//String url = "http://127.0.0.1/HandInHand/answer.php";
 		String aid = String.valueOf(aId);
@@ -116,7 +149,14 @@ public class AnswerHelper {
 
 	}
 
-	public String sendPost(String url, String param) {
+    /**
+     * Send post.
+     *
+     * @param url the url
+     * @param param the param
+     * @return the string
+     */
+    public String sendPost(String url, String param) {
 		//System.out.println(param);
 		PrintWriter out = null;
 		BufferedReader in = null;
@@ -167,7 +207,13 @@ public class AnswerHelper {
 		return result;
 	}
 
-	public String uploadFile(String filePath) {
+    /**
+     * Upload file.
+     *
+     * @param filePath the file path
+     * @return the string
+     */
+    public String uploadFile(String filePath) {
 
 		String urlStr = "http://121.199.64.117:8888/HandInHand/upload.php";
 		Map<String, String> textMap = new HashMap<String, String>();

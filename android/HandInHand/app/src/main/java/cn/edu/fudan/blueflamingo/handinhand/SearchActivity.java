@@ -43,6 +43,9 @@ import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExComment;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 
+/**
+ * The type Search activity.
+ */
 public class SearchActivity extends ActionBarActivity {
 
 	private ArrayList<ArrayList<Object>> searchArrayList = new ArrayList<>();
@@ -207,7 +210,10 @@ public class SearchActivity extends ActionBarActivity {
 
 	private class TabListener implements ViewPager.OnPageChangeListener {
 
-		int two = offset * 2;
+        /**
+         * The Two.
+         */
+        int two = offset * 2;
 
 		@Override
 		public void onPageScrollStateChanged(int arg) {
@@ -255,7 +261,10 @@ public class SearchActivity extends ActionBarActivity {
 
 	private class TabAdapater extends PagerAdapter {
 
-		ArrayList<View> viewArrayList;
+        /**
+         * The View array list.
+         */
+        ArrayList<View> viewArrayList;
 
 		@Override
 		public int getCount() {
@@ -278,7 +287,12 @@ public class SearchActivity extends ActionBarActivity {
 			return viewArrayList.get(position);
 		}
 
-		public TabAdapater(ArrayList<View> viewArrayList) {
+        /**
+         * Instantiates a new Tab adapater.
+         *
+         * @param viewArrayList the view array list
+         */
+        public TabAdapater(ArrayList<View> viewArrayList) {
 			super();
 			this.viewArrayList = viewArrayList;
 		}
