@@ -55,7 +55,8 @@ public class UserInfoActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				Intent aListIntent = new Intent(UserInfoActivity.this, QuestionItemActivity.class);
 				aListIntent.putExtra("MODE", QuestionItemActivity.FROM_USER_ASKED_LIST);
-				startActivity(aListIntent);
+                aListIntent.putExtra("UID", uid);
+                startActivity(aListIntent);
 			}
 		});
 

@@ -48,6 +48,7 @@ public class AnswerListFragment extends Fragment {
 
 	private int MODE = 0;
 	private int QID = -1;
+    private int UID = -1;
 
     /**
      * Instantiates a new Answer list fragment.
@@ -75,6 +76,7 @@ public class AnswerListFragment extends Fragment {
 		global = (Global) parent.getApplication();
 
 		MODE = parent.getIntent().getExtras().getInt("MODE");
+        UID = parent.getIntent().getExtras().getInt("UID");
 
 		answers.add(new ExAnswer("loading..."));
 
@@ -205,7 +207,7 @@ public class AnswerListFragment extends Fragment {
 				return 0;
 			} else {
 				answers.clear();
-				answers.addAll(userHelper.getAnswers(global.getUid()));
+				answers.addAll(userHelper.getAnswers(UID));
 				if (answers.size() > 0) {
 					return 1;
 				} else {
@@ -232,11 +234,13 @@ public class AnswerListFragment extends Fragment {
                 } else {
                     setToolbarTitle(answers.size(), (ActionBarActivity) getActivity());
                 }
+                favButton = (ButtonFlat) getActivity().findViewById(R.id.question_item_btn_watch);
             } catch (Exception e) {
 				//有时在未获取完所有的answer前退出会触发异常，因为先调用了answers.clear()
 				//如果这样的现象发生就不改变title
+                e.printStackTrace();
 			}
-            favButton = (ButtonFlat) getActivity().findViewById(R.id.question_item_btn_watch);
+
             if (MODE == QuestionItemActivity.FROM_QUESTION_LIST) {
                 if (global.getLoginFlag()) {
                     //if is logged in

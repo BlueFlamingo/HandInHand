@@ -97,8 +97,9 @@ public class QuestionListActivity extends ActionBarActivity {
 				}
 				break;
 			case R.id.action_question_search:
-				Toast.makeText(this, "search clicked!", Toast.LENGTH_SHORT).show();
-				break;
+                Intent searchIntent = new Intent(this, SearchActivity.class);
+                startActivity(searchIntent);
+                break;
 			default:
 				break;
 		}

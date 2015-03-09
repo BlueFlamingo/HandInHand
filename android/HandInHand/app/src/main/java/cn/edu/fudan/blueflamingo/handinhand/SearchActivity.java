@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonRectangle;
@@ -325,6 +326,7 @@ public class SearchActivity extends ActionBarActivity {
 			progressBar.setVisibility(View.VISIBLE);
 			progressBar.setIndeterminateDrawable(new FoldingCirclesDrawable.Builder(getApplicationContext())
 					.build());
+            Toast.makeText(getApplicationContext(),"搜索中...",Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
@@ -357,6 +359,7 @@ public class SearchActivity extends ActionBarActivity {
 			questionAdapter.notifyDataSetChanged();
 			answerAdapter.notifyDataSetChanged();
 			commentAdapter.notifyDataSetChanged();
+            Toast.makeText(getApplicationContext(),"搜索完成！",Toast.LENGTH_SHORT).show();
 			progressBar.setVisibility(View.GONE);
 		}
 

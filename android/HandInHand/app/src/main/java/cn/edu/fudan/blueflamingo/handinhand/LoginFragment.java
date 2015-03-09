@@ -80,6 +80,7 @@ public class LoginFragment extends Fragment {
 		@Override
 		protected void onPreExecute() {
             btn_confirm.setEnabled(false);
+            Toast.makeText(getActivity(),"登陆中...",Toast.LENGTH_SHORT).show();
 			progressbar = (ProgressBar) getActivity().findViewById(R.id.auth_login_progressbar);
 		}
 

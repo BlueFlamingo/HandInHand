@@ -106,9 +106,8 @@ public class MainActivity extends ActionBarActivity {
 		super.onResume();
 		if (globalVal.getLoginFlag()) {
 			(new LoadProfile()).execute();
-
-            bindDrawerButton();
         }
+        bindDrawerButton();
 	}
 
 	private void initCursor() {

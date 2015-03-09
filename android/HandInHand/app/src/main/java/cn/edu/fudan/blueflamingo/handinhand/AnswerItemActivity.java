@@ -60,8 +60,6 @@ public class AnswerItemActivity extends ActionBarActivity {
 		approvNumTextView.setText(String.valueOf(approvNum));
 		nicknameTextView.setText(nickname);
 
-		(new LoadTask()).execute(AID, QID);
-
 		//bind approve
 		RelativeLayout approveContainer = (RelativeLayout) findViewById(R.id.answer_item_approve_container);
 		approveContainer.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +91,12 @@ public class AnswerItemActivity extends ActionBarActivity {
 			}
 		});
 	}
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        (new LoadTask()).execute(AID, QID);
+    }
 
 	private void initToolbar() {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.answer_item_toolbar);
@@ -177,7 +181,7 @@ public class AnswerItemActivity extends ActionBarActivity {
 				case 1:
 					approvNumTextView.setText(String.valueOf(++approvNum));
 					Log.d("answer score1", String.valueOf(approvNum));
-					Toast.makeText(getApplicationContext(), "赞了此问题", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "赞了此回答", Toast.LENGTH_SHORT).show();
 					break;
 			}
 		}

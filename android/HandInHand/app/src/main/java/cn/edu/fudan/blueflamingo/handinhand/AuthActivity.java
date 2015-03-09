@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 
 /**
@@ -39,6 +40,7 @@ public class AuthActivity extends ActionBarActivity {
 		fragmentManager.beginTransaction()
 				.replace(R.id.auth_fragment, new AuthFragment(), "auth_main")
 				.commit();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 	}
 
 
