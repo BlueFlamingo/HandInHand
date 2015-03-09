@@ -8,15 +8,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+/**
+ * The type Auth activity.
+ */
 public class AuthActivity extends ActionBarActivity {
 
 	private Global globalVal;
 
 	private FragmentManager fragmentManager;
 
-	public final static int HANG_OUT = 1;
-	public final static int REGISTERED = 2;
-	public final static int LOGINED = 3;
+    /**
+     * The constant HANG_OUT.
+     */
+    public final static int HANG_OUT = 1;
+    /**
+     * The constant REGISTERED.
+     */
+    public final static int REGISTERED = 2;
+    /**
+     * The constant LOGINED.
+     */
+    public final static int LOGINED = 3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

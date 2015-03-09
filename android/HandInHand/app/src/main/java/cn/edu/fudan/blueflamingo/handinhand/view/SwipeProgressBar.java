@@ -66,6 +66,11 @@ final class SwipeProgressBar {
 
     private Rect mBounds = new Rect();
 
+    /**
+     * Instantiates a new Swipe progress bar.
+     *
+     * @param parent the parent
+     */
     public SwipeProgressBar(View parent) {
         mParent = parent;
         mColor1 = COLOR1;
@@ -95,6 +100,7 @@ final class SwipeProgressBar {
      * Update the progress the user has made toward triggering the swipe
      * gesture. and use this value to update the percentage of the trigger that
      * is shown.
+     * @param triggerPercentage the trigger percentage
      */
     void setTriggerPercentage(float triggerPercentage) {
         mTriggerPercentage = triggerPercentage;
@@ -127,12 +133,19 @@ final class SwipeProgressBar {
     }
 
     /**
+     * Is running.
+     *
      * @return Return whether the progress animation is currently running.
      */
     boolean isRunning() {
         return mRunning || mFinishTime > 0;
     }
 
+    /**
+     * Draw void.
+     *
+     * @param canvas the canvas
+     */
     void draw(Canvas canvas) {
         final int width = mBounds.width();
         final int height = mBounds.height();
@@ -263,6 +276,10 @@ final class SwipeProgressBar {
 
     /**
      * Set the drawing bounds of this SwipeProgressBar.
+     * @param left the left
+     * @param top the top
+     * @param right the right
+     * @param bottom the bottom
      */
     void setBounds(int left, int top, int right, int bottom) {
         mBounds.left = left;

@@ -16,15 +16,32 @@ import cn.edu.fudan.blueflamingo.handinhand.R;
 import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 
+/**
+ * The type Simple answer adapter.
+ */
 public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapter.ViewHolder>{
 
-	public interface OnItemClickListener {
-		void onItemClick(View view, int position);
+    /**
+     * The interface On item click listener.
+     */
+    public interface OnItemClickListener {
+        /**
+         * On item click.
+         *
+         * @param view the view
+         * @param position the position
+         */
+        void onItemClick(View view, int position);
 	}
 
 	private OnItemClickListener mOnItemClickListener;
 
-	public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+    /**
+     * Sets on item click listener.
+     *
+     * @param mOnItemClickListener the m on item click listener
+     */
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
 		this.mOnItemClickListener = mOnItemClickListener;
 	}
 
@@ -32,7 +49,13 @@ public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapte
 
 	private Context mContext;
 
-	public SimpleAnswerAdapter(Context context, List<ExAnswer> answers) {
+    /**
+     * Instantiates a new Simple answer adapter.
+     *
+     * @param context the context
+     * @param answers the answers
+     */
+    public SimpleAnswerAdapter(Context context, List<ExAnswer> answers) {
 		this.mContext = context;
 		this.answers = answers;
 	}
@@ -56,7 +79,7 @@ public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapte
 			viewHolder.abstractTextView.setText(content);
 		}
 		viewHolder.timeTextView.setText(simpleDateFormat.format(new Date(a.getCreatedTime())));
-		viewHolder.headImageView.setImageBitmap(AppUtility.getImage(a.getUserHead()));
+        viewHolder.headImageView.setImageBitmap(AppUtility.getImage(a.getUserHead(), mContext));
 
 		//如果设置了回调则设置点击事件
 		if (mOnItemClickListener != null) {
@@ -74,14 +97,37 @@ public class SimpleAnswerAdapter extends RecyclerView.Adapter<SimpleAnswerAdapte
 		return answers == null ? 0 : answers.size();
 	}
 
-	public static class ViewHolder extends RecyclerView.ViewHolder {
-		public TextView usernameTextView;
-		public ImageView headImageView;
-		public TextView approveNumTextView;
-		public TextView abstractTextView;
-		public TextView timeTextView;
+    /**
+     * The type View holder.
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * The Username text view.
+         */
+        public TextView usernameTextView;
+        /**
+         * The Head image view.
+         */
+        public ImageView headImageView;
+        /**
+         * The Approve num text view.
+         */
+        public TextView approveNumTextView;
+        /**
+         * The Abstract text view.
+         */
+        public TextView abstractTextView;
+        /**
+         * The Time text view.
+         */
+        public TextView timeTextView;
 
-		public ViewHolder(View v) {
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param v the v
+         */
+        public ViewHolder(View v) {
 			super(v);
 			usernameTextView = (TextView) v.findViewById(R.id.answer_user_name);
 			headImageView = (ImageView) v.findViewById(R.id.answer_user_head);

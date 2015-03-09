@@ -29,6 +29,9 @@ import cn.edu.fudan.blueflamingo.handinhand.model.Utility;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
 
+/**
+ * The type Comment list activity.
+ */
 public class CommentListActivity extends ActionBarActivity {
 
 	private RecyclerView mRecyclerView;

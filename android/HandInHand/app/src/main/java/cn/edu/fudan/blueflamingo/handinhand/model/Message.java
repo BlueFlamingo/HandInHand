@@ -1,44 +1,114 @@
 package cn.edu.fudan.blueflamingo.handinhand.model;
 
+/**
+ * The type Message.
+ */
 public class Message {
 
-	public int id;
-	public int sender;
-	public int receiver;
-	public String title = "";
-	public String content = "";
-	public long createdTime = 0;
-	public int status = 0;
+    /**
+     * The Id.
+     */
+    public int id;
+    /**
+     * The Sender.
+     */
+    public int sender;
+    /**
+     * The Receiver.
+     */
+    public int receiver;
+    /**
+     * The Title.
+     */
+    public String title = "";
+    /**
+     * The Content.
+     */
+    public String content = "";
+    /**
+     * The Created time.
+     */
+    public long createdTime = 0;
+    /**
+     * The Status.
+     */
+    public int status = 0;
 
-	public int getId() {
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
+    public int getId() {
 		return this.id;
 	}
 
-	public int getSender() {
+    /**
+     * Gets sender.
+     *
+     * @return the sender
+     */
+    public int getSender() {
 		return this.sender;
 	}
 
-	public int getReceiver() {
+    /**
+     * Gets receiver.
+     *
+     * @return the receiver
+     */
+    public int getReceiver() {
 		return this.receiver;
 	}
 
-	public String getTitle() {
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
+    public String getTitle() {
 		return this.title;
 	}
 
-	public String getContent() {
+    /**
+     * Gets content.
+     *
+     * @return the content
+     */
+    public String getContent() {
 		return this.content;
 	}
 
-	public long getCreatedTime() {
+    /**
+     * Gets created time.
+     *
+     * @return the created time
+     */
+    public long getCreatedTime() {
 		return this.createdTime;
 	}
 
-	public int getStatus() {
+    /**
+     * Gets status.
+     *
+     * @return the status
+     */
+    public int getStatus() {
 		return this.status;
 	}
 
-	public Message(int id,int sender,int receiver,String title,String content,long createdTime,int status){
+    /**
+     * Instantiates a new Message.
+     *
+     * @param id the id
+     * @param sender the sender
+     * @param receiver the receiver
+     * @param title the title
+     * @param content the content
+     * @param createdTime the created time
+     * @param status the status
+     */
+    public Message(int id,int sender,int receiver,String title,String content,long createdTime,int status){
 		this.id = id;
 		this.sender = sender;
 		this.receiver = receiver;
@@ -48,7 +118,10 @@ public class Message {
 		this.status = status;
 	}
 
-	public Message(){
+    /**
+     * Instantiates a new Message.
+     */
+    public Message(){
 	}
 
 	public String toString() {

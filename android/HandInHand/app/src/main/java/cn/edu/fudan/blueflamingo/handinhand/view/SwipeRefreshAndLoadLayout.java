@@ -138,7 +138,7 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
     /**
      * Simple constructor to use when creating a SwipeRefreshLayout from code.
      *
-     * @param context
+     * @param context the context
      */
     public SwipeRefreshAndLoadLayout(Context context) {
         this(context, null);
@@ -147,8 +147,8 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
     /**
      * Constructor that is called when inflating SwipeRefreshLayout from XML.
      *
-     * @param context
-     * @param attrs
+     * @param context the context
+     * @param attrs the attrs
      */
     public SwipeRefreshAndLoadLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -196,6 +196,7 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
     /**
      * Set the listener to be notified when a refresh is triggered via the swipe
      * gesture.
+     * @param listener the listener
      */
     public void setOnRefreshListener(OnRefreshListener listener) {
         mListener = listener;
@@ -253,6 +254,8 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
     }
 
     /**
+     * Is refreshing.
+     *
      * @return Whether the SwipeRefreshWidget is actively showing refresh
      * progress.
      */
@@ -322,6 +325,8 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
     }
 
     /**
+     * Can child scroll up.
+     *
      * @return Whether it is possible for the child view of this layout to
      * scroll up. Override this if the child view is a custom view.
      */
@@ -342,6 +347,8 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
 
 
     /**
+     * Can child scroll down.
+     *
      * @return Whether it is possible for the child view of this layout to
      * scroll down. Override this if the child view is a custom view.
      */
@@ -498,14 +505,29 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
         postDelayed(mCancel, RETURN_TO_ORIGINAL_POSITION_TIMEOUT);
     }
 
+    /**
+     * Gets mode.
+     *
+     * @return the mode
+     */
     public Mode getmMode() {
         return mMode;
     }
 
+    /**
+     * Sets mode.
+     *
+     * @param mMode the m mode
+     */
     public void setmMode(Mode mMode) {
         this.mMode = mMode;
     }
 
+    /**
+     * Gets current mode.
+     *
+     * @return the current mode
+     */
     public Mode getmCurrentMode() {
         return mCurrentMode;
     }
@@ -516,11 +538,21 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
      * triggers a refresh should implement this interface.
      */
     public interface OnRefreshListener {
+        /**
+         * On refresh.
+         */
         public void onRefresh();
+
+        /**
+         * On load more.
+         */
         public void onLoadMore();
     }
 
 
+    /**
+     * The enum Mode.
+     */
     public static enum Mode {
         /**
          * Disable all Pull-to-Refresh gesture and Refreshing handling
@@ -546,27 +578,59 @@ public class SwipeRefreshAndLoadLayout  extends ViewGroup {
          */
         BOTH(0x3);
 
+        /**
+         * Gets default.
+         *
+         * @return the default
+         */
         static Mode getDefault() {
             return PULL_FROM_START;
         }
 
+        /**
+         * Permits pull to refresh.
+         *
+         * @return the boolean
+         */
         boolean permitsPullToRefresh() {
             return !(this == DISABLED);
         }
+
+        /**
+         * Permits pull from start.
+         *
+         * @return the boolean
+         */
         boolean permitsPullFromStart() {
             return (this == Mode.BOTH || this == Mode.PULL_FROM_START);
         }
+
+        /**
+         * Permits pull from end.
+         *
+         * @return the boolean
+         */
         boolean permitsPullFromEnd() {
             return (this == Mode.BOTH || this == Mode.PULL_FROM_END);
         }
 
         private int mIntValue;
 
-        // The modeInt values need to match those from attrs.xml
+        /**
+         * Instantiates a new Mode.
+         *
+         * @param modeInt the mode int
+         */
+// The modeInt values need to match those from attrs.xml
         Mode(int modeInt) {
             mIntValue = modeInt;
         }
 
+        /**
+         * Gets int value.
+         *
+         * @return the int value
+         */
         int getIntValue() {
             return mIntValue;
         }

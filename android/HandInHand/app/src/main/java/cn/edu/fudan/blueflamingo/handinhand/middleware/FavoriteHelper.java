@@ -16,9 +16,19 @@ import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
 import cn.edu.fudan.blueflamingo.handinhand.model.Utility;
 
+/**
+ * The type Favorite helper.
+ */
 public class FavoriteHelper {
 
-	public int isQuestionFavorite(int uId, int qId){
+    /**
+     * Is question favorite.
+     *
+     * @param uId the u id
+     * @param qId the q id
+     * @return the int
+     */
+    public int isQuestionFavorite(int uId, int qId){
 		String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
 
 		String uid = String.valueOf(uId);
@@ -30,7 +40,14 @@ public class FavoriteHelper {
 		return isfav;
 	}
 
-	public int isAnswerFavorite(int uId, int aId){
+    /**
+     * Is answer favorite.
+     *
+     * @param uId the u id
+     * @param aId the a id
+     * @return the int
+     */
+    public int isAnswerFavorite(int uId, int aId){
 		String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
 
 		String uid = String.valueOf(uId);
@@ -42,7 +59,14 @@ public class FavoriteHelper {
 		return isfav;
 	}
 
-	public int switchQuestionFavorite(int uId, int qId){
+    /**
+     * Switch question favorite.
+     *
+     * @param uId the u id
+     * @param qId the q id
+     * @return the int
+     */
+    public int switchQuestionFavorite(int uId, int qId){
 		String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
 
 		String uid = String.valueOf(uId);
@@ -54,7 +78,14 @@ public class FavoriteHelper {
 		return isfav;
 	}
 
-	public int switchAnswerFavorite(int uId, int aId){
+    /**
+     * Switch answer favorite.
+     *
+     * @param uId the u id
+     * @param aId the a id
+     * @return the int
+     */
+    public int switchAnswerFavorite(int uId, int aId){
 		String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
 
 		String uid = String.valueOf(uId);
@@ -66,7 +97,13 @@ public class FavoriteHelper {
 		return isfav;
 	}
 
-	public ArrayList<ExQuestion>  listQuestions(int uId){
+    /**
+     * List questions.
+     *
+     * @param uId the u id
+     * @return the array list
+     */
+    public ArrayList<ExQuestion>  listQuestions(int uId){
 		String url =   "http://121.199.64.117:8888/HandInHand/favorite.php";
 
 		String uid = String.valueOf(uId);
@@ -88,7 +125,13 @@ public class FavoriteHelper {
 
 	}
 
-	public ArrayList<ExAnswer>  listAnswers(int uId){
+    /**
+     * List answers.
+     *
+     * @param uId the u id
+     * @return the array list
+     */
+    public ArrayList<ExAnswer>  listAnswers(int uId){
 		String url =   "http://121.199.64.117:8888/HandInHand/favorite.php";
 
 		String uid = String.valueOf(uId);
@@ -108,7 +151,14 @@ public class FavoriteHelper {
 
 	}
 
-	public int isUserFavorite(int uId, int uId2){
+    /**
+     * Is user favorite.
+     *
+     * @param uId the u id
+     * @param uId2 the u id 2
+     * @return the int
+     */
+    public int isUserFavorite(int uId, int uId2){
 		String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
 
 		String uid = String.valueOf(uId);
@@ -120,7 +170,14 @@ public class FavoriteHelper {
 		return isfav;
 	}
 
-	public int switchUserFavorite(int uId, int uId2){
+    /**
+     * Switch user favorite.
+     *
+     * @param uId the u id
+     * @param uId2 the u id 2
+     * @return the int
+     */
+    public int switchUserFavorite(int uId, int uId2){
 		String url =  "http://121.199.64.117:8888/HandInHand/favorite.php";
 
 		String uid = String.valueOf(uId);
@@ -132,7 +189,13 @@ public class FavoriteHelper {
 		return isfav;
 	}
 
-	public ArrayList<User>  listUsers(int uId){
+    /**
+     * List users.
+     *
+     * @param uId the u id
+     * @return the array list
+     */
+    public ArrayList<User>  listUsers(int uId){
 		String url =   "http://121.199.64.117:8888/HandInHand/favorite.php";
 
 		String uid = String.valueOf(uId);
@@ -152,7 +215,14 @@ public class FavoriteHelper {
 
 	}
 
-	public String sendPost(String url, String param) {
+    /**
+     * Send post.
+     *
+     * @param url the url
+     * @param param the param
+     * @return the string
+     */
+    public String sendPost(String url, String param) {
 		//System.out.println(param);
 		PrintWriter out = null;
 		BufferedReader in = null;

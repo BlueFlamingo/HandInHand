@@ -48,17 +48,17 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- ******************************************************************************
+ *
  * Taken from the JB source code, can be found in:
  * libcore/luni/src/main/java/libcore/io/DiskLruCache.java
  * or direct link:
  * https://android.googlesource.com/platform/libcore/+/android-4.1.1_r1/luni/src/main/java/libcore/io/DiskLruCache.java
- ******************************************************************************
+ *
  *
  * A cache that uses a bounded amount of space on a filesystem. Each cache
  * entry has a string key and a fixed number of values. Values are byte
  * sequences, accessible as streams or files. Each value must be between {@code
- * 0} and {@code Integer.MAX_VALUE} bytes in length.
+ * 0}* and {@code Integer.MAX_VALUE} bytes in length.
  *
  * <p>The cache stores its data in a directory on the filesystem. This
  * directory must be exclusive to the cache; the cache may delete or overwrite
@@ -98,11 +98,26 @@ import java.util.concurrent.TimeUnit;
  * responding appropriately.
  */
 public final class DiskLruCache implements Closeable {
-	static final String JOURNAL_FILE = "journal";
-	static final String JOURNAL_FILE_TMP = "journal.tmp";
-	static final String MAGIC = "libcore.io.DiskLruCache";
-	static final String VERSION_1 = "1";
-	static final long ANY_SEQUENCE_NUMBER = -1;
+    /**
+     * The JOURNAL _ fILE.
+     */
+    static final String JOURNAL_FILE = "journal";
+    /**
+     * The JOURNAL _ fILE _ tMP.
+     */
+    static final String JOURNAL_FILE_TMP = "journal.tmp";
+    /**
+     * The MAGIC.
+     */
+    static final String MAGIC = "libcore.io.DiskLruCache";
+    /**
+     * The VERSION _ 1.
+     */
+    static final String VERSION_1 = "1";
+    /**
+     * The ANY _ sEQUENCE _ nUMBER.
+     */
+    static final long ANY_SEQUENCE_NUMBER = -1;
 	private static final String CLEAN = "CLEAN";
 	private static final String DIRTY = "DIRTY";
 	private static final String REMOVE = "REMOVE";
@@ -188,9 +203,12 @@ public final class DiskLruCache implements Closeable {
 		return result;
 	}
 
-	/**
-	 * Returns the remainder of 'reader' as a string, closing it when done.
-	 */
+    /**
+     * Returns the remainder of 'reader' as a string, closing it when done.
+     * @param reader the reader
+     * @return the string
+     * @throws IOException the iO exception
+     */
 	public static String readFully(Reader reader) throws IOException {
 		try {
 			StringWriter writer = new StringWriter();
@@ -205,13 +223,15 @@ public final class DiskLruCache implements Closeable {
 		}
 	}
 
-	/**
-	 * Returns the ASCII characters up to but not including the next "\r\n", or
-	 * "\n".
-	 *
-	 * @throws java.io.EOFException if the stream is exhausted before the next newline
-	 *     character.
-	 */
+    /**
+     * Returns the ASCII characters up to but not including the next "\r\n", or
+     * "\n".
+     *
+     * @param in the in
+     * @return the string
+     * @throws java.io.EOFException if the stream is exhausted before the next newline
+     *     character.
+     */
 	public static String readAsciiLine(InputStream in) throws IOException {
 		// TODO: support UTF-8 here instead
 
@@ -233,9 +253,10 @@ public final class DiskLruCache implements Closeable {
 		return result.toString();
 	}
 
-	/**
-	 * Closes 'closeable', ignoring any checked exceptions. Does nothing if 'closeable' is null.
-	 */
+    /**
+     * Closes 'closeable', ignoring any checked exceptions. Does nothing if 'closeable' is null.
+     * @param closeable the closeable
+     */
 	public static void closeQuietly(Closeable closeable) {
 		if (closeable != null) {
 			try {
@@ -247,9 +268,11 @@ public final class DiskLruCache implements Closeable {
 		}
 	}
 
-	/**
-	 * Recursively delete everything in {@code dir}.
-	 */
+    /**
+     * Recursively delete everything in {@code dir}.
+     * @param dir the dir
+     * @throws IOException the iO exception
+     */
 	// TODO: this should specify paths as Strings rather than as Files
 	public static void deleteContents(File dir) throws IOException {
 		File[] files = dir.listFiles();
@@ -294,16 +317,17 @@ public final class DiskLruCache implements Closeable {
 		this.maxSize = maxSize;
 	}
 
-	/**
-	 * Opens the cache in {@code directory}, creating a cache if none exists
-	 * there.
-	 *
-	 * @param directory a writable directory
-	 * @param appVersion
-	 * @param valueCount the number of values per cache entry. Must be positive.
-	 * @param maxSize the maximum number of bytes this cache should use to store
-	 * @throws java.io.IOException if reading or writing the cache directory fails
-	 */
+    /**
+     * Opens the cache in {@code directory}, creating a cache if none exists
+     * there.
+     *
+     * @param directory a writable directory
+     * @param appVersion the app version
+     * @param valueCount the number of values per cache entry. Must be positive.
+     * @param maxSize the maximum number of bytes this cache should use to store
+     * @return the disk lru cache
+     * @throws java.io.IOException if reading or writing the cache directory fails
+     */
 	public static DiskLruCache open(File directory, int appVersion, int valueCount, long maxSize)
 			throws IOException {
 		if (maxSize <= 0) {
@@ -465,11 +489,14 @@ public final class DiskLruCache implements Closeable {
 		}
 	}
 
-	/**
-	 * Returns a snapshot of the entry named {@code key}, or null if it doesn't
-	 * exist is not currently readable. If a value is returned, it is moved to
-	 * the head of the LRU queue.
-	 */
+    /**
+     * Returns a snapshot of the entry named {@code key}, or null if it doesn't
+     * exist is not currently readable. If a value is returned, it is moved to
+     * the head of the LRU queue.
+     * @param key the key
+     * @return the snapshot
+     * @throws IOException the iO exception
+     */
 	public synchronized Snapshot get(String key) throws IOException {
 		checkNotClosed();
 		validateKey(key);
@@ -506,10 +533,13 @@ public final class DiskLruCache implements Closeable {
 		return new Snapshot(key, entry.sequenceNumber, ins);
 	}
 
-	/**
-	 * Returns an editor for the entry named {@code key}, or null if another
-	 * edit is in progress.
-	 */
+    /**
+     * Returns an editor for the entry named {@code key}, or null if another
+     * edit is in progress.
+     * @param key the key
+     * @return the editor
+     * @throws IOException the iO exception
+     */
 	public Editor edit(String key) throws IOException {
 		return edit(key, ANY_SEQUENCE_NUMBER);
 	}
@@ -538,26 +568,29 @@ public final class DiskLruCache implements Closeable {
 		return editor;
 	}
 
-	/**
-	 * Returns the directory where this cache stores its data.
-	 */
+    /**
+     * Returns the directory where this cache stores its data.
+     * @return the directory
+     */
 	public File getDirectory() {
 		return directory;
 	}
 
-	/**
-	 * Returns the maximum number of bytes that this cache should use to store
-	 * its data.
-	 */
+    /**
+     * Returns the maximum number of bytes that this cache should use to store
+     * its data.
+     * @return the long
+     */
 	public long maxSize() {
 		return maxSize;
 	}
 
-	/**
-	 * Returns the number of bytes currently being used to store the values in
-	 * this cache. This may be greater than the max size if a background
-	 * deletion is pending.
-	 */
+    /**
+     * Returns the number of bytes currently being used to store the values in
+     * this cache. This may be greater than the max size if a background
+     * deletion is pending.
+     * @return the long
+     */
 	public synchronized long size() {
 		return size;
 	}
@@ -622,12 +655,14 @@ public final class DiskLruCache implements Closeable {
 				&& redundantOpCount >= lruEntries.size();
 	}
 
-	/**
-	 * Drops the entry for {@code key} if it exists and can be removed. Entries
-	 * actively being edited cannot be removed.
-	 *
-	 * @return true if an entry was removed.
-	 */
+    /**
+     * Drops the entry for {@code key} if it exists and can be removed. Entries
+     * actively being edited cannot be removed.
+     *
+     * @param key the key
+     * @return true if an entry was removed.
+     * @throws IOException the iO exception
+     */
 	public synchronized boolean remove(String key) throws IOException {
 		checkNotClosed();
 		validateKey(key);
@@ -656,9 +691,10 @@ public final class DiskLruCache implements Closeable {
 		return true;
 	}
 
-	/**
-	 * Returns true if this cache has been closed.
-	 */
+    /**
+     * Returns true if this cache has been closed.
+     * @return the boolean
+     */
 	public boolean isClosed() {
 		return journalWriter == null;
 	}
@@ -669,9 +705,10 @@ public final class DiskLruCache implements Closeable {
 		}
 	}
 
-	/**
-	 * Force buffered operations to the filesystem.
-	 */
+    /**
+     * Force buffered operations to the filesystem.
+     * @throws IOException the iO exception
+     */
 	public synchronized void flush() throws IOException {
 		checkNotClosed();
 		trimToSize();
@@ -703,11 +740,12 @@ public final class DiskLruCache implements Closeable {
 		}
 	}
 
-	/**
-	 * Closes the cache and deletes all of its stored values. This will delete
-	 * all files in the cache directory including files that weren't created by
-	 * the cache.
-	 */
+    /**
+     * Closes the cache and deletes all of its stored values. This will delete
+     * all files in the cache directory including files that weren't created by
+     * the cache.
+     * @throws IOException the iO exception
+     */
 	public void delete() throws IOException {
 		close();
 		deleteContents(directory);
@@ -724,9 +762,9 @@ public final class DiskLruCache implements Closeable {
 		return readFully(new InputStreamReader(in, UTF_8));
 	}
 
-	/**
-	 * A snapshot of the values for an entry.
-	 */
+    /**
+     * A snapshot of the values for an entry.
+     */
 	public final class Snapshot implements Closeable {
 		private final String key;
 		private final long sequenceNumber;
@@ -738,25 +776,32 @@ public final class DiskLruCache implements Closeable {
 			this.ins = ins;
 		}
 
-		/**
-		 * Returns an editor for this snapshot's entry, or null if either the
-		 * entry has changed since this snapshot was created or if another edit
-		 * is in progress.
-		 */
+        /**
+         * Returns an editor for this snapshot's entry, or null if either the
+         * entry has changed since this snapshot was created or if another edit
+         * is in progress.
+         * @return the editor
+         * @throws IOException the iO exception
+         */
 		public Editor edit() throws IOException {
 			return DiskLruCache.this.edit(key, sequenceNumber);
 		}
 
-		/**
-		 * Returns the unbuffered stream with the value for {@code index}.
-		 */
+        /**
+         * Returns the unbuffered stream with the value for {@code index}.
+         * @param index the index
+         * @return the input stream
+         */
 		public InputStream getInputStream(int index) {
 			return ins[index];
 		}
 
-		/**
-		 * Returns the string value for {@code index}.
-		 */
+        /**
+         * Returns the string value for {@code index}.
+         * @param index the index
+         * @return the string
+         * @throws IOException the iO exception
+         */
 		public String getString(int index) throws IOException {
 			return inputStreamToString(getInputStream(index));
 		}
@@ -768,9 +813,9 @@ public final class DiskLruCache implements Closeable {
 		}
 	}
 
-	/**
-	 * Edits the values for an entry.
-	 */
+    /**
+     * Edits the values for an entry.
+     */
 	public final class Editor {
 		private final Entry entry;
 		private boolean hasErrors;
@@ -779,10 +824,13 @@ public final class DiskLruCache implements Closeable {
 			this.entry = entry;
 		}
 
-		/**
-		 * Returns an unbuffered input stream to read the last committed value,
-		 * or null if no value has been committed.
-		 */
+        /**
+         * Returns an unbuffered input stream to read the last committed value,
+         * or null if no value has been committed.
+         * @param index the index
+         * @return the input stream
+         * @throws IOException the iO exception
+         */
 		public InputStream newInputStream(int index) throws IOException {
 			synchronized (DiskLruCache.this) {
 				if (entry.currentEditor != this) {
@@ -795,22 +843,28 @@ public final class DiskLruCache implements Closeable {
 			}
 		}
 
-		/**
-		 * Returns the last committed value as a string, or null if no value
-		 * has been committed.
-		 */
+        /**
+         * Returns the last committed value as a string, or null if no value
+         * has been committed.
+         * @param index the index
+         * @return the string
+         * @throws IOException the iO exception
+         */
 		public String getString(int index) throws IOException {
 			InputStream in = newInputStream(index);
 			return in != null ? inputStreamToString(in) : null;
 		}
 
-		/**
-		 * Returns a new unbuffered output stream to write the value at
-		 * {@code index}. If the underlying output stream encounters errors
-		 * when writing to the filesystem, this edit will be aborted when
-		 * {@link #commit} is called. The returned output stream does not throw
-		 * IOExceptions.
-		 */
+        /**
+         * Returns a new unbuffered output stream to write the value at
+         * {@code index}. If the underlying output stream encounters errors
+         * when writing to the filesystem, this edit will be aborted when
+         * {@link #commit} is called. The returned output stream does not throw
+         * IOExceptions.
+         * @param index the index
+         * @return the output stream
+         * @throws IOException the iO exception
+         */
 		public OutputStream newOutputStream(int index) throws IOException {
 			synchronized (DiskLruCache.this) {
 				if (entry.currentEditor != this) {
@@ -820,9 +874,12 @@ public final class DiskLruCache implements Closeable {
 			}
 		}
 
-		/**
-		 * Sets the value at {@code index} to {@code value}.
-		 */
+        /**
+         * Sets the value at {@code index} to {@code value}.
+         * @param index the index
+         * @param value the value
+         * @throws IOException the iO exception
+         */
 		public void set(int index, String value) throws IOException {
 			Writer writer = null;
 			try {
@@ -833,10 +890,11 @@ public final class DiskLruCache implements Closeable {
 			}
 		}
 
-		/**
-		 * Commits this edit so it is visible to readers.  This releases the
-		 * edit lock so another edit may be started on the same key.
-		 */
+        /**
+         * Commits this edit so it is visible to readers.  This releases the
+         * edit lock so another edit may be started on the same key.
+         * @throws IOException the iO exception
+         */
 		public void commit() throws IOException {
 			if (hasErrors) {
 				completeEdit(this, false);
@@ -846,10 +904,11 @@ public final class DiskLruCache implements Closeable {
 			}
 		}
 
-		/**
-		 * Aborts this edit. This releases the edit lock so another edit may be
-		 * started on the same key.
-		 */
+        /**
+         * Aborts this edit. This releases the edit lock so another edit may be
+         * started on the same key.
+         * @throws IOException the iO exception
+         */
 		public void abort() throws IOException {
 			completeEdit(this, false);
 		}
@@ -913,7 +972,13 @@ public final class DiskLruCache implements Closeable {
 			this.lengths = new long[valueCount];
 		}
 
-		public String getLengths() throws IOException {
+        /**
+         * Gets lengths.
+         *
+         * @return the lengths
+         * @throws IOException the iO exception
+         */
+        public String getLengths() throws IOException {
 			StringBuilder result = new StringBuilder();
 			for (long size : lengths) {
 				result.append(' ').append(size);
@@ -942,11 +1007,23 @@ public final class DiskLruCache implements Closeable {
 			throw new IOException("unexpected journal line: " + Arrays.toString(strings));
 		}
 
-		public File getCleanFile(int i) {
+        /**
+         * Gets clean file.
+         *
+         * @param i the i
+         * @return the clean file
+         */
+        public File getCleanFile(int i) {
 			return new File(directory, key + "." + i);
 		}
 
-		public File getDirtyFile(int i) {
+        /**
+         * Gets dirty file.
+         *
+         * @param i the i
+         * @return the dirty file
+         */
+        public File getDirtyFile(int i) {
 			return new File(directory, key + "." + i + ".tmp");
 		}
 	}

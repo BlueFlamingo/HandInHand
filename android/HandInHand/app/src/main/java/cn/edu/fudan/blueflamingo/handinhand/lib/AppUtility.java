@@ -5,6 +5,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
@@ -21,19 +23,51 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
 
+import cn.edu.fudan.blueflamingo.handinhand.R;
 import cn.edu.fudan.blueflamingo.handinhand.model.Message;
 
+/**
+ * The type App utility.
+ */
 public class AppUtility {
 
-	public final static String APPNAME = "HandInHand";
-	public final static String STORAGE_URL = "http://121.199.64.117:8888/HandInHand/upload/";
-	public final static int QUESTION_MODE = 1;
-	public final static int ANSWER_MODE = 2;
-	public final static int COMMENT_MODE = 3;
+    /**
+     * The constant APPNAME.
+     */
+    public final static String APPNAME = "HandInHand";
+    /**
+     * The constant STORAGE_URL.
+     */
+    public final static String STORAGE_URL = "http://121.199.64.117:8888/HandInHand/upload/";
+    /**
+     * The constant QUESTION_MODE.
+     */
+    public final static int QUESTION_MODE = 1;
+    /**
+     * The constant ANSWER_MODE.
+     */
+    public final static int ANSWER_MODE = 2;
+    /**
+     * The constant COMMENT_MODE.
+     */
+    public final static int COMMENT_MODE = 3;
+    /**
+     * The constant FAV_QUESTION_LIST.
+     */
     public final static int FAV_QUESTION_LIST = 8;
+    /**
+     * The constant mDiskLruCache.
+     */
     public static DiskLruCache mDiskLruCache;
 
-	public static File getDiskCacheDir(Context context, String uniqueName) {
+    /**
+     * Gets disk cache dir.
+     *
+     * @param context the context
+     * @param uniqueName the unique name
+     * @return the disk cache dir
+     */
+    public static File getDiskCacheDir(Context context, String uniqueName) {
 		String cachePath;
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
 				|| !Environment.isExternalStorageRemovable()) {
@@ -44,7 +78,13 @@ public class AppUtility {
 		return new File(cachePath + File.separator + uniqueName);
 	}
 
-	public static int getAppVersion(Context context) {
+    /**
+     * Gets app version.
+     *
+     * @param context the context
+     * @return the app version
+     */
+    public static int getAppVersion(Context context) {
 		try {
 			PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
 			return info.versionCode;
@@ -54,12 +94,24 @@ public class AppUtility {
 		return 1;
 	}
 
-	// md5加密
+    /**
+     * Md 5.
+     *
+     * @param inputText the input text
+     * @return the string
+     */
+// md5加密
 	public static String md5(String inputText) {
 		return encrypt(inputText, "md5");
 	}
 
-	// sha加密
+    /**
+     * Sha string.
+     *
+     * @param inputText the input text
+     * @return the string
+     */
+// sha加密
 	public static String sha(String inputText) {
 		return encrypt(inputText, "sha-1");
 	}
@@ -103,7 +155,14 @@ public class AppUtility {
 		return sb.toString();
 	}
 
-	public static boolean downloadUrlToStream(String urlString, OutputStream outputStream) {
+    /**
+     * Download url to stream.
+     *
+     * @param urlString the url string
+     * @param outputStream the output stream
+     * @return the boolean
+     */
+    public static boolean downloadUrlToStream(String urlString, OutputStream outputStream) {
 		HttpURLConnection urlConnection = null;
 		BufferedOutputStream out = null;
 		BufferedInputStream in = null;
@@ -137,12 +196,25 @@ public class AppUtility {
 		return false;
 	}
 
-	public static String trimUpload(String res) {
+    /**
+     * Trim upload.
+     *
+     * @param res the res
+     * @return the string
+     */
+    public static String trimUpload(String res) {
 		String[] tmp = res.split("/");
 		return tmp[tmp.length - 1];
 	}
 
-	public static boolean openDiskLruCache(Context context, int cacheSize) {
+    /**
+     * Open disk lru cache.
+     *
+     * @param context the context
+     * @param cacheSize the cache size
+     * @return the boolean
+     */
+    public static boolean openDiskLruCache(Context context, int cacheSize) {
 		try {
 			File cacheDir = AppUtility.getDiskCacheDir(context, AppUtility.APPNAME);
 			if (!cacheDir.exists()) {
@@ -157,41 +229,53 @@ public class AppUtility {
 		}
 	}
 
-	public static Bitmap getImage(final String imgRes) {
-		String imgMD5 = md5(imgRes);
-		try {
-			DiskLruCache.Snapshot snapshot = mDiskLruCache.get(imgMD5);
-			if (snapshot != null) {
-				//cache hit
-				InputStream inputStream = snapshot.getInputStream(0);
-				return BitmapFactory.decodeStream(inputStream);
-			} else {
-				//cache miss
-				final DiskLruCache.Editor editor = mDiskLruCache.edit(imgMD5);
-				final OutputStream outputStream = editor.newOutputStream(0);
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							if (downloadUrlToStream(STORAGE_URL + imgRes, outputStream)) {
-								editor.commit();
-							} else {
-								editor.abort();
-							}
-							mDiskLruCache.flush();
-							//Log.d("handinhand", "DOWNLOADING FROM NETWORK");
-						} catch (Exception e) {
-							Log.d(APPNAME, e.toString());
-						}
-					}
-				}).start();
-				snapshot = mDiskLruCache.get(imgMD5);
-				InputStream inputStream = snapshot.getInputStream(0);
-				return BitmapFactory.decodeStream(inputStream);
-			}
-		} catch (Exception e) {
-			Log.d(APPNAME, e.toString());
-			return null;
-		}
-	}
+    /**
+     * Gets image.
+     *
+     * @param imgRes the img res
+     * @param context the context
+     * @return the image
+     */
+    public static Bitmap getImage(final String imgRes, Context context) {
+        if (imgRes.equals("")) {
+            Drawable drawable = context.getResources().getDrawable(R.drawable.app);
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+        String imgMD5 = md5(imgRes);
+        try {
+            DiskLruCache.Snapshot snapshot = mDiskLruCache.get(imgMD5);
+            if (snapshot != null) {
+                //cache hit
+                InputStream inputStream = snapshot.getInputStream(0);
+                return BitmapFactory.decodeStream(inputStream);
+            } else {
+                //cache miss
+                final DiskLruCache.Editor editor = mDiskLruCache.edit(imgMD5);
+                final OutputStream outputStream = editor.newOutputStream(0);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if (downloadUrlToStream(STORAGE_URL + imgRes, outputStream)) {
+                                editor.commit();
+                            } else {
+                                editor.abort();
+                            }
+                            mDiskLruCache.flush();
+                            //Log.d("handinhand", "DOWNLOADING FROM NETWORK");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                snapshot = mDiskLruCache.get(imgMD5);
+                InputStream inputStream = snapshot.getInputStream(0);
+                return BitmapFactory.decodeStream(inputStream);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Drawable drawable = context.getResources().getDrawable(R.drawable.app);
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+    }
 }

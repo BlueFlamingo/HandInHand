@@ -10,14 +10,26 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 
+/**
+ * The type Question item activity.
+ */
 public class QuestionItemActivity extends ActionBarActivity {
 
 	private int QID = -1;
 
-	public static int MODE = 0;
+    /**
+     * The constant MODE.
+     */
+    public static int MODE = 0;
 
-	public final static int FROM_QUESTION_LIST = 0;
-	public final static int FROM_USER_ASKED_LIST = 1;
+    /**
+     * The constant FROM_QUESTION_LIST.
+     */
+    public final static int FROM_QUESTION_LIST = 0;
+    /**
+     * The constant FROM_USER_ASKED_LIST.
+     */
+    public final static int FROM_USER_ASKED_LIST = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

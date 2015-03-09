@@ -8,13 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * The type Auth fragment.
+ */
 public class AuthFragment extends Fragment {
 
 	private Global globalVal;
 
 	private FragmentManager fragmentManager;
 
-	public AuthFragment() {
+    /**
+     * Instantiates a new Auth fragment.
+     */
+    public AuthFragment() {
 		// Required empty public constructor
 	}
 

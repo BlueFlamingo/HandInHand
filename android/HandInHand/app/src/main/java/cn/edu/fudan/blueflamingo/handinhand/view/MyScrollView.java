@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ScrollView;
 
+/**
+ * The type My scroll view.
+ */
 //带阻尼的scrollview
 public class MyScrollView extends ScrollView {
 	private View inner;// 孩子
@@ -16,7 +19,13 @@ public class MyScrollView extends ScrollView {
 
 	private Rect normal = new Rect();// 矩形空白
 
-	public MyScrollView(Context context, AttributeSet attrs) {
+    /**
+     * Instantiates a new My scroll view.
+     *
+     * @param context the context
+     * @param attrs the attrs
+     */
+    public MyScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
@@ -39,11 +48,11 @@ public class MyScrollView extends ScrollView {
 		return super.onTouchEvent(ev);
 	}
 
-	/***
-	 * 触摸事件
-	 *
-	 * @param ev
-	 */
+    /***
+     * 触摸事件
+     *
+     * @param ev the ev
+     */
 	public void commOnTouchEvent(MotionEvent ev) {
 		int action = ev.getAction();
 		switch (action) {
@@ -79,9 +88,9 @@ public class MyScrollView extends ScrollView {
 		}
 	}
 
-	/***
-	 * 开启动画移动
-	 */
+    /***
+     * 开启动画移动
+     */
 	public void animation() {
 		// 开启移动动画
 		TranslateAnimation ta = new TranslateAnimation(0, 0, inner.getTop(),
@@ -94,24 +103,24 @@ public class MyScrollView extends ScrollView {
 
 	}
 
-	/***
-	 * 是否需要开启动画
-	 *
-	 * 如果矩形不为空，返回true，否则返回false.
-	 *
-	 *
-	 * @return
-	 */
+    /***
+     * 是否需要开启动画
+     *
+     * 如果矩形不为空，返回true，否则返回false.
+     *
+     *
+     * @return boolean
+     */
 	public boolean isNeedAnimation() {
 		return !normal.isEmpty();
 	}
 
-	/***
-	 * 是否需要移动布局 inner.getMeasuredHeight():获取的是控件的高度
-	 * getHeight()：获取的是当前控件在屏幕中显示的高度
-	 *
-	 * @return
-	 */
+    /***
+     * 是否需要移动布局 inner.getMeasuredHeight():获取的是控件的高度
+     * getHeight()：获取的是当前控件在屏幕中显示的高度
+     *
+     * @return boolean
+     */
 	public boolean isNeedMove() {
 		int offset = inner.getMeasuredHeight() - getHeight();
 		int scrollY = getScrollY();

@@ -37,6 +37,9 @@ import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
 
 
+/**
+ * The type User edit activity.
+ */
 public class UserEditActivity extends ActionBarActivity {
 
 	private final static String[] genderArray = {"男", "女"};

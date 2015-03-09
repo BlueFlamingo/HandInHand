@@ -24,15 +24,32 @@ import cn.edu.fudan.blueflamingo.handinhand.middleware.FavoriteHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.AnswerHeader;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 
+/**
+ * The type Answer adapter.
+ */
 public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-	public interface OnItemClickListener {
-		void onItemClick(View view, int position);
+    /**
+     * The interface On item click listener.
+     */
+    public interface OnItemClickListener {
+        /**
+         * On item click.
+         *
+         * @param view the view
+         * @param position the position
+         */
+        void onItemClick(View view, int position);
 	}
 
 	private OnItemClickListener mOnItemClickListener;
 
-	public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+    /**
+     * Sets on item click listener.
+     *
+     * @param mOnItemClickListener the m on item click listener
+     */
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
 		this.mOnItemClickListener = mOnItemClickListener;
 	}
 
@@ -47,7 +64,14 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 	private static final int TYPE_HEADER = 0;
 	private static final int TYPE_ITEM = 1;
 
-	public AnswerAdapter(Context context, List<ExAnswer> answers, AnswerHeader answerHeader) {
+    /**
+     * Instantiates a new Answer adapter.
+     *
+     * @param context the context
+     * @param answers the answers
+     * @param answerHeader the answer header
+     */
+    public AnswerAdapter(Context context, List<ExAnswer> answers, AnswerHeader answerHeader) {
 		this.mContext = context;
 		this.answers = answers;
 		this.answerHeader = answerHeader;
@@ -87,7 +111,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 				item.abstractTextView.setText(a.getContent());
 			}
 			item.approveNumTextView.setText(String.valueOf(a.getScore1()));
-			item.headImageView.setImageBitmap(AppUtility.getImage(a.getUserHead()));
+            item.headImageView.setImageBitmap(AppUtility.getImage(a.getUserHead(), mContext));
 
 			//如果设置了回调则设置点击事件
 			if (mOnItemClickListener != null) {
@@ -123,14 +147,37 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 		}
 	}
 
-	class VHItem extends RecyclerView.ViewHolder {
-		public TextView usernameTextView;
-		public ImageView headImageView;
-		public TextView approveNumTextView;
-		public TextView abstractTextView;
-		public TextView timeTextView;
+    /**
+     * The type VH item.
+     */
+    class VHItem extends RecyclerView.ViewHolder {
+        /**
+         * The Username text view.
+         */
+        public TextView usernameTextView;
+        /**
+         * The Head image view.
+         */
+        public ImageView headImageView;
+        /**
+         * The Approve num text view.
+         */
+        public TextView approveNumTextView;
+        /**
+         * The Abstract text view.
+         */
+        public TextView abstractTextView;
+        /**
+         * The Time text view.
+         */
+        public TextView timeTextView;
 
-		public VHItem(View v) {
+        /**
+         * Instantiates a new VH item.
+         *
+         * @param v the v
+         */
+        public VHItem(View v) {
 			super(v);
 			usernameTextView = (TextView) v.findViewById(R.id.answer_user_name);
 			headImageView = (ImageView) v.findViewById(R.id.answer_user_head);
@@ -140,12 +187,29 @@ public class AnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 		}
 	}
 
-	class VHHeader extends RecyclerView.ViewHolder {
-		public TextView titleTextView;
-		public TextView descriptionTextView;
-		public TextView watchNumTextView;
+    /**
+     * The type VH header.
+     */
+    class VHHeader extends RecyclerView.ViewHolder {
+        /**
+         * The Title text view.
+         */
+        public TextView titleTextView;
+        /**
+         * The Description text view.
+         */
+        public TextView descriptionTextView;
+        /**
+         * The Watch num text view.
+         */
+        public TextView watchNumTextView;
 
-		public VHHeader(View v) {
+        /**
+         * Instantiates a new VH header.
+         *
+         * @param v the v
+         */
+        public VHHeader(View v) {
 			super(v);
 			titleTextView = (TextView) v.findViewById(R.id.question_item_title);
 			descriptionTextView = (TextView) v.findViewById(R.id.question_item_description);

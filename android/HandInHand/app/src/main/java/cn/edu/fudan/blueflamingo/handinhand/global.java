@@ -4,40 +4,95 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+/**
+ * The type Global.
+ */
 public class Global extends Application {
 
-	public boolean getLoginFlag() {
+    /**
+     * Gets login flag.
+     *
+     * @return the login flag
+     */
+    public boolean getLoginFlag() {
 		SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
 		return mPrefs.getBoolean("loginFlag", false);
 	}
 
-	public void setLoginFlag(boolean flag) {
+    /**
+     * Sets login flag.
+     *
+     * @param flag the flag
+     */
+    public void setLoginFlag(boolean flag) {
 		SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
 		SharedPreferences.Editor mEditor = mPrefs.edit();
 		mEditor.putBoolean("loginFlag", flag);
 		mEditor.apply();
 	}
 
-	public void setUid(int uid) {
+    /**
+     * Gets first open flag.
+     *
+     * @return the first open flag
+     */
+    public boolean getFirstOpenFlag() {
+        SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
+        return mPrefs.getBoolean("openFlag", true);
+    }
+
+    /**
+     * Sets first open flag.
+     *
+     * @param flag the flag
+     */
+    public void setFirstOpenFlag(boolean flag) {
+        SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putBoolean("openFlag", flag);
+        mEditor.apply();
+    }
+
+    /**
+     * Sets uid.
+     *
+     * @param uid the uid
+     */
+    public void setUid(int uid) {
 		SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
 		SharedPreferences.Editor mEditor = mPrefs.edit();
 		mEditor.putInt("uid", uid);
 		mEditor.apply();
 	}
 
-	public int getUid() {
+    /**
+     * Gets uid.
+     *
+     * @return the uid
+     */
+    public int getUid() {
 		SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
 		return mPrefs.getInt("uid", -1);
 	}
 
-	public void setNickname(String nickname) {
+    /**
+     * Sets nickname.
+     *
+     * @param nickname the nickname
+     */
+    public void setNickname(String nickname) {
 		SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = mPrefs.edit();
 		editor.putString("nickname", nickname);
 		editor.apply();
 	}
 
-	public String getNickname() {
+    /**
+     * Gets nickname.
+     *
+     * @return the nickname
+     */
+    public String getNickname() {
 		SharedPreferences mPrefs = getSharedPreferences("handinhand", Activity.MODE_PRIVATE);
 		return mPrefs.getString("nickname", "e");
 	}

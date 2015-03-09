@@ -26,11 +26,20 @@ import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 import cn.edu.fudan.blueflamingo.handinhand.model.Question;
 import cn.edu.fudan.blueflamingo.handinhand.model.Utility;
 
+/**
+ * The type Question helper.
+ */
 public class QuestionHelper {
 
 	private final static String questionURL = "http://121.199.64.117:8888/HandInHand/question.php";
 
-	public int add(Question q){
+    /**
+     * Add int.
+     *
+     * @param q the q
+     * @return the int
+     */
+    public int add(Question q){
 		ObjectMapper mapper = new ObjectMapper();
 		String entry = "";
 		try {
@@ -46,7 +55,13 @@ public class QuestionHelper {
 		return qid;
 	}
 
-	public int update(Question q){
+    /**
+     * Update int.
+     *
+     * @param q the q
+     * @return the int
+     */
+    public int update(Question q){
 		ObjectMapper mapper = new ObjectMapper();
 		String entry = "";
 		try {
@@ -62,7 +77,13 @@ public class QuestionHelper {
 		return num;
 	}
 
-	public int delete(int qId){
+    /**
+     * Delete int.
+     *
+     * @param qId the q id
+     * @return the int
+     */
+    public int delete(int qId){
 		String qid = String.valueOf(qId);
 		String temp;
 		int num;
@@ -72,7 +93,13 @@ public class QuestionHelper {
 
 	}
 
-	public ArrayList<ExQuestion>  getByTopic(int tId){
+    /**
+     * Get by topic.
+     *
+     * @param tId the t id
+     * @return the array list
+     */
+    public ArrayList<ExQuestion>  getByTopic(int tId){
 		String tid = String.valueOf(tId);
 		String temp;
 		ArrayList<ExQuestion> questions = new ArrayList<ExQuestion>();
@@ -90,7 +117,13 @@ public class QuestionHelper {
 
 	}
 
-	public ExQuestion getByQid(int qId){
+    /**
+     * Get by qid.
+     *
+     * @param qId the q id
+     * @return the ex question
+     */
+    public ExQuestion getByQid(int qId){
 		String qid = String.valueOf(qId);
 		String temp;
 		ExQuestion question = new ExQuestion();
@@ -107,7 +140,12 @@ public class QuestionHelper {
 		return question;
 	}
 
-	public ArrayList<ExQuestion> getHotest() {
+    /**
+     * Gets hotest.
+     *
+     * @return the hotest
+     */
+    public ArrayList<ExQuestion> getHotest() {
 		ArrayList<ExQuestion> questions = new ArrayList<>();
 		String res = sendPost(questionURL, "op=getHotest");
 		ObjectMapper mapper = new ObjectMapper();
@@ -118,8 +156,14 @@ public class QuestionHelper {
 		}
 		return questions;
 	}
-	
-	public ArrayList<ExQuestion>  getLatest(int Count){
+
+    /**
+     * Get latest.
+     *
+     * @param Count the count
+     * @return the array list
+     */
+    public ArrayList<ExQuestion>  getLatest(int Count){
 		String count = String.valueOf(Count);
 		String temp;
 		ArrayList<ExQuestion> questions = new ArrayList<ExQuestion>();
@@ -137,7 +181,14 @@ public class QuestionHelper {
 
 	}
 
-	public String sendPost(String url, String param) {
+    /**
+     * Send post.
+     *
+     * @param url the url
+     * @param param the param
+     * @return the string
+     */
+    public String sendPost(String url, String param) {
 		//System.out.println(param);
 		PrintWriter out = null;
 		BufferedReader in = null;
@@ -188,7 +239,13 @@ public class QuestionHelper {
 		return result;
 	}
 
-	public String uploadFile(String filePath) {
+    /**
+     * Upload file.
+     *
+     * @param filePath the file path
+     * @return the string
+     */
+    public String uploadFile(String filePath) {
 
 		String urlStr = "http://121.199.64.117:8888/HandInHand/upload.php";
 		Map<String, String> textMap = new HashMap<String, String>();

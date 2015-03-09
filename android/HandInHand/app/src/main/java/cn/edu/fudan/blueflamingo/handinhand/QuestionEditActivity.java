@@ -22,6 +22,9 @@ import cn.edu.fudan.blueflamingo.handinhand.model.Question;
 import cn.edu.fudan.blueflamingo.handinhand.view.MultiSelectSpinner;
 
 
+/**
+ * The type Question edit activity.
+ */
 public class QuestionEditActivity extends ActionBarActivity {
 
 	private final String[] topics = {

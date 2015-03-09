@@ -13,13 +13,30 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The type Multi select spinner.
+ */
 public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickListener{
-	String[] _items = null;
-	boolean[] mSelection = null;
+    /**
+     * The _ items.
+     */
+    String[] _items = null;
+    /**
+     * The M selection.
+     */
+    boolean[] mSelection = null;
 
-	ArrayAdapter<String> simple_adapter;
+    /**
+     * The Simple _ adapter.
+     */
+    ArrayAdapter<String> simple_adapter;
 
-	public MultiSelectSpinner(Context context) {
+    /**
+     * Instantiates a new Multi select spinner.
+     *
+     * @param context the context
+     */
+    public MultiSelectSpinner(Context context) {
 		super(context);
 
 		simple_adapter = new ArrayAdapter<String>(context,
@@ -27,7 +44,13 @@ public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickLis
 		super.setAdapter(simple_adapter);
 	}
 
-	public MultiSelectSpinner(Context context, AttributeSet attrs) {
+    /**
+     * Instantiates a new Multi select spinner.
+     *
+     * @param context the context
+     * @param attrs the attrs
+     */
+    public MultiSelectSpinner(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
 		simple_adapter = new ArrayAdapter<String>(context,
@@ -61,7 +84,12 @@ public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickLis
 				"setAdapter is not supported by MultiSelectSpinner.");
 	}
 
-	public void setItems(String[] items) {
+    /**
+     * Sets items.
+     *
+     * @param items the items
+     */
+    public void setItems(String[] items) {
 		_items = items;
 		mSelection = new boolean[_items.length];
 		simple_adapter.clear();
@@ -69,7 +97,12 @@ public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickLis
 		Arrays.fill(mSelection, false);
 	}
 
-	public void setItems(List<String> items) {
+    /**
+     * Sets items.
+     *
+     * @param items the items
+     */
+    public void setItems(List<String> items) {
 		_items = items.toArray(new String[items.size()]);
 		mSelection = new boolean[_items.length];
 		simple_adapter.clear();
@@ -77,7 +110,12 @@ public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickLis
 		Arrays.fill(mSelection, false);
 	}
 
-	public void setSelection(String[] selection) {
+    /**
+     * Sets selection.
+     *
+     * @param selection the selection
+     */
+    public void setSelection(String[] selection) {
 		for (String cell : selection) {
 			for (int j = 0; j < _items.length; ++j) {
 				if (_items[j].equals(cell)) {
@@ -87,7 +125,12 @@ public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickLis
 		}
 	}
 
-	public void setSelection(List<String> selection) {
+    /**
+     * Sets selection.
+     *
+     * @param selection the selection
+     */
+    public void setSelection(List<String> selection) {
 		for (int i = 0; i < mSelection.length; i++) {
 			mSelection[i] = false;
 		}
@@ -116,7 +159,12 @@ public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickLis
 		simple_adapter.add(buildSelectedItemString());
 	}
 
-	public void setSelection(int[] selectedIndicies) {
+    /**
+     * Sets selection.
+     *
+     * @param selectedIndicies the selected indicies
+     */
+    public void setSelection(int[] selectedIndicies) {
 		for (int i = 0; i < mSelection.length; i++) {
 			mSelection[i] = false;
 		}
@@ -132,7 +180,12 @@ public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickLis
 		simple_adapter.add(buildSelectedItemString());
 	}
 
-	public List<String> getSelectedStrings() {
+    /**
+     * Gets selected strings.
+     *
+     * @return the selected strings
+     */
+    public List<String> getSelectedStrings() {
 		List<String> selection = new LinkedList<String>();
 		for (int i = 0; i < _items.length; ++i) {
 			if (mSelection[i]) {
@@ -142,7 +195,12 @@ public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickLis
 		return selection;
 	}
 
-	public List<Integer> getSelectedIndicies() {
+    /**
+     * Gets selected indicies.
+     *
+     * @return the selected indicies
+     */
+    public List<Integer> getSelectedIndicies() {
 		List<Integer> selection = new LinkedList<Integer>();
 		for (int i = 0; i < _items.length; ++i) {
 			if (mSelection[i]) {
@@ -169,7 +227,12 @@ public class MultiSelectSpinner extends Spinner implements OnMultiChoiceClickLis
 		return sb.toString();
 	}
 
-	public String getSelectedItemsAsString() {
+    /**
+     * Gets selected items as string.
+     *
+     * @return the selected items as string
+     */
+    public String getSelectedItemsAsString() {
 		StringBuilder sb = new StringBuilder();
 		boolean foundOne = false;
 

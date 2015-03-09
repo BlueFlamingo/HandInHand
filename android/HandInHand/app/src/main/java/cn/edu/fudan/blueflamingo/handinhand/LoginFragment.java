@@ -35,7 +35,10 @@ public class LoginFragment extends Fragment {
 	private ButtonFlat btn_confirm;
 	private ButtonFlat btn_back;
 
-	public LoginFragment() {
+    /**
+     * Instantiates a new Login fragment.
+     */
+    public LoginFragment() {
 		// Required empty public constructor
 	}
 

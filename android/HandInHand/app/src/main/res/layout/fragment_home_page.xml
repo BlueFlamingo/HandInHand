@@ -12,7 +12,7 @@
     android:fadingEdge="vertical"
     android:background="@color/background_material_light"-->
 
-    <cn.edu.fudan.blueflamingo.handinhand.view.MyScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
@@ -327,7 +327,7 @@
 
     </LinearLayout>
 
-    </cn.edu.fudan.blueflamingo.handinhand.view.MyScrollView>
+    </ScrollView>
 
 <!--/cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout-->
 

@@ -20,6 +20,9 @@ import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
 
 
+/**
+ * The type User info activity.
+ */
 public class UserInfoActivity extends ActionBarActivity {
 
 	private Global global;
@@ -213,8 +216,8 @@ public class UserInfoActivity extends ActionBarActivity {
 			TextView qNumTextView = (TextView) findViewById(R.id.user_info_q_questioned_num);
 			TextView aNumTextView = (TextView) findViewById(R.id.user_info_a_questioned_num);
 			ImageView portraitImageView = (ImageView) findViewById(R.id.user_info_portrait);
-			portraitImageView.setImageBitmap(AppUtility.getImage(u.getPortrait()));
-			nicknameTextView.setText(u.getNickname());
+            portraitImageView.setImageBitmap(AppUtility.getImage(u.getPortrait(), getApplicationContext()));
+            nicknameTextView.setText(u.getNickname());
 			signatureTextView.setText(u.getSignature());
 			followNumTextView.setText(String.valueOf(followNum));
 			followerNumTextView.setText(String.valueOf(followerNum));
@@ -239,8 +242,8 @@ public class UserInfoActivity extends ActionBarActivity {
 			nicknameTextView.setText(currentUser.getNickname());
 			signatureTextView.setText(currentUser.getSignature());
 			ImageView portraitImageView = (ImageView) findViewById(R.id.user_info_portrait);
-			portraitImageView.setImageBitmap(AppUtility.getImage(currentUser.getPortrait()));
-		}
+            portraitImageView.setImageBitmap(AppUtility.getImage(currentUser.getPortrait(), getApplicationContext()));
+        }
 
 	}
 }

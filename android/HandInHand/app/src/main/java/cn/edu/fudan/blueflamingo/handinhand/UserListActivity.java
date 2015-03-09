@@ -23,11 +23,23 @@ import cn.edu.fudan.blueflamingo.handinhand.model.User;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
 
+/**
+ * The type User list activity.
+ */
 public class UserListActivity extends ActionBarActivity {
 
-	public static int MODE = 0;
-	public static final int I_FAVORITE = 0;
-	public static final int FAVORITE_ME = 1;
+    /**
+     * The constant MODE.
+     */
+    public static int MODE = 0;
+    /**
+     * The constant I_FAVORITE.
+     */
+    public static final int I_FAVORITE = 0;
+    /**
+     * The constant FAVORITE_ME.
+     */
+    public static final int FAVORITE_ME = 1;
 
 	private List<User> users = new ArrayList<>();
 	private int uid;

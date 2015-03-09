@@ -3,6 +3,7 @@
     <color name="yellow200">#FFF59D</color>
     <color name="yellow700">#FBC02D</color>
     <color name="yellow900">#F57F17</color>
+    <color name="yellowGuide">#fdf570</color>
 
     <color name="dark_slate_gray">#2F4F4F</color>
     <color name="gray_2">#AFAFAF</color>

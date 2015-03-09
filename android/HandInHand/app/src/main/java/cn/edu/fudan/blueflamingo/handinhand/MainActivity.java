@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,9 +35,15 @@ import cn.edu.fudan.blueflamingo.handinhand.middleware.UserHelper;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
 
 
+/**
+ * The type Main activity.
+ */
 public class MainActivity extends ActionBarActivity {
 
-	public Global globalVal;
+    /**
+     * The Global val.
+     */
+    public Global globalVal;
 
 	private final static int AUTH_ACTIVITY = 0;
 	private final static int EDIT_ACTIVITY = 1;
@@ -99,7 +106,9 @@ public class MainActivity extends ActionBarActivity {
 		super.onResume();
 		if (globalVal.getLoginFlag()) {
 			(new LoadProfile()).execute();
-		}
+
+            bindDrawerButton();
+        }
 	}
 
 	private void initCursor() {
@@ -156,12 +165,54 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
             } else {
-                btnFavQuestionList.setVisibility(View.GONE);
+                //btnFavQuestionList.setVisibility(View.GONE);
 				nicknameTextView.setText("随便看看的人");
 			}
 
 		}
 	}
+
+    private void bindDrawerButton() {
+        ButtonFlat btnFavQuestionList = (ButtonFlat) findViewById(R.id.drawer_btn_fav_question_list);
+        ButtonFlat btnUserFavMe = (ButtonFlat) findViewById(R.id.drawer_btn_user_fav_me);
+        ButtonFlat btnUserIFav = (ButtonFlat) findViewById(R.id.drawer_btn_user_i_fav);
+        if (globalVal.getLoginFlag()) {
+            btnFavQuestionList.setVisibility(View.VISIBLE);
+            btnUserFavMe.setVisibility(View.VISIBLE);
+            btnUserIFav.setVisibility(View.VISIBLE);
+            btnFavQuestionList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent favQuestionListIntent = new Intent(MainActivity.this, QuestionListActivity.class);
+                    favQuestionListIntent.putExtra("TOPIC", "我关注的问题");
+                    favQuestionListIntent.putExtra("TID", AppUtility.FAV_QUESTION_LIST);
+                    startActivity(favQuestionListIntent);
+                }
+            });
+            btnUserFavMe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent favMeIntent = new Intent(MainActivity.this, UserListActivity.class);
+                    favMeIntent.putExtra("MODE", UserListActivity.FAVORITE_ME);
+                    favMeIntent.putExtra("uid", globalVal.getUid());
+                    startActivity(favMeIntent);
+                }
+            });
+            btnUserIFav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent iFavIntent = new Intent(MainActivity.this, UserListActivity.class);
+                    iFavIntent.putExtra("MODE", UserListActivity.I_FAVORITE);
+                    iFavIntent.putExtra("uid", globalVal.getUid());
+                    startActivity(iFavIntent);
+                }
+            });
+        } else {
+            btnFavQuestionList.setVisibility(View.GONE);
+            btnUserFavMe.setVisibility(View.GONE);
+            btnUserIFav.setVisibility(View.GONE);
+        }
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -198,7 +249,12 @@ public class MainActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	//handle drawer button onClick
+    /**
+     * Btn login onclick.
+     *
+     * @param view the view
+     */
+//handle drawer button onClick
 	public void BtnLoginOnclick(View view) {
 		ButtonFlat btnLogin = (ButtonFlat) findViewById(R.id.btn_login);
 		if (btnLogin.getText().equals("登出")) {
@@ -266,7 +322,7 @@ public class MainActivity extends ActionBarActivity {
 		protected Integer doInBackground(Integer... params) {
 			u = userHelper.getByUid(globalVal.getUid());
 			globalVal.setNickname(u.getNickname());
-			bitmap = AppUtility.getImage(u.getPortrait());
+			bitmap = AppUtility.getImage(u.getPortrait(),getBaseContext());
 			return 0;
 		}
 
@@ -285,7 +341,12 @@ public class MainActivity extends ActionBarActivity {
 		private FragmentManager fragmentManager;
 		private final static int ITEM_NUM = 2;
 
-		public MainFragmentPagerAdapter(FragmentManager fm) {
+        /**
+         * Instantiates a new Main fragment pager adapter.
+         *
+         * @param fm the fm
+         */
+        public MainFragmentPagerAdapter(FragmentManager fm) {
 			super(fm);
 			fragmentManager = fm;
 			blankFragment = new BlankFragment();

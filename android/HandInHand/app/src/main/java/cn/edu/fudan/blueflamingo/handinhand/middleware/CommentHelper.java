@@ -27,9 +27,18 @@ import cn.edu.fudan.blueflamingo.handinhand.model.ExComment;
 import cn.edu.fudan.blueflamingo.handinhand.model.Utility;
 
 
+/**
+ * The type Comment helper.
+ */
 public class CommentHelper {
 
-	public int add(Comment c){
+    /**
+     * Add int.
+     *
+     * @param c the c
+     * @return the int
+     */
+    public int add(Comment c){
 		String url =  "http://121.199.64.117:8888/HandInHand/comment.php";
 		//String url = "http://127.0.0.1/HandInHand/comment.php";
 		ObjectMapper mapper = new ObjectMapper();
@@ -47,7 +56,13 @@ public class CommentHelper {
 		return cid;
 	}
 
-	public int update(Comment c){
+    /**
+     * Update int.
+     *
+     * @param c the c
+     * @return the int
+     */
+    public int update(Comment c){
 		String url =   "http://121.199.64.117:8888/HandInHand/comment.php";
 		//String url = "http://127.0.0.1/HandInHand/comment.php";
 		ObjectMapper mapper = new ObjectMapper();
@@ -65,7 +80,13 @@ public class CommentHelper {
 		return num;
 	}
 
-	public int delete(int cId){
+    /**
+     * Delete int.
+     *
+     * @param cId the c id
+     * @return the int
+     */
+    public int delete(int cId){
 		String url =   "http://121.199.64.117:8888/HandInHand/comment.php";
 		//String url = "http://127.0.0.1/HandInHand/comment.php";
 		String cid = String.valueOf(cId);
@@ -77,13 +98,25 @@ public class CommentHelper {
 
 	}
 
-	public int countComment(int aId) {
+    /**
+     * Count comment.
+     *
+     * @param aId the a id
+     * @return the int
+     */
+    public int countComment(int aId) {
 		String url = "http://121.199.64.117:8888/HandInHand/comment.php";
 		String res = sendPost(url, "op=countComments&aid=" + String.valueOf(aId));
 		return Integer.valueOf(res);
 	}
 
-	public ArrayList<ExComment>  getByAid(int aId){
+    /**
+     * Get by aid.
+     *
+     * @param aId the a id
+     * @return the array list
+     */
+    public ArrayList<ExComment>  getByAid(int aId){
 		String url =   "http://121.199.64.117:8888/HandInHand/comment.php";
 		//String url = "http://127.0.0.1/HandInHand/comment.php";
 		String aid = String.valueOf(aId);
@@ -103,7 +136,13 @@ public class CommentHelper {
 
 	}
 
-	public ExComment getByCid(int cId){
+    /**
+     * Get by cid.
+     *
+     * @param cId the c id
+     * @return the ex comment
+     */
+    public ExComment getByCid(int cId){
 		String url =   "http://121.199.64.117:8888/HandInHand/comment.php";
 		//String url = "http://127.0.0.1/HandInHand/comment.php";
 		String cid = String.valueOf(cId);
@@ -123,7 +162,14 @@ public class CommentHelper {
 
 	}
 
-	public String sendPost(String url, String param) {
+    /**
+     * Send post.
+     *
+     * @param url the url
+     * @param param the param
+     * @return the string
+     */
+    public String sendPost(String url, String param) {
 		//System.out.println(param);
 		PrintWriter out = null;
 		BufferedReader in = null;
@@ -174,7 +220,13 @@ public class CommentHelper {
 		return result;
 	}
 
-	public String uploadFile(String filePath) {
+    /**
+     * Upload file.
+     *
+     * @param filePath the file path
+     * @return the string
+     */
+    public String uploadFile(String filePath) {
 
 		String urlStr = "http://121.199.64.117:8888/HandInHand/upload.php";
 		Map<String, String> textMap = new HashMap<String, String>();

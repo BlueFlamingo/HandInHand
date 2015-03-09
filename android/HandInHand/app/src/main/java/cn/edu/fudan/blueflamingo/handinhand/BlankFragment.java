@@ -14,11 +14,17 @@ import android.widget.Toast;
 
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
+/**
+ * The type Blank fragment.
+ */
 public class BlankFragment extends Fragment {
 
 	private SwipeRefreshAndLoadLayout mSwipeLayout;
 
-	public BlankFragment() {
+    /**
+     * Instantiates a new Blank fragment.
+     */
+    public BlankFragment() {
 		// Required empty public constructor
 	}
 

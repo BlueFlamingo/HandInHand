@@ -30,6 +30,9 @@ import cn.edu.fudan.blueflamingo.handinhand.model.ExAnswer;
 import cn.edu.fudan.blueflamingo.handinhand.model.ExQuestion;
 import cn.edu.fudan.blueflamingo.handinhand.view.SwipeRefreshAndLoadLayout;
 
+/**
+ * The type Answer list fragment.
+ */
 public class AnswerListFragment extends Fragment {
 
 	private RecyclerView mRecyclerView;
@@ -46,7 +49,10 @@ public class AnswerListFragment extends Fragment {
 	private int MODE = 0;
 	private int QID = -1;
 
-	public AnswerListFragment() {
+    /**
+     * Instantiates a new Answer list fragment.
+     */
+    public AnswerListFragment() {
 		// Required empty public constructor
 	}
 
@@ -222,7 +228,7 @@ public class AnswerListFragment extends Fragment {
 			}
 			try {
                 if (MODE == QuestionItemActivity.FROM_USER_ASKED_LIST) {
-                    ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("答过的问题");
+                    ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("做过的回答");
                 } else {
                     setToolbarTitle(answers.size(), (ActionBarActivity) getActivity());
                 }
@@ -231,17 +237,19 @@ public class AnswerListFragment extends Fragment {
 				//如果这样的现象发生就不改变title
 			}
             favButton = (ButtonFlat) getActivity().findViewById(R.id.question_item_btn_watch);
-            if (global.getLoginFlag()) {
-                //if is logged in
-                favButton.setEnabled(true);
-            } else {
-                //if is not logged in, then disable this button
-                favButton.setEnabled(false);
-            }
-            if (focusedFlag == 1) {
-                favButton.setText("取消关注");
-            } else {
-                favButton.setText("关注");
+            if (MODE == QuestionItemActivity.FROM_QUESTION_LIST) {
+                if (global.getLoginFlag()) {
+                    //if is logged in
+                    favButton.setEnabled(true);
+                } else {
+                    //if is not logged in, then disable this button
+                    favButton.setEnabled(false);
+                }
+                if (focusedFlag == 1) {
+                    favButton.setText("取消关注");
+                } else {
+                    favButton.setText("关注");
+                }
             }
             mSwipeLayout.setRefreshing(false);
 		}

@@ -14,15 +14,32 @@ import cn.edu.fudan.blueflamingo.handinhand.R;
 import cn.edu.fudan.blueflamingo.handinhand.lib.AppUtility;
 import cn.edu.fudan.blueflamingo.handinhand.model.User;
 
+/**
+ * The type User adapter.
+ */
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
-	public interface OnItemClickListener {
-		void onItemClick(View view, int position);
+    /**
+     * The interface On item click listener.
+     */
+    public interface OnItemClickListener {
+        /**
+         * On item click.
+         *
+         * @param view the view
+         * @param position the position
+         */
+        void onItemClick(View view, int position);
 	}
 
 	private OnItemClickListener mOnItemClickListener;
 
-	public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+    /**
+     * Sets on item click listener.
+     *
+     * @param mOnItemClickListener the m on item click listener
+     */
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
 		this.mOnItemClickListener = mOnItemClickListener;
 	}
 
@@ -30,7 +47,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
 	private Context mContext;
 
-	public UserAdapter(Context context, List<User> users) {
+    /**
+     * Instantiates a new User adapter.
+     *
+     * @param context the context
+     * @param users the users
+     */
+    public UserAdapter(Context context, List<User> users) {
 		this.mContext = context;
 		this.users = users;
 	}
@@ -46,7 +69,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 		User u = users.get(i);
 		viewHolder.nicknameTextView.setText(u.getNickname());
 		viewHolder.signatureTextView.setText(u.getSignature());
-		viewHolder.portraitImageView.setImageBitmap(AppUtility.getImage(u.getPortrait()));
+        viewHolder.portraitImageView.setImageBitmap(AppUtility.getImage(u.getPortrait(), mContext));
 
 		if (mOnItemClickListener != null) {
 			viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -63,12 +86,29 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 		return users == null ? 0 : users.size();
 	}
 
-	public static class ViewHolder extends RecyclerView.ViewHolder {
-		public TextView nicknameTextView;
-		public ImageView portraitImageView;
-		public TextView signatureTextView;
+    /**
+     * The type View holder.
+     */
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * The Nickname text view.
+         */
+        public TextView nicknameTextView;
+        /**
+         * The Portrait image view.
+         */
+        public ImageView portraitImageView;
+        /**
+         * The Signature text view.
+         */
+        public TextView signatureTextView;
 
-		public ViewHolder(View v) {
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param v the v
+         */
+        public ViewHolder(View v) {
 			super(v);
 			nicknameTextView = (TextView) v.findViewById(R.id.user_item_nickname);
 			portraitImageView = (ImageView) v.findViewById(R.id.user_item_portrait);

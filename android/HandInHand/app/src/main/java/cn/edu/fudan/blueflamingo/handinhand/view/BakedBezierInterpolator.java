@@ -24,6 +24,11 @@ import android.view.animation.Interpolator;
 final class BakedBezierInterpolator implements Interpolator {
     private static final BakedBezierInterpolator INSTANCE = new BakedBezierInterpolator();
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public final static BakedBezierInterpolator getInstance() {
         return INSTANCE;
     }
